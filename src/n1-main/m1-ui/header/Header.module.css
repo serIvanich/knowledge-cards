@@ -1,0 +1,14 @@
+.nav {
+   display: flex;
+   color: cadetblue;
+}
+
+.item a {
+   margin-left: 10px;
+   text-decoration: none;
+   color: cadetblue;
+}
+
+.item a.activeLink {
+   color: coral;
+}
