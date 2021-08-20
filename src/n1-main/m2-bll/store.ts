@@ -18,6 +18,5 @@ export const store = createStore(rootReducers, applyMiddleware(thunk))
 //@ts-ignore
 window.__store__ = store
 
-
 export type AppStateType = ReturnType<typeof rootReducers>
 export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown,any>
