@@ -23,7 +23,7 @@ button:active {
   background-color: #21268F;
 }
 
-.registerBlock {
+.loginBlock {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -31,11 +31,11 @@ button:active {
 
   min-height: 100vh;
 
-  .registerCard {
+  .loginCard {
     //border: 1px solid;
     max-width: 413px;
     width: 100%;
-    max-height: 540px;
+    max-height: 600px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -59,13 +59,22 @@ button:active {
         .labelTitle {
 
         }
+        .navLinkBlock {
 
+          .navLink {
+          }
+        }
 
       }
       .buttonsBlock {
         margin: 50px 0 35px;
         display: flex;
         justify-content: space-between;
+
+        .button {
+          margin: 0 auto;
+          width: 250px;
+        }
       }
     }
 

@@ -20,7 +20,7 @@ export const authApi = {
         return instance.post('auth/login', data).then(res => res.data)
     },
     logout() {
-        return instance.delete('auth/me').then(res => res.data)
+        return instance.delete('auth/me')
     },
 }
 
@@ -30,8 +30,8 @@ export type RegisterParamsType = {
     password:string
 }
 
-type LoginDataType = {
+export type LoginDataType = {
     email:string
     password:string
-    remrmberMe: boolean
+    rememberMe: boolean
 }

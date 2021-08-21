@@ -8,15 +8,16 @@ import {routes} from "../../routes/routes";
 
 type LoginPropsType = {
     formik: FormikProps<InitialValuesType>
+    cancelHandler?: Function
 }
 
-export const Login: React.FC<LoginPropsType> = ({formik}) => {
+export const Login: React.FC<LoginPropsType> = ({formik, cancelHandler}) => {
     const dispatch = useDispatch()
 
 
     return (
-        <div className={s.registerBlock}>
-            <div className={s.registerCard}>
+        <div className={s.loginBlock}>
+            <div className={s.loginCard}>
                 <h1 className={s.title}>It-incubator</h1>
                 <h2>Sign Up</h2>
                 <form onSubmit={formik.handleSubmit}>
@@ -39,8 +40,8 @@ export const Login: React.FC<LoginPropsType> = ({formik}) => {
                                 {formik.touched.password && formik.errors.password && formik.errors.password}
                             </div>
                         </div>
-                        <div>
-                            <NavLink to={routes.restorePass}>Forgot password</NavLink>
+                        <div className={s.navLinkBlock}>
+                            <NavLink to={routes.forgotPass} className={s.navLink}>Forgot password</NavLink>
                         </div>
                         <div className={s.inputItem}>
                             Remember me<input
@@ -53,13 +54,14 @@ export const Login: React.FC<LoginPropsType> = ({formik}) => {
                         </div>
                         <div className={s.buttonsBlock}>
 
-                            <button type="submit"> login</button>
+                            <button type="submit" className={s.button}> login</button>
+                        </div>
+                        <div >
+                            Don`t have an account?
+                            <NavLink to={routes.register}>Sing Up</NavLink>
                         </div>
                     </div>
-                    <div >
-                        Don`t have an account?
-                        <NavLink to={routes.register}>Sing Up</NavLink>
-                    </div>
+
                 </form>
             </div>
 
