@@ -28,10 +28,10 @@ export const registerTC = (data:RegisterParamsType) => async (dispatch:Dispatch<
     try {
         const res = await authApi.register(data)
         console.log(res)
-        dispatch(registerAC(false))
+        dispatch(registerAC(true))
     } catch (e) {
         console.log(`this error is ${e}`)
-        dispatch(setErrorAC(e.message))
+        dispatch(setErrorAC(e.response.data.error))
     }
 
 

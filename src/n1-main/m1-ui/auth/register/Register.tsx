@@ -2,7 +2,7 @@ import React from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import s from './Register.module.scss';
 import {useFormik} from "formik";
-import {RegisterInitialStateType, registerTC} from "./register-reducer";
+import {RegisterInitialStateType, registerTC, setErrorAC} from "./register-reducer";
 import {AppStateType} from "../../../m2-bll/store";
 import {Redirect} from "react-router-dom";
 
@@ -62,7 +62,8 @@ export const Register: React.FC = () => {
        return <Redirect to={'/login'} />
    }
     if (registerState.error) {
-        return <Redirect to={'/404'} />
+        alert(registerState.error)
+        dispatch(setErrorAC(''))
     }
 
     return (
