@@ -2,7 +2,7 @@ import React from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import s from './Register.module.scss';
 import {useFormik} from "formik";
-import {registerTC} from "./register-reducer";
+import {RegisterInitialStateType, registerTC} from "./register-reducer";
 import {AppStateType} from "../../../m2-bll/store";
 import {Redirect} from "react-router-dom";
 
@@ -15,7 +15,7 @@ type FormikErrorType = {
 
 export const Register: React.FC = () => {
     const dispatch = useDispatch()
-    const isUserRegistered = useSelector<AppStateType, boolean>(state => state.register.isUserRegistered)
+    const registerState = useSelector<AppStateType, RegisterInitialStateType>(state => state.register)
 
     const formik = useFormik({
         initialValues: {
@@ -58,9 +58,12 @@ export const Register: React.FC = () => {
         formik.resetForm()
     }
 
-   if (isUserRegistered) {
+   if (registerState.isUserRegistered) {
        return <Redirect to={'/login'} />
    }
+    if (registerState.error) {
+        return <Redirect to={'/404'} />
+    }
 
     return (
         <div className={s.registerBlock}>

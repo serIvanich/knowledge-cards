@@ -3,35 +3,40 @@ import {Dispatch} from "redux";
 
 
 const initialState = {
-    isUserRegistered: false
+    isUserRegistered: false,
+    error:''
 }
 
-type InitialStateType = typeof initialState
+export type RegisterInitialStateType = typeof initialState
 
-export const registerReducer = (state:InitialStateType = initialState, action:RegisterActionType):InitialStateType => {
+export const registerReducer = (state:RegisterInitialStateType = initialState, action:RegisterActionType):RegisterInitialStateType => {
     switch (action.type) {
         case 'register/NEW-USER-CREATED':
             return {...state, isUserRegistered: action.value};
-
+        case 'register/SET-ERROR':
+            return {...state, error: action.value};
         default: return state;
     }
 }
 
 //actions
 export const registerAC = (value:boolean) => ({type:'register/NEW-USER-CREATED', value} as const)
+export const setErrorAC = (value:string) => ({type:'register/SET-ERROR', value} as const)
 
 //thunk
 export const registerTC = (data:RegisterParamsType) => async (dispatch:Dispatch<RegisterActionType>) => {
     try {
         const res = await authApi.register(data)
         console.log(res)
-        dispatch(registerAC(true))
-    } catch (e) {
-        console.log(e)
         dispatch(registerAC(false))
+    } catch (e) {
+        console.log(`this error is ${e}`)
+        dispatch(setErrorAC(e.message))
     }
 
 
 }
 
-export type RegisterActionType = ReturnType<typeof registerAC>
+export type RegisterActionType =
+    ReturnType<typeof registerAC>
+    | ReturnType<typeof setErrorAC>
