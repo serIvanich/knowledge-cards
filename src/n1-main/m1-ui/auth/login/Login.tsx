@@ -19,7 +19,7 @@ export const Login: React.FC<LoginPropsType> = ({formik, cancelHandler}) => {
         <div className={s.loginBlock}>
             <div className={s.loginCard}>
                 <h1 className={s.title}>It-incubator</h1>
-                <h2>Sign Up</h2>
+                <h2>Sign In</h2>
                 <form onSubmit={formik.handleSubmit}>
                     <div className={s.formBlock}>
                         <div className={s.inputItem}>

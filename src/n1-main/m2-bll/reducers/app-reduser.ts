@@ -32,18 +32,21 @@ export const setIsInitializedAC = (isInitialized: boolean) => ({type: 'APP/SET-I
 
 
 export const initializeAppTC = () => async (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC('loading'))
     try {
-        dispatch(setAppStatusAC('loading'))
+
         const data = await authApi.me()
 
         dispatch(setIsInitializedAC(true))
 
 
-        dispatch(setAppStatusAC('succeeded'))
+
 
     } catch (e) {
 
         handleServerNetworkError(e, dispatch)
+    } finally {
+        dispatch(setAppStatusAC('succeeded'))
     }
 }
 

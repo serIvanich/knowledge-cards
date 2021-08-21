@@ -9,6 +9,7 @@ import {logoutTC} from "../../../m2-bll/reducers/auth-reducer";
 export const Profile: React.FC = () => {
     const dispatch = useDispatch()
     const isLogged = useSelector<AppStateType, boolean>(state => state.auth.isLogged)
+
     const isLogout = () => {
         dispatch(logoutTC())
     }
