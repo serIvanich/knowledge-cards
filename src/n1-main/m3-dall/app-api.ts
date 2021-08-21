@@ -3,8 +3,10 @@ import axios from "axios";
 
 
 export const instance = axios.create({
+    withCredentials: true,
     baseURL: 'https://neko-back.herokuapp.com/2.0/',
-    withCredentials: true
+    // baseURL: "http://localhost:7542/2.0/"
+
 })
 
 export const authApi = {
@@ -13,11 +15,23 @@ export const authApi = {
     },
     register(data:RegisterParamsType) {
         return instance.post('/auth/register', data).then(res => res.data)
-    }
+    },
+    login(data: LoginDataType) {
+        return instance.post('auth/login', data).then(res => res.data)
+    },
+    logout() {
+        return instance.delete('auth/me').then(res => res.data)
+    },
 }
 
 //types
 export type RegisterParamsType = {
     email:string
     password:string
+}
+
+type LoginDataType = {
+    email:string
+    password:string
+    remrmberMe: boolean
 }

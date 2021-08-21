@@ -13,6 +13,7 @@ import {Profile} from "../components/profile/Profile";
 import {TestPage} from "../components/TestPage/TestPage";
 import {Error404} from "../components/error404/Error404";
 import {initializeAppTC} from "../../m2-bll/reducers/app-reduser";
+import {LoginContainer} from "../auth/login/LoginContainer";
 
 
 function App() {
@@ -27,7 +28,7 @@ function App() {
             <Header/>
             <Switch>
                 <Route exact path={routes.main} render={() => <Main/>}/>
-                <Route path={routes.login} render={() => <Login/>}/>
+                <Route path={routes.login} render={() => <LoginContainer/>}/>
                 <Route path={routes.register} render={() => <Register/>}/>
                 <Route path={routes.setPass} render={() => <SetPass/>}/>
                 <Route path={routes.restorePass} render={() => <ForgotPass/>}/>
