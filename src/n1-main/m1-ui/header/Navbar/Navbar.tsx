@@ -22,7 +22,7 @@ export const Navbar: React.FC = () => {
                     <NavLink to={routes.err404} activeClassName={s.activeLink} >err404 </NavLink>|
                 </div>
                 <div className={s.item}>
-                    <NavLink to={routes.restorePass} activeClassName={s.activeLink} >restore password </NavLink>|
+                    <NavLink to={routes.restorePass} activeClassName={s.activeLink} >forgot password </NavLink>|
                 </div>
                 <div className={s.item}>
                     <NavLink to={routes.setPass} activeClassName={s.activeLink} >set password </NavLink>|

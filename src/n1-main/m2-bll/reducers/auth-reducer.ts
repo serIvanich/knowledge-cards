@@ -12,15 +12,9 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
 
 }
 
-export const meTC = () => async(dispatch: Dispatch) => {
-    try {
-        const res = await authApi.me()
-        alert(res)
-    }
-    catch (e) {
-        alert(e)
-    }
-}
+
+
+
 
 
 
