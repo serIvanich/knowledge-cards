@@ -7,12 +7,12 @@ import {routes} from '../../../routes/routes';
 
 type ForgotPropsType = {
     error: string | null
-    callback: () => void
+    forgotCallback: () => void
     setEmail: (email: string) => void
     email: string
 }
 
-export const RecoverPass: React.FC<ForgotPropsType> = React.memo(({error, callback, email, setEmail}) => {
+export const RecoverPass: React.FC<ForgotPropsType> = React.memo(({error, forgotCallback, email, setEmail}) => {
     return (
         <>
             {error && <div className={s.error}>{error}</div>}
@@ -25,7 +25,7 @@ export const RecoverPass: React.FC<ForgotPropsType> = React.memo(({error, callba
                 />
             </div>
             <div className={s.item}>
-                <SuperButton onClick={callback}>{'Send'}</SuperButton>
+                <SuperButton onClick={forgotCallback}>{'Send'}</SuperButton>
             </div>
             <div className={s.item}>
                 <NavLink to={routes.login} className={s.btn}>{'Login'}</NavLink>

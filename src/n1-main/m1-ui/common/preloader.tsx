@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Preloader: React.FC = (props) => {
+const Preloader: React.FC = () => {
     return (
         <div>
             loading...
