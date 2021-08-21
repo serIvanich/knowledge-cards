@@ -11,7 +11,7 @@ type InitialStateType = typeof initialState
 export const registerReducer = (state:InitialStateType = initialState, action:RegisterActionType):InitialStateType => {
     switch (action.type) {
         case 'register/NEW-USER-CREATED':
-            return state;
+            return {...state, isUserRegistered: action.value};
 
         default: return state;
     }

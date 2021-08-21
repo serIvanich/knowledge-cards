@@ -1,8 +1,10 @@
 import React from 'react'
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import s from './Register.module.scss';
 import {useFormik} from "formik";
 import {registerTC} from "./register-reducer";
+import {AppStateType} from "../../../m2-bll/store";
+import {Redirect} from "react-router-dom";
 
 type FormikErrorType = {
     email?: string
@@ -13,7 +15,7 @@ type FormikErrorType = {
 
 export const Register: React.FC = () => {
     const dispatch = useDispatch()
-
+    const isUserRegistered = useSelector<AppStateType, boolean>(state => state.register.isUserRegistered)
 
     const formik = useFormik({
         initialValues: {
@@ -56,6 +58,9 @@ export const Register: React.FC = () => {
         formik.resetForm()
     }
 
+   if (isUserRegistered) {
+       return <Redirect to={'/login'} />
+   }
 
     return (
         <div className={s.registerBlock}>
