@@ -1,10 +1,13 @@
 import axios from "axios";
+import {UserProfileType} from "../m2-bll/reducers/profile-reducer";
 
 
 
 export const instance = axios.create({
+    withCredentials: true,
     baseURL: 'https://neko-back.herokuapp.com/2.0/',
-    withCredentials: true
+    // baseURL: "http://localhost:7542/2.0/"
+
 })
 
 export const authApi = {
@@ -13,11 +16,23 @@ export const authApi = {
     },
     register(data:RegisterParamsType) {
         return instance.post('/auth/register', data).then(res => res.data)
-    }
+    },
+    login(data: LoginDataType) {
+        return instance.post<UserProfileType>('auth/login', data).then(res => res.data)
+    },
+    logout() {
+        return instance.delete('auth/me')
+    },
 }
 
 //types
 export type RegisterParamsType = {
     email:string
     password:string
+}
+
+export type LoginDataType = {
+    email:string
+    password:string
+    rememberMe: boolean
 }

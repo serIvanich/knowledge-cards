@@ -8,11 +8,11 @@ import {Register} from "../auth/register/Register";
 import {Header} from "../header/Header";
 import {routes} from "../routes/routes";
 import {SetPass} from "../auth/password/setPassword/setPass";
+import {ForgotPass} from "../auth/password/fogotPassword/forgotPass";
 import {Profile} from "../components/profile/Profile";
 import {TestPage} from "../components/TestPage/TestPage";
 import {Error404} from "../components/error404/Error404";
 import {initializeAppTC} from "../../m2-bll/reducers/app-reduser";
-import {ForgotPass} from '../auth/password/fogotPassword/ForgotPass';
 
 
 function App() {
