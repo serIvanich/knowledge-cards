@@ -1,5 +1,6 @@
 import {authApi, RegisterParamsType} from "../../../m3-dall/app-api";
 import {Dispatch} from "redux";
+import {setAppStatusAC} from "../../../m2-bll/reducers/app-reduser";
 
 
 const initialState = {
@@ -24,7 +25,8 @@ export const registerAC = (value:boolean) => ({type:'register/NEW-USER-CREATED',
 export const setErrorAC = (value:string) => ({type:'register/SET-ERROR', value} as const)
 
 //thunk
-export const registerTC = (data:RegisterParamsType) => async (dispatch:Dispatch<RegisterActionType>) => {
+export const registerTC = (data:RegisterParamsType) => async (dispatch:Dispatch) => {
+    dispatch(setAppStatusAC('loading'))
     try {
         const res = await authApi.register(data)
         console.log(res)
@@ -32,6 +34,8 @@ export const registerTC = (data:RegisterParamsType) => async (dispatch:Dispatch<
     } catch (e) {
         console.log(`this error is ${e}`)
         dispatch(setErrorAC(e.response.data.error))
+    } finally {
+        dispatch(setAppStatusAC('succeeded'))
     }
 
 
