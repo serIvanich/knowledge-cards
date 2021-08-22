@@ -1,45 +1,8 @@
-input {
-  font-size: 16px;
-  outline: none;
-  line-height: 24px;
-  padding: 5px;
-
-}
-
-button {
-  padding: 8px 36px;
-  border-radius: 5px;
-  color: #21268F;
-  background-color: #D7D8EF;
-  cursor: pointer;
-}
-
-button:hover {
-  color: #D7D8EF;
-  background-color: #21268F;
-}
-button:active {
-  color: #D7D8EF;
-  background-color: #21268F;
-}
-
-.error {
-  color: tomato;
-  border: 1px solid tomato;
-  padding: 10px;
-  margin-bottom: 20px;
-}
-
-.item {
-  margin-bottom: 20px;
-}
-
 .registerBlock {
   display: flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(180deg, #E5E5E5 0%, #9890C7 100%);
-
   min-height: 100vh;
 
   .registerCard {
@@ -54,31 +17,63 @@ button:active {
     background-color: #fff;
     border-radius: 15px;
 
-    .title {
-
+    .error {
+      color: tomato;
+      border: 1px solid tomato;
+      padding: 10px;
     }
 
-    .formBlock {
-      width: 350px;
-      .inputItem {
-        display: flex;
-        flex-direction: column;
-        margin-top: 24px;
-        border:none;
-        border-bottom: #F9F9FE;
+    .formContainer {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
 
-        .labelTitle {
+      .formBlock {
+        width: 350px;
+        margin-bottom: 20px;
 
+        .inputItem {
+          display: flex;
+          flex-direction: column;
+          margin: 24px 0;
+          border: none;
+          border-bottom: #F9F9FE;
+
+          .labelTitle {
+            opacity: 0.5;
+          }
+
+          input {
+            font-size: 16px;
+            outline: none;
+            line-height: 24px;
+            padding: 5px;
+          }
+        }
+      }
+
+      button {
+        padding: 8px 36px;
+        border-radius: 5px;
+        color: #21268F;
+        background-color: #D7D8EF;
+        cursor: pointer;
+        margin-bottom: 30px;
+
+        &:hover {
+          color: #D7D8EF;
+          background-color: #21268F;
         }
 
-
-      }
-      .buttonsBlock {
-        margin: 50px 0 35px;
-        display: flex;
-        justify-content: space-between;
+        &:active {
+          color: #D7D8EF;
+          background-color: #21268F;
+        }
       }
     }
-
   }
 }
+
+
+

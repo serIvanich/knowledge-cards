@@ -1,10 +1,10 @@
 import React from 'react';
 
-const Preloader: React.FC = () => {
+const PreloaderX: React.FC = () => {
     return (
         <div>
             loading...
         </div>
     );
 }
-export default Preloader;
+export default PreloaderX;
