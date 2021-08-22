@@ -10,16 +10,11 @@ import {SetPass} from "../auth/password/setPassword/setPass";
 import {Profile} from "../components/profile/Profile";
 import {TestPage} from "../components/TestPage/TestPage";
 import {Error404} from "../components/error404/Error404";
-<<<<<<<<< Temporary merge branch 1
 import {initializeAppTC, RequestStatusType} from "../../m2-bll/reducers/app-reduser";
 import {LoginContainer} from "../auth/login/LoginContainer";
 import {AppStateType} from "../../m2-bll/store";
-import Preloader from "../common/Preloader/Preloader";
-=========
-import {initializeAppTC} from "../../m2-bll/reducers/app-reduser";
 import {ForgotPass} from '../auth/password/fogotPassword/ForgotPass';
-
->>>>>>>>> Temporary merge branch 2
+import PreloaderX from '../common/preloader';
 
 function App() {
     const dispatch = useDispatch()
@@ -37,9 +32,8 @@ function App() {
 
     return (
         <div>
-            {status === 'loading' && <Preloader/>}
+            {status === 'loading' && <PreloaderX/>}
             <div className={appCss}>
-
 
                 <Header/>
                 <Switch>
