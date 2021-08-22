@@ -42,6 +42,7 @@ function App() {
 
                 <Header/>
                 <Switch>
+                    <Route exact path={'/'} render={() => <Redirect to={routes.main}/>}/>
                     <Route exact path={routes.main} render={() => <Main/>}/>
                     <Route path={routes.login} render={() => <LoginContainer/>}/>
                     <Route path={routes.register} render={() => <Register/>}/>
