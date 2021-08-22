@@ -3,19 +3,23 @@ import './App.css';
 import {Redirect, Route, Switch} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {Main} from "../components/Main";
-import {Login} from '../auth/login/Login';
 import {Register} from "../auth/register/Register";
 import {Header} from "../header/Header";
 import {routes} from "../routes/routes";
 import {SetPass} from "../auth/password/setPassword/setPass";
-import {ForgotPass} from "../auth/password/fogotPassword/ForgotPass";
 import {Profile} from "../components/profile/Profile";
 import {TestPage} from "../components/TestPage/TestPage";
 import {Error404} from "../components/error404/Error404";
+<<<<<<<<< Temporary merge branch 1
 import {initializeAppTC, RequestStatusType} from "../../m2-bll/reducers/app-reduser";
 import {LoginContainer} from "../auth/login/LoginContainer";
 import {AppStateType} from "../../m2-bll/store";
 import Preloader from "../common/Preloader/Preloader";
+=========
+import {initializeAppTC} from "../../m2-bll/reducers/app-reduser";
+import {ForgotPass} from '../auth/password/fogotPassword/ForgotPass';
+
+>>>>>>>>> Temporary merge branch 2
 
 function App() {
     const dispatch = useDispatch()
