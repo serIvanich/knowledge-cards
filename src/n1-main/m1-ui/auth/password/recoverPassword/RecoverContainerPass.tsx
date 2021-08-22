@@ -3,7 +3,7 @@ import {RecoverPass} from './RecoverPass';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppStateType} from '../../../../m2-bll/store';
 import {forgotPasswordTC} from '../../../../m2-bll/reducers/recoverPasswordThunk';
-import Preloader from '../../../common/preloader';
+import Preloader from '../../../common/Preloader/Preloader';
 
 export const RecoverContainerPass: React.FC = React.memo(() => {
     const dispatch = useDispatch();
