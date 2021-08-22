@@ -1,9 +1,10 @@
 import React from 'react'
-import s from './RecoverPass.module.scss'
+import s from './ForgotPass.module.scss'
 import SuperInputText from '../../../common/c1-SuperInputText/SuperInputText';
 import SuperButton from '../../../common/c2-SuperButton/SuperButton';
 import {NavLink} from 'react-router-dom';
 import {routes} from '../../../routes/routes';
+import {FormikProps} from "formik";
 
 type ForgotPropsType = {
     error: string | null
@@ -14,8 +15,10 @@ type ForgotPropsType = {
 
 export const RecoverPass: React.FC<ForgotPropsType> = React.memo(({error, forgotCallback, email, setEmail}) => {
     return (
-        <>
+        <div className={s.registerCard}>
             {error && <div className={s.error}>{error}</div>}
+
+
             <div className={s.item}>
                 <SuperInputText
                     type={'email'}
@@ -31,6 +34,6 @@ export const RecoverPass: React.FC<ForgotPropsType> = React.memo(({error, forgot
                 <NavLink to={routes.login} className={s.btn}>{'Login'}</NavLink>
             </div>
 
-        </>
+        </div>
     )
 });

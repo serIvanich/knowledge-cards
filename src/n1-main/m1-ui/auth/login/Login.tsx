@@ -61,10 +61,8 @@ export const Login: React.FC<LoginPropsType> = ({formik, cancelHandler}) => {
                             <NavLink to={routes.register}>Sing Up</NavLink>
                         </div>
                     </div>
-
                 </form>
             </div>
-
         </div>
     )
 }
