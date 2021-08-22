@@ -6,8 +6,12 @@ import {Redirect} from "react-router-dom";
 import {logoutTC} from "../../../m2-bll/reducers/auth-reducer";
 import {UserProfileType} from "../../../m2-bll/reducers/profile-reducer";
 import s from './Profile.module.scss'
+import {Profile} from "./Profile";
+import {PacksListTable} from "../../../../n2-features/f1-packsListTable/PacksListTable";
+import {Search} from "../../../../n2-features/f4-search/Search";
+import {Paginator} from "../../../../n2-features/f3-paginator/Paginator";
 
-export const Profile: React.FC = () => {
+export const ProfileContainer: React.FC = () => {
     const dispatch = useDispatch()
     const isLogged = useSelector<AppStateType, boolean>(state => state.auth.isLogged)
     const profile = useSelector<AppStateType, UserProfileType>(state => state.profile)
@@ -21,20 +25,19 @@ export const Profile: React.FC = () => {
         return <Redirect to={routes.login}/>
     }
     return (
-        <div className={s.profileSidebar}>
-            <h1>PROFILE</h1>
-            <div className={s.infoBlock}>
-                <div>my name: {name}</div>
-                <div>
-                    <img width={'100%'} src={avatar}/>
-                </div>
+        <div className={s.pagesContainer}>
+            <div className={s.sideBar}>
+                <Profile/>
+            </div>
+            <div className={s.mainPart}>
+                <h2>{name}</h2>
+                <Search/>
+                <PacksListTable/>
+                <Paginator/>
+            </div>
 
-                <div>my email: {email}</div>
-                <div>publicCardPacksCount: {publicCardPacksCount}</div>
-            </div>
-            <div className={s.buttonLogout}>
-                <button onClick={isLogout}>logout</button>
-            </div>
         </div>
     )
 }
+
+

@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import './App.css';
 import {Redirect, Route, Switch} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {Main} from "../components/Main";
+import {Main} from "../components/Main/Main";
 import {Register} from "../auth/register/Register";
 import {Header} from "../header/Header";
 import {routes} from "../routes/routes";
@@ -17,6 +17,7 @@ import {AppStateType} from "../../m2-bll/store";
 import Preloader from "../common/Preloader/Preloader";
 
 import {ForgotPass} from '../auth/password/fogotPassword/ForgotPass';
+import {ProfileContainer} from "../components/profile/ProfileContainer";
 
 
 
@@ -48,7 +49,7 @@ function App() {
                     <Route path={routes.register} render={() => <Register/>}/>
                     <Route path={routes.setPass} render={() => <SetPass/>}/>
                     <Route path={routes.forgotPass} render={() => <ForgotPass/>}/>
-                    <Route path={routes.profile} render={() => <Profile/>}/>
+                    <Route path={routes.profile} render={() => <ProfileContainer/>}/>
                     <Route path={routes.testPage} render={() => <TestPage/>}/>
                     <Route path={routes.err404} render={() => <Error404/>}/>
                     <Route path='*' render={() => <Redirect to={routes.err404}/>}/>
