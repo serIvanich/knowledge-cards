@@ -1,4 +1,5 @@
 import axios from "axios";
+import {UserProfileType} from "../m2-bll/reducers/profile-reducer";
 
 
 
@@ -17,7 +18,7 @@ export const authApi = {
         return instance.post('/auth/register', data).then(res => res.data)
     },
     login(data: LoginDataType) {
-        return instance.post('auth/login', data).then(res => res.data)
+        return instance.post<UserProfileType>('auth/login', data).then(res => res.data)
     },
     logout() {
         return instance.delete('auth/me')

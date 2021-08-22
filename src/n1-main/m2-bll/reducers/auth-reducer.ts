@@ -2,6 +2,7 @@ import {authApi, LoginDataType} from "../../m3-dall/app-api";
 import {Dispatch} from "redux";
 import {handleServerNetworkError} from "../../../utils/error-utils";
 import {setAppStatusAC} from "./app-reduser";
+import {setUserProfileAC} from "./profile-reducer";
 
 const initialState = {
     isLogged: false
@@ -29,6 +30,7 @@ export const loginTC = (payload: LoginDataType) => async (dispatch: Dispatch) =>
         dispatch(setAppStatusAC('loading'))
         const data = await authApi.login(payload)
         dispatch(isLoggedAC(true))
+        dispatch(setUserProfileAC(data))
         dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
         handleServerNetworkError(e, dispatch)
