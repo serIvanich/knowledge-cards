@@ -3,9 +3,11 @@ import {Dispatch} from "redux";
 import {handleServerNetworkError} from "../../../utils/error-utils";
 import {setAppStatusAC} from "./app-reduser";
 import {setUserProfileAC} from "./profile-reducer";
+import {passwordRecoveryApi} from "../../m3-dall/passwordRecovery-api";
 
 const initialState = {
-    isLogged: false
+    isLogged: false,
+    message: ''
 }
 
 
@@ -17,6 +19,8 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
                 ...state,
                 isLogged: action.isLogged
             }
+        case 'auth/SET-NEW_PASSWORD':
+            return {...state, message: action.message }
         default:
             return state
     }
@@ -24,6 +28,8 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
 }
 
 export const isLoggedAC = (isLogged: boolean) => ({type: 'auth/IS-LOGGED', isLogged }as const)
+export const setNewPasswordAC = (message:string) => ({type: 'auth/SET-NEW_PASSWORD', message } as const)
+
 
 export const loginTC = (payload: LoginDataType) => async (dispatch: Dispatch) => {
     try{
@@ -48,7 +54,21 @@ export const logoutTC = () => async (dispatch: Dispatch) => {
     }
 }
 
+export const setNewPasswordTC = (password:string, token:string) => async (dispatch:Dispatch) => {
+    try {
+        dispatch(setAppStatusAC('loading'))
+        const res = await passwordRecoveryApi.setNewPassword(password, token)
+        dispatch(setNewPasswordAC('success'))
+    } catch (e) {
+        handleServerNetworkError(e, dispatch)
+        debugger
+        dispatch(setNewPasswordAC('error'))
+    } finally {
+        dispatch(setAppStatusAC("succeeded"))
+    }
+}
+
 
 
 type InitialStateType = typeof initialState
-type ActionType = ReturnType<typeof isLoggedAC>
+type ActionType = ReturnType<typeof isLoggedAC> | ReturnType<typeof setNewPasswordAC>

@@ -47,7 +47,7 @@ function App() {
                     <Route exact path={routes.main} render={() => <Main/>}/>
                     <Route path={routes.login} render={() => <LoginContainer/>}/>
                     <Route path={routes.register} render={() => <Register/>}/>
-                    <Route path={routes.setPass} render={() => <SetPass/>}/>
+                    <Route path={`${routes.setPass}/:id`} render={() => <SetPass/>}/>
                     <Route path={routes.forgotPass} render={() => <ForgotPass/>}/>
                     <Route path={routes.profile} render={() => <ProfileContainer/>}/>
                     <Route path={routes.testPage} render={() => <TestPage/>}/>

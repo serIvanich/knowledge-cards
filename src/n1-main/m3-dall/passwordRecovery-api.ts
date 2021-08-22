@@ -17,9 +17,15 @@ export const passwordRecoveryApi = {
             from: 'test-front-admin <mail-tanja@mail.ru>',
             message: `<div style="background-color: lime; padding: 15px">
                     password recovery link: 
-                        <a href='http://localhost:3000/knowledge-cards#/${routes.setPass}/$token$'>link</a>
+                        <a href='http://localhost:3000/knowledge-cards#${routes.setPass}/$token$'>link</a>
                     </div>
                  `
+        })
+    },
+    setNewPassword (password:string, token:string) {
+        return instance.post('/auth/set-new-password', {
+            password,
+            resetPasswordToken: token,
         })
     }
 }

@@ -103,7 +103,6 @@ export const Register: React.FC = () => {
                             </div>
                         </div>
                         <div className={s.buttonsBlock}>
-
                             <button type='button' onClick={cancelHandler}> Cancel </button>
                             <button type="submit"> Register </button>
                         </div>
