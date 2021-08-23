@@ -12,6 +12,7 @@ import {Search} from "../../../../n2-features/f4-search/Search";
 import {Paginator} from "../../../../n2-features/f3-paginator/Paginator";
 
 export const ProfileContainer: React.FC = () => {
+
     const dispatch = useDispatch()
     const isLogged = useSelector<AppStateType, boolean>(state => state.auth.isLogged)
     const profile = useSelector<AppStateType, UserProfileType>(state => state.profile)

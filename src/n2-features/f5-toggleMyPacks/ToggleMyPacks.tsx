@@ -1,10 +1,10 @@
 import React from 'react'
 
-export const TogglePacks: React.FC = () => {
+export const ToggleMyPacks: React.FC = () => {
 
     return (
         <div>
-            TogglePacks
+            ToggleMyPacks
         </div>
     )
 }
