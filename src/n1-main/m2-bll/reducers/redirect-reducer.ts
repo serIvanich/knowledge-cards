@@ -1,49 +1,49 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+export type InitialRedirectType = typeof initialStateRedirect
+export type ActionsRedirectType = ReturnType<typeof setRedirectToCheckEmail>
 
-const slice = createSlice({
-    name: 'recovery',
-    initialState: {
-        email:'',
-        redirectToCheckEmail: false
-    },
-    reducers: {
-        setRedirectToCheckEmail(state,action:PayloadAction<{redirectToCheckEmail:boolean}>) {
-            state.redirectToCheckEmail = action.payload.redirectToCheckEmail
-        }
-    },
-    extraReducers: builder => {
+const initialStateRedirect = {
+    redirectToCheckEmail: false
+}
 
+export const redirectReducer = (state: InitialRedirectType = initialStateRedirect, action: ActionsRedirectType): InitialRedirectType => {
+    switch (action.type) {
+        case "REDIRECT-TO-CHECK-EMAIL":
+            return {
+                ...state,
+                redirectToCheckEmail: action.redirectToCheckEmail
+            }
+        default: return state
     }
-})
+}
 
-export const redirectReducer = slice.reducer
-export const {setRedirectToCheckEmail} = slice.actions
+export const setRedirectToCheckEmail = (redirectToCheckEmail:boolean) => ({
+    type: "REDIRECT-TO-CHECK-EMAIL",
+    redirectToCheckEmail
+
+} as const)
 
 
-
-
-// export type InitialPasswordRecoveryType = typeof initialStatePasswordRecovery
-// export type ActionsPasswordRecoveryType = ReturnType<typeof setRedirectToCheckEmail>
+//---РАБОТАЕТ и на toolkit!!!!
+// import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 //
-// const initialStatePasswordRecovery = {
-//     email: '',
-//     redirectToCheckEmail: false
-// }
+// const slice = createSlice({
+//     name: 'recovery',
+//     initialState: {
+//         email:'',
+//         redirectToCheckEmail: false
+//     },
+//     reducers: {
+//         setRedirectToCheckEmail(state,action:PayloadAction<{redirectToCheckEmail:boolean}>) {
+//             state.redirectToCheckEmail = action.payload.redirectToCheckEmail
+//         }
+//     },
+//     extraReducers: builder => {
 //
-// export const redirectReducer = (state: InitialPasswordRecoveryType = initialStatePasswordRecovery, action: ActionsPasswordRecoveryType): InitialPasswordRecoveryType => {
-//     switch (action.type) {
-//         case "REDIRECT-TO-CHECK-EMAIL":
-//             return {...state, ...action.redirectToCheckEmail}
-//
-//         default: return state
 //     }
-// }
+// })
 //
-// const setRedirectToCheckEmail = (redirectToCheckEmail:boolean, email:string) => ({
-//     type: "REDIRECT-TO-CHECK-EMAIL",
-//     redirectToCheckEmail,
-//     email
-// } as const)
+// export const redirectReducer = slice.reducer
+// export const {setRedirectToCheckEmail} = slice.actions
 
 
 
