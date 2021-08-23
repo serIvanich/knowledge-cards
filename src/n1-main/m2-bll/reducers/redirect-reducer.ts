@@ -7,7 +7,7 @@ const initialStateRedirect = {
 
 export const redirectReducer = (state: InitialRedirectType = initialStateRedirect, action: ActionsRedirectType): InitialRedirectType => {
     switch (action.type) {
-        case "REDIRECT-TO-CHECK-EMAIL":
+        case "password/REDIRECT-TO-CHECK-EMAIL":
             return {
                 ...state,
                 redirectToCheckEmail: action.redirectToCheckEmail
@@ -17,7 +17,7 @@ export const redirectReducer = (state: InitialRedirectType = initialStateRedirec
 }
 
 export const setRedirectToCheckEmail = (redirectToCheckEmail:boolean) => ({
-    type: "REDIRECT-TO-CHECK-EMAIL",
+    type: "password/REDIRECT-TO-CHECK-EMAIL",
     redirectToCheckEmail
 
 } as const)
