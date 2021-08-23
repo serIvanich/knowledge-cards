@@ -3,10 +3,11 @@ import s from './ForgotPass.module.scss'
 import {NavLink} from 'react-router-dom';
 import {routes} from '../../../routes/routes';
 import {FormikProps} from 'formik';
+import {ForgotDataType} from '../../../../m3-dall/app-api';
 
 type ForgotPropsType = {
     error: string | null
-    formik: FormikProps<any>
+    formik: FormikProps<ForgotDataType>
 }
 
 export const ForgotPass: React.FC<ForgotPropsType> = React.memo(({error, formik}) => {
