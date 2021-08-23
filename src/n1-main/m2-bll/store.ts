@@ -4,11 +4,13 @@ import {authReducer} from "./reducers/auth-reducer";
 import {profileReducer} from "./reducers/profile-reducer";
 import {appReducer} from "./reducers/app-reduser";
 import {registerReducer} from "../m1-ui/auth/register/register-reducer";
+import {redirectReducer} from './reducers/redirect-reducer';
 
 const rootReducers = combineReducers({
     app: appReducer,
     auth: authReducer,
     register:registerReducer,
+    redirect: redirectReducer,
     profile: profileReducer
 })
 

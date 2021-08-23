@@ -2,7 +2,6 @@ import axios from "axios";
 import {UserProfileType} from "../m2-bll/reducers/profile-reducer";
 
 
-
 export const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://neko-back.herokuapp.com/2.0/',
@@ -23,6 +22,9 @@ export const authApi = {
     logout() {
         return instance.delete('auth/me')
     },
+    forgot(data: ForgotDataType) {
+        return instance.post('auth/forgot', data)
+    }
 }
 
 //types
@@ -35,4 +37,10 @@ export type LoginDataType = {
     email:string
     password:string
     rememberMe: boolean
+}
+
+export type ForgotDataType = {
+    email: string
+    from: string
+    message: string
 }
