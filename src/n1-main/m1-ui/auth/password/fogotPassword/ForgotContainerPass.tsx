@@ -8,15 +8,10 @@ import s from './ForgotPass.module.scss'
 import {useFormik} from 'formik';
 import CheckEmail from './CheckEmail/CheckEmail';
 import {routes} from '../../../routes/routes';
+import {ForgotDataType} from '../../../../m3-dall/app-api';
 
 type FormikErrorType = {
     email?: string
-}
-
-type FormValuesT = {
-    email: string
-    from: string
-    message: string
 }
 
 export const ForgotContainerPass: React.FC = React.memo(() => {
@@ -41,8 +36,9 @@ export const ForgotContainerPass: React.FC = React.memo(() => {
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
                 errors.email = 'Invalid email address';
             }
+            // return errors; // если раскомитить, то ошибка с сервера не будет приходить, будет ошибка формы
         },
-        onSubmit: (values: FormValuesT) => {
+        onSubmit: (values: ForgotDataType) => {
             dispatch(forgotPasswordTC(values))
         }
     });
