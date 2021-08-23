@@ -5,10 +5,6 @@ export const instance = axios.create({
     withCredentials: true
 })
 
-export type ForgotDataType = {
-    error: string;
-}
-
 export const passwordRecoveryApi = {
     // forgot: async (email: string) => {
     //     return await instance.post<ForgotDataType>('auth/forgot', {
