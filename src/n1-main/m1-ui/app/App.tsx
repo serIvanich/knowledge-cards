@@ -2,12 +2,10 @@ import React, {useEffect} from 'react';
 import './App.css';
 import {Redirect, Route, Switch} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {Main} from '../components/Main';
 import {Register} from '../auth/register/Register';
 import {Header} from '../header/Header';
 import {routes} from '../routes/routes';
 import {SetPass} from '../auth/password/setPassword/setPass';
-import {Profile} from '../components/profile/Profile';
 import {TestPage} from '../components/TestPage/TestPage';
 import {Error404} from '../components/error404/Error404';
 import {initializeAppTC, RequestStatusType} from '../../m2-bll/reducers/app-reduser';
@@ -15,10 +13,8 @@ import {LoginContainer} from '../auth/login/LoginContainer';
 import {AppStateType} from '../../m2-bll/store';
 import Preloader from '../common/Preloader/Preloader';
 import ForgotContainerPass from '../auth/password/fogotPassword/ForgotContainerPass';
-
-import {ForgotPass} from '../auth/password/fogotPassword/ForgotPass';
 import {ProfileContainer} from "../components/profile/ProfileContainer";
-
+import {Main} from '../components/Main/Main';
 
 
 function App() {
