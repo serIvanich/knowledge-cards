@@ -9,7 +9,7 @@
     //border: 1px solid;
     max-width: 413px;
     width: 100%;
-    max-height: 540px;
+    max-height: 660px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -28,10 +28,24 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      width: 90%;
+      margin: auto;
+
+      span{
+        opacity: 0.8;
+        color: gray;
+      }
+
+      .emailText {
+        margin-bottom: 60px;
+      }
+
+      .passwordText {
+        margin-bottom: 20px;
+      }
 
       .formBlock {
-        width: 350px;
-        margin-bottom: 20px;
+        width: 100%;
 
         .inputItem {
           display: flex;
@@ -41,7 +55,8 @@
           border-bottom: #F9F9FE;
 
           .labelTitle {
-            opacity: 0.5;
+            opacity: 0.7;
+            color: gray;
           }
 
           input {
@@ -60,6 +75,7 @@
         background-color: #D7D8EF;
         cursor: pointer;
         margin-bottom: 30px;
+        font-size: 18px;
 
         &:hover {
           color: #D7D8EF;
@@ -69,6 +85,14 @@
         &:active {
           color: #D7D8EF;
           background-color: #21268F;
+        }
+      }
+
+      .loginLink a{
+        text-decoration: none;
+        font-weight: bold;
+        &:hover {
+          opacity: 0.5;
         }
       }
     }

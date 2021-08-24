@@ -1,4 +1,3 @@
-
 export const routes = {
     main: '/main',
     login: '/login',
