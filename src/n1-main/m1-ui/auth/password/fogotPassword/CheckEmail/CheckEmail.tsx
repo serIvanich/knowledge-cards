@@ -1,8 +1,6 @@
 import React from 'react';
 import s from './CheckEmail.module.scss'
 import checkEmail from './../../../../../../assecs/image/checkEmail.svg'
-import {NavLink, Redirect} from 'react-router-dom';
-import {routes} from "../../../../routes/routes";
 
 type PropsType = {
     email?: string
