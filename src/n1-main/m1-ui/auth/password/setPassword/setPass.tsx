@@ -16,7 +16,7 @@ export const SetPass: React.FC = () => {
 
     const authMessage = useSelector<AppStateType, string>(state => state.auth.message)
 
-    const {token}: any = useParams();
+    const {token} = useParams<{token: string}>();
     const dispatch = useDispatch()
     const formik = useFormik({
         initialValues: {
