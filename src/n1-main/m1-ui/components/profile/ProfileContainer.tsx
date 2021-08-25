@@ -16,7 +16,7 @@ export const ProfileContainer: React.FC = () => {
     const dispatch = useDispatch()
     const isLogged = useSelector<AppStateType, boolean>(state => state.auth.isLogged)
     const profile = useSelector<AppStateType, UserProfileType>(state => state.profile)
-    const {email, name, publicCardPacksCount, avatar} = profile
+    const {name} = profile
 
     const isLogout = () => {
         dispatch(logoutTC())
@@ -28,7 +28,7 @@ export const ProfileContainer: React.FC = () => {
     return (
         <div className={s.pagesContainer}>
             <div className={s.sideBar}>
-                <Profile/>
+                <Profile isLogged={isLogged} profile={profile} isLogout={isLogout}/>
             </div>
             <div className={s.mainPart}>
                 <h2>{name}</h2>

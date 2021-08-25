@@ -1,3 +1,13 @@
+
+.checkEmailPage{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, #E5E5E5 0%, #9890C7 100%);
+
+  min-height: 100vh;
+}
+
 .checkEmailContainer {
   font-family: 'Roboto', sans-serif;
   border-radius: 8px;

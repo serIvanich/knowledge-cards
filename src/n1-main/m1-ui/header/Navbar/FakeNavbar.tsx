@@ -28,11 +28,11 @@ export const FakeNavbar: React.FC = () => {
                     <NavLink to={routes.setPass} activeClassName={s.activeLink} >set password </NavLink>|
                 </div>
                 <div className={s.item}>
-                    <NavLink to={routes.profile} activeClassName={s.activeLink} >profile </NavLink>|
+                    <NavLink to={routes.profile} activeClassName={s.activeLink} >profile </NavLink>
                 </div>
-                <div className={s.item}>
-                    <NavLink to={routes.testPage} activeClassName={s.activeLink} >test page </NavLink>
-                </div>
+                {/*<div className={s.item}>*/}
+                {/*    <NavLink to={routes.testPage} activeClassName={s.activeLink} >test page </NavLink>*/}
+                {/*</div>*/}
 
             </div>
 

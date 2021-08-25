@@ -7,7 +7,8 @@ import {passwordRecoveryApi} from "../../m3-dall/passwordRecovery-api";
 
 const initialState = {
     isLogged: false,
-    message: ''
+    message: '',
+    checkMailPage: false,
 }
 
 

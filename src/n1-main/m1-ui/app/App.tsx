@@ -26,17 +26,17 @@ function App() {
             dispatch(initializeAppTC())
         }
     }, [])
+
     let appCss = 'appContainer'
+
     if (status === 'loading') {
         appCss = 'appPreloader'
     }
 
     return (
-        <div>
+        <div className={'app'}>
             {status === 'loading' && <Preloader/>}
             <div className={appCss}>
-
-
                 <Header/>
                 <Switch>
                     <Route exact path={'/'} render={() => <Redirect to={routes.main}/>}/>
@@ -46,10 +46,9 @@ function App() {
                     <Route path={routes.setPass} render={() => <SetPass/>}/>
                     <Route path={routes.forgotPass} render={() => <ForgotContainerPass/>}/>
                     <Route path={routes.profile} render={() => <ProfileContainer/>}/>
-                    <Route path={routes.testPage} render={() => <TestPage/>}/>
+                    {/*<Route path={routes.testPage} render={() => <TestPage/>}/>*/}
                     <Route path={routes.err404} render={() => <Error404/>}/>
                     <Route path='*' render={() => <Redirect to={routes.err404}/>}/>
-
                 </Switch>
             </div>
 
