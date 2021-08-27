@@ -16,7 +16,7 @@ export const SetPass: React.FC = () => {
 
     const authMessage = useSelector<AppStateType, string>(state => state.auth.message)
 
-    const {token} = useParams<{token: string}>();
+    const {id} = useParams<{id: string}>();
     const dispatch = useDispatch()
     const formik = useFormik({
         initialValues: {
@@ -34,8 +34,7 @@ export const SetPass: React.FC = () => {
         },
         onSubmit: values => {
             // alert( JSON.stringify(values));
-debugger
-            dispatch(setNewPasswordTC(values.password, token))
+            dispatch(setNewPasswordTC(values.password, id))
             formik.resetForm();
         },
     });
