@@ -40,7 +40,7 @@ export const LoginContainer: React.FC = () => {
 
             if (!values.password) {
                 errors.password = 'Required';
-                } else if (!/^[A-Za-z0-9._%+-]{4,10}$/i.test(values.password)) {
+            } else if (!/^[A-Za-z0-9._%+-]{4,10}$/i.test(values.password)) {
             } else if (values.password.length < 4) {
                 errors.password = 'Invalid password - Must be 4 characters or more';
             }
@@ -59,7 +59,7 @@ export const LoginContainer: React.FC = () => {
     }
     return (
         <div>
-            <Login formik={formik} />
+            <Login formik={formik}/>
         </div>
     )
 }
