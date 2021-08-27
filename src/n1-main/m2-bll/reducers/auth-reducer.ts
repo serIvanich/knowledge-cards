@@ -7,7 +7,8 @@ import {passwordRecoveryApi} from "../../m3-dall/passwordRecovery-api";
 
 const initialState = {
     isLogged: false,
-    message: ''
+    message: '',
+    checkMailPage: false,
 }
 
 
@@ -61,7 +62,6 @@ export const setNewPasswordTC = (password:string, token:string) => async (dispat
         dispatch(setNewPasswordAC('success'))
     } catch (e) {
         handleServerNetworkError(e, dispatch)
-        debugger
         dispatch(setNewPasswordAC('error'))
     } finally {
         dispatch(setAppStatusAC("succeeded"))

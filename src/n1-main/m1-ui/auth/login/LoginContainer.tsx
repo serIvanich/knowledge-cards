@@ -49,10 +49,8 @@ export const LoginContainer: React.FC = () => {
         },
         onSubmit: values => {
             const {email, password, rememberMe} = values
-
             dispatch(loginTC({email, password, rememberMe}))
             formik.resetForm()
-
         },
     });
 

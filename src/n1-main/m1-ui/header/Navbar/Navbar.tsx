@@ -1,41 +1,29 @@
 import React from 'react'
-import { NavLink } from "react-router-dom"
+import { NavLink } from 'react-router-dom'
+import s from './Navbar.module.scss'
 import {routes} from "../../routes/routes";
-import s from '../Header.module.css'
 
 
 export const Navbar: React.FC = () => {
 
     return (
-        <nav>
-            <div className={s.nav}>
-                <div className={s.item}>
-                    <NavLink to={routes.main} activeClassName={s.activeLink}>main </NavLink>|
-                </div>
-                <div className={s.item}>
-                    <NavLink to={routes.login} activeClassName={s.activeLink} >login </NavLink>|
-                </div>
-                <div className={s.item}>
-                    <NavLink to={routes.register} activeClassName={s.activeLink} >register </NavLink>|
-                </div>
-                <div className={s.item}>
-                    <NavLink to={routes.err404} activeClassName={s.activeLink} >err404 </NavLink>|
-                </div>
-                <div className={s.item}>
-                    <NavLink to={routes.forgotPass} activeClassName={s.activeLink} >forgot password </NavLink>|
-                </div>
-                <div className={s.item}>
-                    <NavLink to={routes.setPass} activeClassName={s.activeLink} >set password </NavLink>|
-                </div>
-                <div className={s.item}>
-                    <NavLink to={routes.profile} activeClassName={s.activeLink} >profile </NavLink>|
-                </div>
-                <div className={s.item}>
-                    <NavLink to={routes.testPage} activeClassName={s.activeLink} >test page </NavLink>
-                </div>
+        <div className={s.navLoginContainer}>
 
+            <div className={s.navLogotype}>
+                IT-incubator
             </div>
+            <nav className={s.navLinksBox}>
 
-        </nav>
-            )
+                <div className={s.navLink}>
+                    <NavLink to={routes.main}>Packs list</NavLink>
+                </div>
+                |
+                <div className={s.navLink}>
+                    <NavLink to={routes.profile}>Profile</NavLink>
+                </div>
+            </nav>
+
+
+        </div>
+    )
 }

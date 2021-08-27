@@ -5,34 +5,33 @@ import {routes} from "../../routes/routes";
 import {Redirect} from "react-router-dom";
 import {logoutTC} from "../../../m2-bll/reducers/auth-reducer";
 import {UserProfileType} from "../../../m2-bll/reducers/profile-reducer";
+import s from './Profile.module.scss'
 
+type ProfilePropsType = {
+    isLogged: boolean
+    profile: UserProfileType
+    isLogout: () => void
+}
 
-export const Profile: React.FC = () => {
-    const dispatch = useDispatch()
-    const isLogged = useSelector<AppStateType, boolean>(state => state.auth.isLogged)
-    const profile = useSelector<AppStateType, UserProfileType>(state => state.profile)
+export const Profile: React.FC<ProfilePropsType> = ({isLogged, profile, isLogout}) => {
     const {email, name, publicCardPacksCount, avatar} = profile
-
-    const isLogout = () => {
-        dispatch(logoutTC())
-    }
 
     if (!isLogged) {
         return <Redirect to={routes.login}/>
     }
     return (
-        <div>
+        <div className={s.profileSidebar}>
             <h1>PROFILE</h1>
-            <div>
-
-                <div>
-                    <img src={avatar}/>
-                </div>
+            <div className={s.infoBlock}>
                 <div>my name: {name}</div>
+                <div>
+                    <img width={'91%'} src={avatar}/>
+                </div>
+
                 <div>my email: {email}</div>
                 <div>publicCardPacksCount: {publicCardPacksCount}</div>
             </div>
-            <div>
+            <div className={s.buttonLogout}>
                 <button onClick={isLogout}>logout</button>
             </div>
         </div>
