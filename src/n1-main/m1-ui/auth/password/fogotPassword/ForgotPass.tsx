@@ -11,9 +11,10 @@ type ForgotPropsType = {
 }
 
 export const ForgotPass: React.FC<ForgotPropsType> = React.memo(({error, formik}) => {
+
     return (
         <>
-            {error && <div className={s.error}>{error}</div>}
+            {/*{error && <div className={s.error}>{error}</div>}*/}
 
             <form onSubmit={formik.handleSubmit}>
                 <div className={s.formContainer}>
@@ -32,7 +33,7 @@ export const ForgotPass: React.FC<ForgotPropsType> = React.memo(({error, formik}
                         <span>Enter your email address and we will send you further instruction</span>
                     </div>
                     <div className={s.buttonItem}>
-                        <button onClick={formik.handleChange} type="submit"> Send Instructions</button>
+                        <button type="submit"> Send Instructions</button>
                     </div>
                     <div className={s.passwordText}>
                         <span>Did you remember your password?</span>

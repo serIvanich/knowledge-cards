@@ -9,12 +9,14 @@ export const forgotPasswordTC = (param: ForgotDataType ) => {
         dispatch(setAppStatusAC('loading'))
         authApi.forgot(param)
             .then((res) => {
+
                 if(res.status === 200) {
-                    dispatch(setRedirectToCheckEmail(true))
+
                     dispatch(setAppStatusAC('succeeded'))
                 }
             })
             .catch((e) => {
+
                 handleServerNetworkError(e, dispatch)
             })
     }

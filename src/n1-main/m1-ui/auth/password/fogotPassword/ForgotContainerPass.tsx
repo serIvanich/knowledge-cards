@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {ForgotPass} from './ForgotPass';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppStateType} from '../../../../m2-bll/store';
@@ -7,7 +7,6 @@ import Preloader from '../../../common/Preloader/Preloader';
 import s from './ForgotPass.module.scss'
 import {useFormik} from 'formik';
 import CheckEmail from './CheckEmail/CheckEmail';
-import {routes} from '../../../routes/routes';
 import {ForgotDataType} from '../../../../m3-dall/app-api';
 
 type FormikErrorType = {
@@ -18,7 +17,7 @@ export const ForgotContainerPass: React.FC = React.memo(() => {
     const dispatch = useDispatch();
     const error = useSelector((store: AppStateType) => store.app.error);
     const loading = useSelector((store: AppStateType) => store.app.status)
-    const redirectToCheckEmail = useSelector<AppStateType, boolean>(state => state.redirect.redirectToCheckEmail)
+    const [redirectToCheckEmail, setRedirectToCheckEmail] = useState<boolean>(false)
 
     const formik = useFormik({
         initialValues: {
@@ -26,7 +25,7 @@ export const ForgotContainerPass: React.FC = React.memo(() => {
             from: 'test-front-admin <mail-tanja@mail.ru>',
             message: `<div style="background-color: lime; padding: 15px">
                     password recovery link: 
-                        <a href='http://localhost:3000/knowledge-cards#${routes.setPass}/$token$'>link</a>
+                        <a href='http://localhost:3000/#/set-new-password/$token$'>link</a>
                     </div>`
         },
         validate: (values) => {
@@ -39,28 +38,32 @@ export const ForgotContainerPass: React.FC = React.memo(() => {
             // return errors; // если раскомитить, то ошибка с сервера не будет приходить, будет ошибка формы
         },
         onSubmit: (values: ForgotDataType) => {
+
             dispatch(forgotPasswordTC(values))
+            setRedirectToCheckEmail(true)
         }
     });
 
+    if (redirectToCheckEmail) {
+
+        return <CheckEmail email={formik.values.email} setRedirectToCheckEmail={setRedirectToCheckEmail}/>
+    }
     return (
         <div>
             {loading === 'loading' && <Preloader/>}
             <div className={s.registerBlock}>
                 <div className={s.registerCard}>
-                    {redirectToCheckEmail
-                        ? <CheckEmail email={formik.values.email}/>
-                        : <>
-                            <h1 className={s.title}>It-incubator</h1>
-                            <h2>Forgot your password?</h2>
-                            <div className={s.recoveryPasswordContainer}>
-                                <ForgotPass
-                                    error={error}
-                                    formik={formik}
-                                />
-                            </div>
-                        </>
-                    }
+
+                    <h1 className={s.title}>It-incubator</h1>
+                    <h2>Forgot your password?</h2>
+                    <div className={s.recoveryPasswordContainer}>
+                        <ForgotPass
+                            error={error}
+                            formik={formik}
+                        />
+                    </div>
+
+
                 </div>
             </div>
         </div>
