@@ -34,7 +34,7 @@ export const ProfileContainer: React.FC = () => {
                 <h2>{name}</h2>
                 <Search/>
                 <PacksListTable/>
-                <Paginator/>
+                <Paginator />
             </div>
 
         </div>
