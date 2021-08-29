@@ -1,6 +1,7 @@
 import {Dispatch} from "redux"
 import {handleServerNetworkError} from "../../../utils/error-utils";
 import {authApi} from "../../m3-dall/app-api";
+import {isLoggedAC} from "./auth-reducer";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
@@ -38,6 +39,7 @@ export const initializeAppTC = () => async (dispatch: Dispatch) => {
         const data = await authApi.me()
 
         dispatch(setIsInitializedAC(true))
+        dispatch(isLoggedAC(true))
 
 
 

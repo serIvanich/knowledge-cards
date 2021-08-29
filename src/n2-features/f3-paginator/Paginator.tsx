@@ -45,7 +45,7 @@ export const Paginator = () => {
                         pages
                             .filter (p => p>= leftPortionPageNumber && p<= rightPortionPageNumber)
                             .map((p) => {
-                                return <div className={`${s.pageNumber} ${currentPage === p && s.selectedPage}`}
+                                return <div className={`${s.pageNumber} ${currentPage === p ? s.selectedPage:''}`}
                                              key = {p}
                                              onClick={ () => { setCurrentPageTC(p) } }> {p}</div>
                             })

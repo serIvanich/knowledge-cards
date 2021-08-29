@@ -14,6 +14,7 @@ import Preloader from '../common/Preloader/Preloader';
 import ForgotContainerPass from '../auth/password/fogotPassword/ForgotContainerPass';
 import {ProfileContainer} from "../components/profile/ProfileContainer";
 import {Main} from '../components/Main/Main';
+import {getPacksCardsTC} from "../../m2-bll/reducers/packs-reducer";
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
     const isInitialized = useSelector<AppStateType, boolean>(state => state.app.isInitialized)
     const status = useSelector<AppStateType, RequestStatusType>(state => state.app.status)
     useEffect(() => {
+
         if (!isInitialized) {
             dispatch(initializeAppTC())
         }

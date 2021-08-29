@@ -7,7 +7,7 @@ import {registerReducer} from "../m1-ui/auth/register/register-reducer";
 import {cardsReducer} from "./reducers/cards-reducer";
 import {packsReducer} from "./reducers/packs-reducer";
 import {configureStore} from "@reduxjs/toolkit";
-import {redirectReducer} from './reducers/redirect-reducer';
+
 import {paginateReducer} from "./reducers/paginate-reducer";
 
 const rootReducers = combineReducers({
@@ -17,7 +17,7 @@ const rootReducers = combineReducers({
     profile: profileReducer,
     cards: cardsReducer,
     packs: packsReducer,
-    redirect: redirectReducer,
+
     paginator: paginateReducer,
 
 })

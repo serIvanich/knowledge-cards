@@ -6,7 +6,7 @@ const initialState = {
         totalItemsCount:145,
         pageSize: 5,
         currentPage: 1,
-        portionSize: 10
+        portionSize: 5
 }
 
 const paginateSlice = createSlice ({
