@@ -5,11 +5,14 @@ import {packsApi, RequestParamsType} from "../../m3-dall/packs-api";
 
 const initialState = {
     cardPacks: [] as Array<CardsPacksType>,
-    cardsPacksTotalCount: 0,
+    cardPacksTotalCount: 0,
     maxCardsCount: 0,
     minCardsCount: 100,
     page: 1,
-    pageCount: 10,
+    pageCount: 4,
+    pageSize: 10,
+    currentPage: 1,
+    portionSize: 10
 }
 
 export const packsReducer = (state: PacksType = initialState, action: ActionType) => {
@@ -27,6 +30,13 @@ export const packsReducer = (state: PacksType = initialState, action: ActionType
                 ...state,
                 cardPacks: [...state.cardPacks].sort((a, b) => a.name < b.name? -1: 1)
             }
+
+        case 'packs/SET-CURRENT-PAGE':
+            return {
+                ...state,
+                currentPage: action.payload
+            };
+
         default:
             return state
     }
@@ -34,6 +44,8 @@ export const packsReducer = (state: PacksType = initialState, action: ActionType
 }
 
 
+
+export const setCurrentPage = (payload: number ) => ({type: 'packs/SET-CURRENT-PAGE', payload} as const )
 const setPacksCardsAC = (payload: PacksType) => ({type: 'packs/SET-PACKS-CARDS', payload} as const)
 export const sortNameAC = () => ({type: 'packs/SORT-NAME'} as const)
 
@@ -50,7 +62,9 @@ export const getPacksCardsTC = (params: RequestParamsType) => async (dispatch: D
     }
 }
 
-type ActionType = ReturnType<typeof setPacksCardsAC> | ReturnType<typeof sortNameAC>
+type ActionType = ReturnType<typeof setPacksCardsAC>
+    | ReturnType<typeof sortNameAC>
+    | ReturnType<typeof setCurrentPage>
 
 
 export type CardsPacksType = {
