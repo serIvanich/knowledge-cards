@@ -22,7 +22,6 @@ function App() {
     const isInitialized = useSelector<AppStateType, boolean>(state => state.app.isInitialized)
     const status = useSelector<AppStateType, RequestStatusType>(state => state.app.status)
     useEffect(() => {
-
         if (!isInitialized) {
             dispatch(initializeAppTC())
         }
@@ -40,8 +39,8 @@ function App() {
             <div className={appCss}>
                 <Header/>
                 <Switch>
-                    <Route exact path={'/'} render={() => <Redirect to={routes.main}/>}/>
-                    <Route exact path={routes.main} render={() => <Main/>}/>
+                    <Route exact path={'/'} render={() => <Redirect to={routes.mainPacks}/>}/>
+                    <Route exact path={routes.mainPacks} render={() => <Main/>}/>
                     <Route path={routes.login} render={() => <LoginContainer/>}/>
                     <Route path={routes.register} render={() => <Register/>}/>
                     <Route path={routes.setPass} render={() => <SetPass/>}/>

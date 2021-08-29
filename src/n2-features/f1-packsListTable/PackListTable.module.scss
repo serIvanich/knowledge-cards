@@ -6,7 +6,6 @@
   border-radius: 5px;
 
 
-
   .tableRow {
 
 
@@ -14,6 +13,20 @@
 
     }
 
+
+  }
+}
+
+.buttonInTableContainer {
+
+  display: flex;
+  justify-content: space-around;
+
+
+  .buttonInTable {
+
+    margin: 3px 2px;
+    text-align: center;
   }
 }
 

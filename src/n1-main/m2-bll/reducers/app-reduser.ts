@@ -2,6 +2,7 @@ import {Dispatch} from "redux"
 import {handleServerNetworkError} from "../../../utils/error-utils";
 import {authApi} from "../../m3-dall/app-api";
 import {isLoggedAC} from "./auth-reducer";
+import {setUserProfileAC} from "./profile-reducer";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
@@ -37,7 +38,7 @@ export const initializeAppTC = () => async (dispatch: Dispatch) => {
     try {
 
         const data = await authApi.me()
-
+        dispatch(setUserProfileAC(data))
         dispatch(setIsInitializedAC(true))
         dispatch(isLoggedAC(true))
 

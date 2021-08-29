@@ -5,7 +5,7 @@ import {PacksListTable} from "../../../../../n2-features/f1-packsListTable/Packs
 import {Paginator} from "../../../../../n2-features/f3-paginator/Paginator";
 import {ToggleMyPacks} from "../../../../../n2-features/f5-toggleMyPacks/ToggleMyPacks";
 import {DoubleSlider} from "../../../../../n2-features/f6-doubleSlider/DoubleSlider";
-import {CardsPacksType, getPacksCardsTC} from "../../../../m2-bll/reducers/packs-reducer";
+import {CardsPacksType, getPacksCardsTC, postPackTC} from "../../../../m2-bll/reducers/packs-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../../m2-bll/store";
 import Preloader from "../../../common/Preloader/Preloader";
@@ -25,6 +25,10 @@ export const PacksList: React.FC = () => {
         return <Preloader/>
     }
 
+    const createPack = () => {
+        dispatch(postPackTC())
+    }
+
     return (
         <div className={s.pagesContainer}>
 
@@ -34,7 +38,12 @@ export const PacksList: React.FC = () => {
             </div>
             <div className={s.mainPart}>
                 <h2>PackList</h2>
-                <Search/>
+                <div className={s.searchBlock}>
+                    <Search/>
+                    <div>
+                        <button onClick={createPack}>add new pack</button>
+                    </div>
+                </div>
                 <PacksListTable/>
                 <Paginator/>
             </div>
