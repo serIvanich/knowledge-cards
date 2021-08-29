@@ -11,22 +11,21 @@
 
     .tableCell {
 
+      .buttonInTableContainer {
+
+        display: flex;
+        justify-content: space-around;
+
+
+        .buttonInTable {
+
+          margin: 2px 2px;
+          text-align: center;
+        }
+      }
     }
 
 
-  }
-}
-
-.buttonInTableContainer {
-
-  display: flex;
-  justify-content: space-around;
-
-
-  .buttonInTable {
-
-    margin: 3px 2px;
-    text-align: center;
   }
 }
 

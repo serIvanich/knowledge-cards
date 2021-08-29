@@ -13,7 +13,7 @@ export const packsApi = {
         return instance.put('cards/pack', {cardsPack})
     },
     deletePacks(id: string) {
-        debugger
+
         return instance.delete(`cards/pack?id=${id}`)
     }
 }
