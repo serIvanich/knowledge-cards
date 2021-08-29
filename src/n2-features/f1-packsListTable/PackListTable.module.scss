@@ -1,0 +1,23 @@
+
+.tableBlock {
+  margin: 2vh 0;
+  display: table;
+  border: 2px solid gainsboro;
+  border-radius: 5px;
+
+
+
+  .tableRow {
+
+
+    .tableCell {
+
+    }
+
+  }
+}
+
+
+.tableRow:nth-child(odd) {
+  background-color: #e5e5e5;
+}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../m2-bll/store";
 import {routes} from "../../routes/routes";
@@ -10,6 +10,7 @@ import {Profile} from "./Profile";
 import {PacksListTable} from "../../../../n2-features/f1-packsListTable/PacksListTable";
 import {Search} from "../../../../n2-features/f4-search/Search";
 import {Paginator} from "../../../../n2-features/f3-paginator/Paginator";
+import {getPacksCardsTC} from "../../../m2-bll/reducers/packs-reducer";
 
 export const ProfileContainer: React.FC = () => {
 
@@ -18,6 +19,9 @@ export const ProfileContainer: React.FC = () => {
     const profile = useSelector<AppStateType, UserProfileType>(state => state.profile)
     const {name} = profile
 
+    useEffect(() => {
+        dispatch(getPacksCardsTC({}))
+    }, [])
     const isLogout = () => {
         dispatch(logoutTC())
     }
@@ -34,7 +38,7 @@ export const ProfileContainer: React.FC = () => {
                 <h2>{name}</h2>
                 <Search/>
                 <PacksListTable/>
-                <Paginator/>
+                <Paginator />
             </div>
 
         </div>

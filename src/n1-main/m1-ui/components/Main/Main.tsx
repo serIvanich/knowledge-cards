@@ -1,15 +1,15 @@
 import React from 'react'
-import {useDispatch} from "react-redux";
+import s from "../profile/Profile.module.scss";
+import {PacksList} from "./packsList/PackList";
+
 
 
 
 export const Main: React.FC = () => {
-    const dispatch = useDispatch()
 
     return (
         <div>
-            <h1>MAIN</h1>
-
+            <PacksList />
         </div>
     )
 }

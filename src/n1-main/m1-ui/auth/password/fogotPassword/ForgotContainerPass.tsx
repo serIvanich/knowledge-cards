@@ -25,7 +25,7 @@ export const ForgotContainerPass: React.FC = React.memo(() => {
             from: 'test-front-admin <mail-tanja@mail.ru>',
             message: `<div style="background-color: lime; padding: 15px">
                     password recovery link: 
-                        <a href='http://localhost:3000/#/set-new-password/$token$'>link</a>
+                        <a href='https://serivanich.github.io/knowledge-cards/#/set-new-password/$token$'>link</a>
                     </div>`
         },
         validate: (values) => {
@@ -35,10 +35,9 @@ export const ForgotContainerPass: React.FC = React.memo(() => {
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
                 errors.email = 'Invalid email address';
             }
-            //return errors; // если раскомитить, то ошибка с сервера не будет приходить, будет ошибка формы
+            return errors; // если раскомитить, то ошибка с сервера не будет приходить, будет ошибка формы
         },
         onSubmit: (values: ForgotDataType) => {
-
             dispatch(forgotPasswordTC(values))
             setRedirectToCheckEmail(true)
         }
