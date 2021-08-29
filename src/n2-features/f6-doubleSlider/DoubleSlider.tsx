@@ -4,7 +4,7 @@ export const DoubleSlider: React.FC = () => {
 
     return (
         <div>
-            DoubleSlider
+            Number of cards
         </div>
     )
 }
