@@ -18,6 +18,8 @@ export const PacksList: React.FC = () => {
     useEffect(() => {
         dispatch(getPacksCardsTC({}))
     }, [])
+
+
     const packs = useSelector<AppStateType, CardsPacksType []>(state => state.packs.cardPacks)
     if (!packs) {
         return <Preloader/>

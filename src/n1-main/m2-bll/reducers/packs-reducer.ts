@@ -9,7 +9,7 @@ const initialState = {
     maxCardsCount: 0,
     minCardsCount: 100,
     page: 1,
-    pageCount: 4,
+    pageCount: 10,
 }
 
 export const packsReducer = (state: PacksType = initialState, action: ActionType) => {
@@ -20,6 +20,13 @@ export const packsReducer = (state: PacksType = initialState, action: ActionType
                 ...action.payload,
                 cardPacks: [...action.payload.cardPacks]}
             return newState
+
+        case "packs/SORT-NAME":
+
+            return {
+                ...state,
+                cardPacks: [...state.cardPacks].sort((a, b) => a.name < b.name? -1: 1)
+            }
         default:
             return state
     }
@@ -27,13 +34,15 @@ export const packsReducer = (state: PacksType = initialState, action: ActionType
 }
 
 
-const setPacksCards = (payload: PacksType) => ({type: 'packs/SET-PACKS-CARDS', payload} as const)
+const setPacksCardsAC = (payload: PacksType) => ({type: 'packs/SET-PACKS-CARDS', payload} as const)
+export const sortNameAC = () => ({type: 'packs/SORT-NAME'} as const)
 
 export const getPacksCardsTC = (params: RequestParamsType) => async (dispatch: Dispatch) => {
     try {
         dispatch(setAppStatusAC('loading'))
+        params = {...params, pageCount: 10}
         const data = await packsApi.getPacks(params)
-        dispatch(setPacksCards(data))
+        dispatch(setPacksCardsAC(data))
     } catch (e) {
         handleServerNetworkError(e, dispatch)
     } finally {
@@ -41,13 +50,14 @@ export const getPacksCardsTC = (params: RequestParamsType) => async (dispatch: D
     }
 }
 
-type ActionType = ReturnType<typeof setPacksCards>
+type ActionType = ReturnType<typeof setPacksCardsAC> | ReturnType<typeof sortNameAC>
 
 
 export type CardsPacksType = {
     _id: string
     user_id: string
     name: string
+    user_name: string
     path: string
     cardsCount: string
     grade: string
