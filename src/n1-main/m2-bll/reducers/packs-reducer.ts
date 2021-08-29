@@ -5,11 +5,14 @@ import {packsApi, RequestParamsType} from "../../m3-dall/packs-api";
 
 const initialState = {
     cardPacks: [] as Array<CardsPacksType>,
-    cardsPacksTotalCount: 0,
+    cardPacksTotalCount: 0,
     maxCardsCount: 0,
     minCardsCount: 100,
     page: 1,
     pageCount: 4,
+    pageSize: 10,
+    currentPage: 1,
+    portionSize: 10
 }
 
 export const packsReducer = (state: PacksType = initialState, action: ActionType) => {
@@ -18,8 +21,45 @@ export const packsReducer = (state: PacksType = initialState, action: ActionType
 
             const newState = {...state,
                 ...action.payload,
-                cardPacks: [...action.payload.cardPacks]}
+                cardPacks: [...action.payload.cardPacks,
+                    ...action.payload.cardPacks,
+                    ...action.payload.cardPacks,
+                    ...action.payload.cardPacks,
+                    ...action.payload.cardPacks,
+                    ...action.payload.cardPacks,
+                    ...action.payload.cardPacks,
+                    ...action.payload.cardPacks,
+                    ...action.payload.cardPacks,
+                    ...action.payload.cardPacks,
+                    ...action.payload.cardPacks,
+                    ...action.payload.cardPacks,
+                    ...action.payload.cardPacks,
+                    ...action.payload.cardPacks,
+                    ...action.payload.cardPacks,
+                    ...action.payload.cardPacks,
+                    ...action.payload.cardPacks,
+                    ...action.payload.cardPacks,
+                    ...action.payload.cardPacks,
+                    ...action.payload.cardPacks,
+                    ...action.payload.cardPacks,
+                    ...action.payload.cardPacks,
+                    ...action.payload.cardPacks,
+                    ...action.payload.cardPacks,
+                    ...action.payload.cardPacks,
+                    ...action.payload.cardPacks,
+                    ...action.payload.cardPacks,
+                    ...action.payload.cardPacks,
+                    ...action.payload.cardPacks,
+                ]}
+
             return newState
+
+        case 'packs/SET-CURRENT-PAGE':
+            return {
+                ...state,
+                currentPage: action.payload
+            };
+
         default:
             return state
     }
@@ -28,6 +68,7 @@ export const packsReducer = (state: PacksType = initialState, action: ActionType
 
 
 const setPacksCards = (payload: PacksType) => ({type: 'packs/SET-PACKS-CARDS', payload} as const)
+export const setCurrentPage = (payload: number ) => ({type: 'packs/SET-CURRENT-PAGE', payload} as const )
 
 export const getPacksCardsTC = (params: RequestParamsType) => async (dispatch: Dispatch) => {
     try {
@@ -41,7 +82,9 @@ export const getPacksCardsTC = (params: RequestParamsType) => async (dispatch: D
     }
 }
 
-type ActionType = ReturnType<typeof setPacksCards>
+type ActionType =
+    ReturnType<typeof setPacksCards>
+    | ReturnType<typeof setCurrentPage>
 
 
 export type CardsPacksType = {
