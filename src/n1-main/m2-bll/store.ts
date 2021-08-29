@@ -8,8 +8,6 @@ import {cardsReducer} from "./reducers/cards-reducer";
 import {packsReducer} from "./reducers/packs-reducer";
 import {configureStore} from "@reduxjs/toolkit";
 
-import {paginateReducer} from "./reducers/paginate-reducer";
-
 const rootReducers = combineReducers({
     app: appReducer,
     auth: authReducer,
@@ -18,7 +16,7 @@ const rootReducers = combineReducers({
     cards: cardsReducer,
     packs: packsReducer,
 
-    paginator: paginateReducer,
+
 
 })
 

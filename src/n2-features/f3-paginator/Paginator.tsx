@@ -1,29 +1,31 @@
 import React, {useState} from 'react';
 import s from './Paginator.module.scss'
 import {AppStateType} from "../../n1-main/m2-bll/store";
-import {useSelector} from "react-redux";
-import {InitialPaginatorStateType, setCurrentPageTC} from "../../n1-main/m2-bll/reducers/paginate-reducer";
-
-
+import {useDispatch, useSelector} from "react-redux";
+import {PacksType} from "../../n1-main/m2-bll/reducers/packs-reducer";
+import {setCurrentPage} from "../../n1-main/m2-bll/reducers/packs-reducer";
 
 
 export const Paginator = () => {
-    const paginateState = useSelector<AppStateType, InitialPaginatorStateType>(
-        state => state.paginator)
+    const packsState = useSelector<AppStateType, PacksType>(
+        state => state.packs)
+    const dispatch = useDispatch()
 
     const {
-        totalItemsCount,
+
+        cardPacksTotalCount,
         pageSize,
         currentPage,
         portionSize
-    } = paginateState
+    } = packsState
 
-    let pagesCount = Math.ceil(totalItemsCount / pageSize);
+    let pagesCount = Math.ceil(cardPacksTotalCount / pageSize);
     let pages:number[] = [];
 
     for (let i = 1; i<=pagesCount; i++) {
         pages.push(i)
     }
+
     let portionCount = Math.ceil(pagesCount / portionSize);
     let [portionNumber, setPortionNumber] = useState(1);
     let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
@@ -47,7 +49,7 @@ export const Paginator = () => {
                             .map((p) => {
                                 return <div className={`${s.pageNumber} ${currentPage === p ? s.selectedPage:''}`}
                                              key = {p}
-                                             onClick={ () => { setCurrentPageTC(p) } }> {p}</div>
+                                             onClick={ () => dispatch(setCurrentPage(p))  }> {p}</div>
                             })
 
                     }
