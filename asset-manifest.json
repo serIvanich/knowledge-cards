@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/knowledge-cards/static/css/main.a2395ac4.chunk.css",
-    "main.js": "/knowledge-cards/static/js/main.64e5c969.chunk.js",
-    "main.js.map": "/knowledge-cards/static/js/main.64e5c969.chunk.js.map",
-    "runtime-main.js": "/knowledge-cards/static/js/runtime-main.5a13704a.js",
-    "runtime-main.js.map": "/knowledge-cards/static/js/runtime-main.5a13704a.js.map",
-    "static/js/2.4ed0dc42.chunk.js": "/knowledge-cards/static/js/2.4ed0dc42.chunk.js",
-    "static/js/2.4ed0dc42.chunk.js.map": "/knowledge-cards/static/js/2.4ed0dc42.chunk.js.map",
-    "static/js/3.e834b116.chunk.js": "/knowledge-cards/static/js/3.e834b116.chunk.js",
-    "static/js/3.e834b116.chunk.js.map": "/knowledge-cards/static/js/3.e834b116.chunk.js.map",
+    "main.css": "/knowledge-cards/static/css/main.a372cbb6.chunk.css",
+    "main.js": "/knowledge-cards/static/js/main.e37562a4.chunk.js",
+    "main.js.map": "/knowledge-cards/static/js/main.e37562a4.chunk.js.map",
+    "runtime-main.js": "/knowledge-cards/static/js/runtime-main.6e79b56a.js",
+    "runtime-main.js.map": "/knowledge-cards/static/js/runtime-main.6e79b56a.js.map",
+    "static/js/2.41fbc2e3.chunk.js": "/knowledge-cards/static/js/2.41fbc2e3.chunk.js",
+    "static/js/2.41fbc2e3.chunk.js.map": "/knowledge-cards/static/js/2.41fbc2e3.chunk.js.map",
+    "static/js/3.27f3e5b1.chunk.js": "/knowledge-cards/static/js/3.27f3e5b1.chunk.js",
+    "static/js/3.27f3e5b1.chunk.js.map": "/knowledge-cards/static/js/3.27f3e5b1.chunk.js.map",
     "index.html": "/knowledge-cards/index.html",
-    "static/css/main.a2395ac4.chunk.css.map": "/knowledge-cards/static/css/main.a2395ac4.chunk.css.map",
-    "static/js/2.4ed0dc42.chunk.js.LICENSE.txt": "/knowledge-cards/static/js/2.4ed0dc42.chunk.js.LICENSE.txt",
+    "static/css/main.a372cbb6.chunk.css.map": "/knowledge-cards/static/css/main.a372cbb6.chunk.css.map",
+    "static/js/2.41fbc2e3.chunk.js.LICENSE.txt": "/knowledge-cards/static/js/2.41fbc2e3.chunk.js.LICENSE.txt",
     "static/media/1486.279ed7ee.gif": "/knowledge-cards/static/media/1486.279ed7ee.gif",
     "static/media/checkEmail.7adff45f.svg": "/knowledge-cards/static/media/checkEmail.7adff45f.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.5a13704a.js",
-    "static/js/2.4ed0dc42.chunk.js",
-    "static/css/main.a2395ac4.chunk.css",
-    "static/js/main.64e5c969.chunk.js"
+    "static/js/runtime-main.6e79b56a.js",
+    "static/js/2.41fbc2e3.chunk.js",
+    "static/css/main.a372cbb6.chunk.css",
+    "static/js/main.e37562a4.chunk.js"
   ]
 }
