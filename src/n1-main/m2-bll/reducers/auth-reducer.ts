@@ -61,7 +61,6 @@ export const setNewPasswordTC = (password:string, token:string) => async (dispat
         const res = await passwordRecoveryApi.setNewPassword(password, token)
         dispatch(setNewPasswordAC('success'))
     } catch (e) {
-        alert(e.response.data.error)
         handleServerNetworkError(e, dispatch)
         dispatch(setNewPasswordAC('error'))
     } finally {

@@ -25,7 +25,7 @@ export const ForgotContainerPass: React.FC = React.memo(() => {
             from: 'test-front-admin <mail-tanja@mail.ru>',
             message: `<div style="background-color: lime; padding: 15px">
                     password recovery link: 
-                        <a href='http://localhost:3000/#/set-new-password/$token$'>link</a>
+                        <a href='https://serivanich.github.io/knowledge-cards/#/set-new-password/$token$'>link</a>
                     </div>`
         },
         validate: (values) => {
