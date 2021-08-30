@@ -4,7 +4,9 @@ export const ToggleMyPacks: React.FC = () => {
 
     return (
         <div>
-            ToggleMyPacks
+            Show packs cards
+            <button>My</button>
+            <button>All</button>
         </div>
     )
 }

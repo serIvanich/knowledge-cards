@@ -1,17 +1,16 @@
 import React, {useEffect} from 'react'
-import s from "../../profile/Profile.module.scss";
-import {Search} from "../../../../../n2-features/f4-search/Search";
-import {PacksListTable} from "../../../../../n2-features/f1-packsListTable/PacksListTable";
-import {Paginator} from "../../../../../n2-features/f3-paginator/Paginator";
-import {ToggleMyPacks} from "../../../../../n2-features/f5-toggleMyPacks/ToggleMyPacks";
-import {DoubleSlider} from "../../../../../n2-features/f6-doubleSlider/DoubleSlider";
-import {CardsPacksType, getPacksCardsTC, postPackTC} from "../../../../m2-bll/reducers/packs-reducer";
-import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../../../m2-bll/store";
-import Preloader from "../../../common/Preloader/Preloader";
+import s from '../../profile/Profile.module.scss';
+import {Search} from '../../../../../n2-features/f4-search/Search';
+import {PacksListTable} from '../../../../../n2-features/f1-packsListTable/PacksListTable';
+import {Paginator} from '../../../../../n2-features/f3-paginator/Paginator';
+import {ToggleMyPacks} from '../../../../../n2-features/f5-toggleMyPacks/ToggleMyPacks';
+import {CardsPacksType, getPacksCardsTC, postPackTC} from '../../../../m2-bll/reducers/packs-reducer';
+import {useDispatch, useSelector} from 'react-redux';
+import {AppStateType} from '../../../../m2-bll/store';
+import Preloader from '../../../common/Preloader/Preloader';
+import {DoubleSliderContainer} from '../../../../../n2-features/f6-doubleSlider/DoubleSliderContainer';
 import {Redirect} from "react-router-dom";
 import {routes} from "../../../routes/routes";
-
 export const PacksList: React.FC = () => {
 
     const dispatch = useDispatch()
@@ -38,7 +37,7 @@ if (!isLogged) {
 
             <div className={s.sideBar}>
                 <ToggleMyPacks/>
-                <DoubleSlider/>
+                <DoubleSliderContainer/>
             </div>
             <div className={s.mainPart}>
                 <h2>PackList</h2>
