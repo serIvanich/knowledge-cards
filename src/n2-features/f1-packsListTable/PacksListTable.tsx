@@ -19,8 +19,7 @@ export const PacksListTable: React.FC = () => {
 
 
     const packsState = useSelector<AppStateType, InitialStatePacksType>(state => state.packs)
-    let firstCardIdx = (packsState.currentPage - 1) * packsState.pageSize;
-    let lastCardIdx = packsState.currentPage * packsState.pageSize - 1;
+
 
 
     const clickedSort = (e: React.MouseEvent<HTMLTableHeaderCellElement, MouseEvent>) => {
@@ -46,7 +45,6 @@ export const PacksListTable: React.FC = () => {
                 <th className={s.tableCell}>Actions</th>
             </tr>
             {cardPacks
-                .filter((p, idx) => firstCardIdx >= idx || idx <= lastCardIdx)
                 .map((p, i) => {
                     const dateUpdateStr = p.updated.toString().slice(0, 10)    //.split('').map(l => l === '-'? '.': l)
                     const data = `${dateUpdateStr.slice(8, 10)}.${dateUpdateStr.slice(5, 7)}.${dateUpdateStr.slice(0, 4)}`

@@ -21,7 +21,6 @@ export type InitialStatePacksType = typeof initialState
 export const packsReducer = (state: InitialStatePacksType = initialState, action: ActionsType) => {
     switch (action.type) {
         case "packs/SET-PACKS-CARDS":
-
             const newState = {
                 ...state,
                 ...action.payload,
@@ -36,10 +35,16 @@ export const packsReducer = (state: InitialStatePacksType = initialState, action
                 cardPacks: [...state.cardPacks].sort((a, b) => a.name < b.name ? -1 : 1)
             }
 
-        case 'packs/SET-CURRENT-PAGE':
+        case 'packs/CHANGE-CURRENT-PAGE-AND-PACKS':
+            debugger
+            const firstCardIdx = (state.currentPage - 1) * state.pageSize;
+            let lastCardIdx = state.currentPage * state.pageSize - 1;
             return {
                 ...state,
-                currentPage: action.payload
+                currentPage: action.payload,
+                cardPacks:
+                    [...state.cardPacks]
+                    .filter((p, idx) => firstCardIdx >= idx || idx <= lastCardIdx)
             };
 
         default:
@@ -49,10 +54,9 @@ export const packsReducer = (state: InitialStatePacksType = initialState, action
 }
 
 
-export const setCurrentPage = (payload: number) => ({type: 'packs/SET-CURRENT-PAGE', payload} as const)
+export const changeCurrentPageAndPacks = (payload: number) => ({type: 'packs/CHANGE-CURRENT-PAGE-AND-PACKS', payload} as const)
 const setPacksCardsAC = (payload: PacksType) => ({type: 'packs/SET-PACKS-CARDS', payload} as const)
 export const sortNameAC = () => ({type: 'packs/SORT-NAME'} as const)
-
 
 export const getPacksCardsTC = (params: RequestParamsType) => async (dispatch: Dispatch) => {
     try {
@@ -107,7 +111,7 @@ export const updatePackTC = (id: string): ThunkType => async (dispatch) => {
 type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsType>
 type ActionsType = ReturnType<typeof setPacksCardsAC>
     | ReturnType<typeof sortNameAC>
-    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof changeCurrentPageAndPacks>
     | SetAppStatusActionType
 
 

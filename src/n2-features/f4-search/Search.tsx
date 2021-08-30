@@ -1,20 +1,24 @@
 import React from 'react'
 import s from './Search.module.scss'
-import { Formik } from "formik";
+import {Field, Form, Formik} from "formik";
 
 
-type searchFormType = {
+type searchSearchFormObjectTypeFormType = {
     term: string,
 
 }
-const searchValidate = () => {}
+const searchFormValidate = (values:any) => {
+    const errors = {}
+    return errors;
+}
+
 
 
 
 export const Search: React.FC = () => {
 
 
-    const submit = (values:searchFormType, {setSubmitting}:{setSubmitting:(isSubmitting:boolean) => void}) => {
+    const submit = (values:searchSearchFormObjectTypeFormType, {setSubmitting}:{setSubmitting:(isSubmitting:boolean) => void}) => {
 
         setTimeout(() => {
             alert(JSON.stringify(values));
@@ -25,22 +29,18 @@ export const Search: React.FC = () => {
         <div className={s.searchBlock}>
             <Formik
                 initialValues={{ term: '' }}
-                validate={searchValidate}
+                validate={searchFormValidate}
                 onSubmit={submit}
             >
-                {props => (
-                    <form onSubmit={props.handleSubmit}>
-                        <input
-                            name="term"
-                            type="text"
-                            onChange={props.handleChange}
-                            onBlur={props.handleBlur}
-                            value={props.values.term}
+                {({isSubmitting}) => (
+                    <Form>
+                        <Field type='text' name='term'>
 
-                        />
-                        {props.errors.term && <div id="feedback">{props.errors.term}</div>}
-                        <button type="submit">Search</button>
-                    </form>
+                        </Field>
+
+
+                        <button type="submit" disabled={isSubmitting}>Search</button>
+                    </Form>
                 )}
             </Formik>
         </div>
