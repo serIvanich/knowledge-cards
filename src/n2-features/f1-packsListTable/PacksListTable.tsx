@@ -3,9 +3,9 @@ import s from './PackListTable.module.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../n1-main/m2-bll/store";
 import {
-    CardsPacksType, deletePackTC,
-
-    PacksType,
+    CardsPacksType,
+    deletePackTC,
+    InitialStatePacksType,
     sortNameAC,
     updatePackTC
 } from '../../n1-main/m2-bll/reducers/packs-reducer';
@@ -18,7 +18,7 @@ export const PacksListTable: React.FC = () => {
     const profileId = useSelector<AppStateType, string>(state => state.profile._id)
 
 
-    const packsState = useSelector<AppStateType, PacksType>(state => state.packs)
+    const packsState = useSelector<AppStateType, InitialStatePacksType>(state => state.packs)
     let firstCardIdx = (packsState.currentPage - 1) * packsState.pageSize;
     let lastCardIdx = packsState.currentPage * packsState.pageSize - 1;
 
@@ -51,7 +51,7 @@ export const PacksListTable: React.FC = () => {
                     const dateUpdateStr = p.updated.toString().slice(0, 10)    //.split('').map(l => l === '-'? '.': l)
                     const data = `${dateUpdateStr.slice(8, 10)}.${dateUpdateStr.slice(5, 7)}.${dateUpdateStr.slice(0, 4)}`
                     return <tr key={i} className={s.tableRow}>
-                        <td className={s.tableCell}><NavLink to={routes.mainCards}>{p.name}</NavLink></td>
+                        <td className={s.tableCell}><NavLink to={`/main/cards/${p._id}/${p.name}`} >{p.name}</NavLink></td>
                         <td className={s.tableCell}>{p.cardsCount}</td>
                         <td className={s.tableCell}>{data}</td>
                         <td className={s.tableCell}>{p.user_name}</td>

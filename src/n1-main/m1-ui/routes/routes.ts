@@ -1,6 +1,6 @@
 export const routes = {
     mainPacks: '/main/packs',
-    mainCards: '/main/cards',
+    mainCards: '/main/cards/:id/:name',
     login: '/login',
     register: '/register',
     forgotPass: '/restore-pass',

@@ -8,16 +8,17 @@ import {AppStateType} from "../store";
 const initialState = {
     cardPacks: [] as Array<CardsPacksType>,
     cardPacksTotalCount: 0,
-    maxCardsCount: 0,
-    minCardsCount: 100,
+    maxCardsCount: 100,
+    minCardsCount: 0,
     page: 1,
     pageCount: 4,
     pageSize: 10,
     currentPage: 1,
     portionSize: 10
 }
+export type InitialStatePacksType = typeof initialState
 
-export const packsReducer = (state: PacksType = initialState, action: ActionsType) => {
+export const packsReducer = (state: InitialStatePacksType = initialState, action: ActionsType) => {
     switch (action.type) {
         case "packs/SET-PACKS-CARDS":
 
@@ -125,6 +126,13 @@ export type CardsPacksType = {
     updated: Date
     _v: string
 }
-export type PacksType = typeof initialState
+export type PacksType = {
+    cardPacks:  Array<CardsPacksType>
+    cardPacksTotalCount: number
+    maxCardsCount: number
+    minCardsCount: number
+    page: number
+    pageCount: number
+}
 
 

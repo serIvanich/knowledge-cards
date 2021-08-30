@@ -16,6 +16,7 @@ import {ProfileContainer} from "../components/profile/ProfileContainer";
 import {Main} from '../components/Main/Main';
 import {getPacksCardsTC} from "../../m2-bll/reducers/packs-reducer";
 import {CardsList} from "../components/Main/cardsList/CardsList";
+import {PacksList} from "../components/Main/packsList/PackList";
 
 
 function App() {
@@ -41,7 +42,7 @@ function App() {
                 <Header/>
                 <Switch>
                     <Route exact path={'/'} render={() => <Redirect to={routes.mainPacks}/>}/>
-                    <Route exact path={routes.mainPacks} render={() => <Main/>}/>
+                    <Route exact path={routes.mainPacks} render={() => <PacksList/>}/>
                     <Route exact path={routes.mainCards} render={() => <CardsList/>}/>
                     <Route path={routes.login} render={() => <LoginContainer/>}/>
                     <Route path={routes.register} render={() => <Register/>}/>

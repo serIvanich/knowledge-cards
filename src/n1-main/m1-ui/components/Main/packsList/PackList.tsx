@@ -9,11 +9,13 @@ import {CardsPacksType, getPacksCardsTC, postPackTC} from "../../../../m2-bll/re
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../../m2-bll/store";
 import Preloader from "../../../common/Preloader/Preloader";
+import {Redirect} from "react-router-dom";
+import {routes} from "../../../routes/routes";
 
 export const PacksList: React.FC = () => {
 
     const dispatch = useDispatch()
-
+    const isLogged = useSelector<AppStateType, boolean>(state => state.auth.isLogged)
 
     useEffect(() => {
         dispatch(getPacksCardsTC({}))
@@ -28,7 +30,9 @@ export const PacksList: React.FC = () => {
     const createPack = () => {
         dispatch(postPackTC())
     }
-
+if (!isLogged) {
+    return <Redirect to={routes.login}/>
+}
     return (
         <div className={s.pagesContainer}>
 
