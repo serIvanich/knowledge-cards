@@ -4,6 +4,7 @@ import {setAppStatusAC, SetAppStatusActionType} from "./app-reduser";
 import {packsApi, RequestParamsType} from "../../m3-dall/packs-api";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "../store";
+import {UpDownType} from "../../../n2-features/f1-packsListTable/PacksListTable";
 
 const initialState = {
     cardPacks: [] as Array<CardsPacksType>,
@@ -33,7 +34,47 @@ export const packsReducer = (state: InitialStatePacksType = initialState, action
 
             return {
                 ...state,
-                cardPacks: [...state.cardPacks].sort((a, b) => a.name < b.name ? -1 : 1)
+                cardPacks: [...state.cardPacks].sort((a, b) => {
+                    if (action.value) {
+                        return a.name < b.name ? -1 : 1
+                    }
+                    return a.name > b.name ? -1 : 1
+                })
+            }
+        case "packs/SORT-CARDS":
+
+            return {
+                ...state,
+                cardPacks: [...state.cardPacks]
+                    .sort((a, b) => {
+                        if (action.value) {
+                            return Number(a.cardsCount) - Number(b.cardsCount)
+                        }
+                        return Number(b.cardsCount) - Number(a.cardsCount)
+                    })
+            }
+        case "packs/SORT-FOR-UPDATE":
+
+            return {
+                ...state,
+                cardPacks: [...state.cardPacks]
+                    .sort((a, b) => {
+                        if (action.value) {
+                            return a.updated < b.updated ? -1 : 1
+                        }
+                        return a.updated > b.updated ? -1 : 1
+                    })
+            }
+        case "packs/SORT-FOR-CREATOR":
+            return {
+                ...state,
+                cardPacks: [...state.cardPacks]
+                    .sort((a,b) => {
+                        if (action.value) {
+                            return a.user_name < b.user_name? -1: 1
+                    }
+                        return a.user_name > b.user_name? -1: 1
+                    })
             }
 
         case 'packs/SET-CURRENT-PAGE':
@@ -51,7 +92,10 @@ export const packsReducer = (state: InitialStatePacksType = initialState, action
 
 export const setCurrentPage = (payload: number) => ({type: 'packs/SET-CURRENT-PAGE', payload} as const)
 const setPacksCardsAC = (payload: PacksType) => ({type: 'packs/SET-PACKS-CARDS', payload} as const)
-export const sortNameAC = () => ({type: 'packs/SORT-NAME'} as const)
+export const sortNameAC = (value: boolean) => ({type: 'packs/SORT-NAME', value} as const)
+export const sortCardsAC = (value: boolean) => ({type: 'packs/SORT-CARDS', value} as const)
+export const sortForUpdateAC = (value: boolean) => ({type: 'packs/SORT-FOR-UPDATE', value} as const)
+export const sortForCreatorAC = (value: boolean) => ({type: 'packs/SORT-FOR-CREATOR', value} as const)
 
 
 export const getPacksCardsTC = (params: RequestParamsType) => async (dispatch: Dispatch) => {
@@ -108,6 +152,9 @@ type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsType>
 type ActionsType = ReturnType<typeof setPacksCardsAC>
     | ReturnType<typeof sortNameAC>
     | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof sortCardsAC>
+    | ReturnType<typeof sortForUpdateAC>
+    | ReturnType<typeof sortForCreatorAC>
     | SetAppStatusActionType
 
 
