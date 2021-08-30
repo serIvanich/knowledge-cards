@@ -1,6 +1,7 @@
 import React from 'react'
 import {UserProfileType} from "../../../m2-bll/reducers/profile-reducer";
 import s from './Profile.module.scss'
+import {DoubleSliderContainer} from "../../../../n2-features/f6-doubleSlider/DoubleSliderContainer";
 
 type ProfilePropsType = {
     isLogged: boolean
@@ -16,7 +17,6 @@ export const Profile: React.FC<ProfilePropsType> = ({isLogged, profile, isLogout
     // }
     return (
         <div className={s.profileSidebar}>
-            <h1>PROFILE</h1>
             <div className={s.infoBlock}>
                 <div>my name: {name}</div>
                 <div>
@@ -28,6 +28,10 @@ export const Profile: React.FC<ProfilePropsType> = ({isLogged, profile, isLogout
             </div>
             <div className={s.buttonLogout}>
                 <button onClick={isLogout}>logout</button>
+            </div>
+
+            <div>
+                <DoubleSliderContainer />
             </div>
         </div>
     )
