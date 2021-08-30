@@ -17,10 +17,10 @@ export const ToggleMyPacks: React.FC = () => {
     return (
         <div className={s.buttonMyAll}>
             Show packs cards
-            <div className={ss.buttonContainer}>
+            
                 <button onClick={showMyPacks}>My</button>
                 <button onClick={showAllPacks}>All</button>
-            </div>
+
         </div>
     )
 }
