@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {DoubleSlider} from './DoubleSlider';
+import s from './DoubleSlider.module.scss'
 
 export const DoubleSliderContainer: React.FC = () => {
     const [value1, setValue1] = useState(0);
@@ -12,11 +13,13 @@ export const DoubleSliderContainer: React.FC = () => {
     return (
         <div>
             Number of cards
-            <div>
-                <span>{value1}</span>
+            <div className={s.doubleSliderContainer}>
+                <div className={s.valueWrapper}>
+                    <span>{value1}</span>
+                    <span>{value2}</span>
+                </div>
                 <DoubleSlider value={[value1, value2]}
                               onChangeRange={handleChange}/>
-                <span>{value2}</span>
             </div>
         </div>
     )

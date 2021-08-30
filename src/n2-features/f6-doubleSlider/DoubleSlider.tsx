@@ -13,7 +13,7 @@ export const DoubleSlider: React.FC<SuperDoubleRangePropsType> = ({onChangeRange
     return (
         <div>
             <Slider
-                style={{width: '250px', color: 'indianred', height: '24px'}}
+                style={{width: '250px', color: 'darkblue', height: '15px'}}
                 value={value}
                 onChange={handleChange}
             />

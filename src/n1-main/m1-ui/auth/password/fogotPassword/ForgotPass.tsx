@@ -14,7 +14,7 @@ export const ForgotPass: React.FC<ForgotPropsType> = React.memo(({error, formik}
 
     return (
         <>
-            {/*{error && <div className={s.error}>{error}</div>}*/}
+            {error && <div className={s.error}>{error}</div>}
 
             <form onSubmit={formik.handleSubmit}>
                 <div className={s.formContainer}>
