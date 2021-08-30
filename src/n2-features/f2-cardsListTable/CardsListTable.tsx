@@ -37,8 +37,21 @@ export const CardsListTable: React.FC<{disabled:boolean}> = ({disabled}) => {
                         <td className={s.tableCell}>{data}</td>
                         <td className={s.tableCell}>{c.grade}</td>
                         <td className={s.tableCell}>
-                            <button onClick={() => deleteCard(c._id, c.cardsPack_id)} disabled={disabled}>delete</button>
-                            <button onClick={() => updateCard(c._id, c.cardsPack_id)} disabled={disabled}>edit</button>
+                            <div className={s.buttonInTableContainer}>
+                                <div className={s.buttonInTable}>
+                                    <button onClick={() => deleteCard(c._id, c.cardsPack_id)} disabled={disabled}>
+                                        delete
+                                    </button>
+                                </div>
+                                <div className={s.buttonInTable}>
+                                    <button onClick={() => updateCard(c._id, c.cardsPack_id)} disabled={disabled}>
+                                        edit
+                                    </button>
+                                </div>
+
+                            </div>
+
+
                         </td>
 
 

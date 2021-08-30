@@ -1,5 +1,6 @@
 
 .tableBlock {
+  min-width: 40%;
   margin: 2vh 0;
   display: table;
   border: 2px solid gainsboro;
@@ -11,17 +12,43 @@
 
     .tableCell {
 
+
       .buttonInTableContainer {
 
         display: flex;
         justify-content: space-around;
 
 
-        .buttonInTable {
+        .buttonInTable button {
 
-          margin: 2px 2px;
-          text-align: center;
+          appearance: none;
+          border: 0;
+          border-radius: 5px;
+          background: lightslategray;
+          color: #fff;
+          margin-top: 2px;
+          padding: 3px 6px;
+          font-size: 16px;
+
         }
+
+        .buttonInTable button[disabled] {
+          opacity: 0.5;
+          color: #d2d5db;
+          background: #6c7589;
+          cursor: not-allowed;
+        }
+
+        .buttonInTable button:hover {
+          background: mintcream;
+          color: lightslategray;
+        }
+
+        .buttonInTable button:focus {
+          outline: none;
+          box-shadow: 0 0 0 4px #cbd6ee;
+        }
+
       }
     }
 
