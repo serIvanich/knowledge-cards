@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import s from '../../profile/Profile.module.scss';
 import {Search} from '../../../../../n2-features/f4-search/Search';
 import {PacksListTable} from '../../../../../n2-features/f1-packsListTable/PacksListTable';
@@ -11,13 +11,16 @@ import Preloader from '../../../common/Preloader/Preloader';
 import {DoubleSliderContainer} from '../../../../../n2-features/f6-doubleSlider/DoubleSliderContainer';
 import {Redirect} from "react-router-dom";
 import {routes} from "../../../routes/routes";
+import {SelectNumberItems} from "../../../../../n2-features/f7-selectNumberItems/SelectNumberItems";
+
 export const PacksList: React.FC = () => {
 
     const dispatch = useDispatch()
     const isLogged = useSelector<AppStateType, boolean>(state => state.auth.isLogged)
-
+    const pageCount = useSelector<AppStateType, number>(state => state.packs.pageCount)
+    const [valueSelect, setValueSelect] = useState<number>(pageCount)
     useEffect(() => {
-        dispatch(getPacksCardsTC({}))
+        dispatch(getPacksCardsTC({pageCount}))
     }, [])
 
 
@@ -29,13 +32,14 @@ export const PacksList: React.FC = () => {
     const createPack = () => {
         dispatch(postPackTC())
     }
-if (!isLogged) {
-    return <Redirect to={routes.login}/>
-}
+    if (!isLogged) {
+        return <Redirect to={routes.login}/>
+    }
     return (
         <div className={s.pagesContainer}>
 
             <div className={s.sideBar}>
+
                 <ToggleMyPacks/>
                 <DoubleSliderContainer/>
             </div>
@@ -48,7 +52,10 @@ if (!isLogged) {
                     </div>
                 </div>
                 <PacksListTable/>
-                <Paginator/>
+                <div className={s.paginatorBlock}>
+                    <Paginator/>
+                    <SelectNumberItems pageCount={pageCount}/>
+                </div>
             </div>
 
 

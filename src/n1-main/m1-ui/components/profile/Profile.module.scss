@@ -85,3 +85,9 @@
   outline: none;
   box-shadow: 0 0 0 4px brown;
 }
+
+.paginatorBlock {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
