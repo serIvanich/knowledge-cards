@@ -1,25 +1,37 @@
 
 .pagesContainer {
+  width: 100%;
+  //min-height: 50%;
   margin: 1vw;
+  //display: grid;
+  //grid-template-columns: 1.5fr 6fr;
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
 
 
   .sideBar {
-
-    height: 85vh;
-    width: 25%;
+    width: 22%;
+    //min-height: 20vh;
+    padding-left: 1vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     background-color: floralwhite;
   }
-  .mainPart {
 
-   width: 70.5%;
+  .mainPart {
+    width: 73%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 0 2vw;
+    flex-wrap: wrap;
+    padding: 0 1.5vw;
     background-color: aliceblue;
+
+    .searchBlock {
+      display: flex;
+      justify-content: space-between;
+    }
   }
 
 
@@ -30,14 +42,46 @@
   padding-left: 1vw;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: flex-start;
+
+  justify-content: space-around;
 
   .infoBlock {
 
   }
-  .buttonLogout {
-
+  .buttonLogout button {
+    appearance: none;
+    border: 0;
+    border-radius: 5px;
+    background: salmon;
+    color: #fff;
+    margin: 5px;
+    padding: 8px 13px;
+    font-size: 16px;
   }
+  .buttonLogout button:hover {
+    background: crimson;
+  }
+
+
+
 }
 
+.buttonMyAll button {
+  appearance: none;
+  border: 0;
+  border-radius: 5px;
+  background: salmon;
+  color: #fff;
+  margin: 5px;
+  padding: 8px 13px;
+  font-size: 16px;
+}
+
+.buttonMyAll button:hover {
+  background: crimson;
+}
+
+.buttonMyAll button:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px brown;
+}

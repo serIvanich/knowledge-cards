@@ -2,12 +2,12 @@ import React, {useState} from 'react';
 import s from './Paginator.module.scss'
 import {AppStateType} from "../../n1-main/m2-bll/store";
 import {useDispatch, useSelector} from "react-redux";
-import {PacksType} from "../../n1-main/m2-bll/reducers/packs-reducer";
+import {InitialStatePacksType, PacksType} from "../../n1-main/m2-bll/reducers/packs-reducer";
 import {setCurrentPage} from "../../n1-main/m2-bll/reducers/packs-reducer";
 
 
 export const Paginator = () => {
-    const packsState = useSelector<AppStateType, PacksType>(
+    const packsState = useSelector<AppStateType, InitialStatePacksType>(
         state => state.packs)
     const dispatch = useDispatch()
 

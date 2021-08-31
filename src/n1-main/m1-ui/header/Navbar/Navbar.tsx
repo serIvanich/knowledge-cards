@@ -15,7 +15,7 @@ export const Navbar: React.FC = () => {
             <nav className={s.navLinksBox}>
 
                 <div className={s.navLink}>
-                    <NavLink to={routes.main}>Packs list</NavLink>
+                    <NavLink to={routes.mainPacks}>Packs list</NavLink>
                 </div>
                 |
                 <div className={s.navLink}>

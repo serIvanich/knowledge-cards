@@ -10,7 +10,7 @@ export const FakeNavbar: React.FC = () => {
         <nav>
             <div className={s.nav}>
                 <div className={s.item}>
-                    <NavLink to={routes.main} activeClassName={s.activeLink}>main </NavLink>|
+                    <NavLink to={routes.mainPacks} activeClassName={s.activeLink}>main </NavLink>|
                 </div>
                 <div className={s.item}>
                     <NavLink to={routes.login} activeClassName={s.activeLink} >login </NavLink>|

@@ -37,7 +37,7 @@ export const ProfileContainer: React.FC = () => {
             <div className={s.mainPart}>
                 <h2>{name}</h2>
                 <Search/>
-                <PacksListTable/>
+                <PacksListTable />
                 <Paginator />
             </div>
 

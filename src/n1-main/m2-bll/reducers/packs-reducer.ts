@@ -1,40 +1,63 @@
-import {handleServerNetworkError} from "../../../utils/error-utils";
-import {Dispatch} from "redux";
-import {setAppStatusAC} from "./app-reduser";
-import {packsApi, RequestParamsType} from "../../m3-dall/packs-api";
+import {handleServerNetworkError} from '../../../utils/error-utils';
+import {Dispatch} from 'redux';
+import {setAppStatusAC, SetAppStatusActionType} from './app-reduser';
+import {packsApi, RequestParamsType} from '../../m3-dall/packs-api';
+import {ThunkAction} from 'redux-thunk';
+import {AppStateType} from '../store';
 
 const initialState = {
     cardPacks: [] as Array<CardsPacksType>,
     cardPacksTotalCount: 0,
-    maxCardsCount: 0,
-    minCardsCount: 100,
+    maxCardsCount: 100,
+    minCardsCount: 0,
     page: 1,
     pageCount: 4,
     pageSize: 10,
     currentPage: 1,
-    portionSize: 10
+    portionSize: 10,
+    myPacks: false,
 }
+export type InitialStatePacksType = typeof initialState
 
-export const packsReducer = (state: PacksType = initialState, action: ActionType) => {
+export const packsReducer = (state: InitialStatePacksType = initialState, action: ActionsType) => {
     switch (action.type) {
-        case "packs/SET-PACKS-CARDS":
+        case 'packs/SET-PACKS-CARDS':
 
-            const newState = {...state,
+            const newState = {
+                ...state,
                 ...action.payload,
-                cardPacks: [...action.payload.cardPacks]}
+                cardPacks: [...action.payload.cardPacks]
+            }
             return newState
 
-        case "packs/SORT-NAME":
+        case 'packs/SORT-NAME':
 
             return {
                 ...state,
-                cardPacks: [...state.cardPacks].sort((a, b) => a.name < b.name? -1: 1)
+                cardPacks: [...state.cardPacks].sort((a, b) => a.name < b.name ? -1 : 1)
             }
 
         case 'packs/SET-CURRENT-PAGE':
             return {
                 ...state,
                 currentPage: action.payload
+            };
+
+        case 'packs/SET-MY-PACKS':
+            return {
+                ...state,
+                myPacks: action.myPacks
+            };
+        case 'packs/SET-USER-ID':
+            return {
+                ...state,
+                user_id: action.userId
+            };
+        case 'packs/SET-MIN-MAX-VALUE':
+            return {
+                ...state,
+                min: action.newMin,
+                max: action.newMax
             };
 
         default:
@@ -44,10 +67,13 @@ export const packsReducer = (state: PacksType = initialState, action: ActionType
 }
 
 
-
-export const setCurrentPage = (payload: number ) => ({type: 'packs/SET-CURRENT-PAGE', payload} as const )
+export const setCurrentPage = (payload: number) => ({type: 'packs/SET-CURRENT-PAGE', payload} as const)
 const setPacksCardsAC = (payload: PacksType) => ({type: 'packs/SET-PACKS-CARDS', payload} as const)
 export const sortNameAC = () => ({type: 'packs/SORT-NAME'} as const)
+export const setMyPacksAC = (myPacks: boolean) => ({type: 'packs/SET-MY-PACKS', myPacks} as const)
+export const setUserIdAC = (userId: string) => ({type: 'packs/SET-USER-ID', userId} as const)
+export const setMinMaxValueAC = ([newMin, newMax]: number[]) => ({type: 'packs/SET-MIN-MAX-VALUE', newMin, newMax} as const)
+
 
 export const getPacksCardsTC = (params: RequestParamsType) => async (dispatch: Dispatch) => {
     try {
@@ -61,10 +87,52 @@ export const getPacksCardsTC = (params: RequestParamsType) => async (dispatch: D
         dispatch(setAppStatusAC('succeeded'))
     }
 }
+export const postPackTC = (): ThunkType => async (dispatch) => {
+    try {
+        dispatch(setAppStatusAC('loading'))
 
-type ActionType = ReturnType<typeof setPacksCardsAC>
+        const data = await packsApi.createPack({name: 'first fix packName'})
+        dispatch(getPacksCardsTC({}))
+    } catch (e) {
+        handleServerNetworkError(e, dispatch)
+    } finally {
+        dispatch(setAppStatusAC('succeeded'))
+    }
+}
+export const deletePackTC = (id: string): ThunkType => async (dispatch) => {
+    try {
+        dispatch(setAppStatusAC('loading'))
+
+        const data = await packsApi.deletePacks(id)
+        dispatch(getPacksCardsTC({}))
+    } catch (e) {
+        handleServerNetworkError(e, dispatch)
+    } finally {
+        dispatch(setAppStatusAC('succeeded'))
+    }
+}
+export const updatePackTC = (id: string): ThunkType => async (dispatch) => {
+    try {
+        dispatch(setAppStatusAC('loading'))
+
+        const data = await packsApi.updatePack({_id: id, name: 'update packName'})
+        dispatch(getPacksCardsTC({}))
+    } catch (e) {
+        handleServerNetworkError(e, dispatch)
+    } finally {
+        dispatch(setAppStatusAC('succeeded'))
+    }
+}
+
+
+type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsType>
+type ActionsType = ReturnType<typeof setPacksCardsAC>
     | ReturnType<typeof sortNameAC>
     | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setMyPacksAC>
+    | ReturnType<typeof setUserIdAC>
+    | ReturnType<typeof setMinMaxValueAC>
+    | SetAppStatusActionType
 
 
 export type CardsPacksType = {
@@ -82,6 +150,13 @@ export type CardsPacksType = {
     updated: Date
     _v: string
 }
-export type PacksType = typeof initialState
+export type PacksType = {
+    cardPacks: Array<CardsPacksType>
+    cardPacksTotalCount: number
+    maxCardsCount: number
+    minCardsCount: number
+    page: number
+    pageCount: number
+}
 
 

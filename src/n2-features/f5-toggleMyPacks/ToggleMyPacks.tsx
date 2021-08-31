@@ -1,25 +1,15 @@
-import React from 'react'
-import s from './ToggleMyPacks.module.scss'
-import {useDispatch} from 'react-redux';
-import {getPacksCardsTC} from '../../n1-main/m2-bll/reducers/packs-reducer';
+import React, {useState} from 'react'
+import s from '../../n1-main/m1-ui/components/profile/Profile.module.scss'
 
-export const ToggleMyPacks: React.FC = () => {
-    const dispatch = useDispatch()
-    const showAllPacks = () => {
-        dispatch(getPacksCardsTC({}))
-    }
+type ToggleMyPacksType = {
+    onClick: () => void
+}
 
-    const showMyPacks = () => {
-        // dispatch(getMyPacksTC({user_id: userId}))
-    }
-
+export const ToggleMyPacks: React.FC<ToggleMyPacksType> = ({onClick}) => {
     return (
-        <div>
-            Show packs cards
-            <div className={s.buttonContainer}>
-                <button onClick={showMyPacks}>My</button>
-                <button onClick={showAllPacks}>All</button>
-            </div>
+        <div className={s.buttonMyAll}>
+            <button onClick={onClick}>My</button>
+            <button>All</button>
         </div>
     )
 }

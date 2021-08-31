@@ -15,6 +15,8 @@ import ForgotContainerPass from '../auth/password/fogotPassword/ForgotContainerP
 import {ProfileContainer} from "../components/profile/ProfileContainer";
 import {Main} from '../components/Main/Main';
 import {getPacksCardsTC} from "../../m2-bll/reducers/packs-reducer";
+import {CardsList} from "../components/Main/cardsList/CardsList";
+import {PacksList} from "../components/Main/packsList/PackList";
 
 
 function App() {
@@ -22,7 +24,6 @@ function App() {
     const isInitialized = useSelector<AppStateType, boolean>(state => state.app.isInitialized)
     const status = useSelector<AppStateType, RequestStatusType>(state => state.app.status)
     useEffect(() => {
-
         if (!isInitialized) {
             dispatch(initializeAppTC())
         }
@@ -40,8 +41,9 @@ function App() {
             <div className={appCss}>
                 <Header/>
                 <Switch>
-                    <Route exact path={'/'} render={() => <Redirect to={routes.main}/>}/>
-                    <Route exact path={routes.main} render={() => <Main/>}/>
+                    <Route exact path={'/'} render={() => <Redirect to={routes.mainPacks}/>}/>
+                    <Route exact path={routes.mainPacks} render={() => <PacksList />}/>
+                    <Route exact path={routes.mainCards} render={() => <CardsList/>}/>
                     <Route path={routes.login} render={() => <LoginContainer/>}/>
                     <Route path={routes.register} render={() => <Register/>}/>
                     <Route path={routes.setPass} render={() => <SetPass/>}/>
