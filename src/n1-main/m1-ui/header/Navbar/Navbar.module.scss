@@ -1,30 +1,34 @@
 .navLoginContainer {
-   width: 100%;
-   height: 10vh;
-   display: flex;
-   flex-direction: row;
-   flex-wrap: wrap;
-   justify-content: space-between;
-   align-content: center;
+  width: 100%;
+  height: 10vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: center;
 
-   background-color: #E5E5E5;
-   color: cadetblue;
-   font-size: 2.5vh;
+  background-color: #E5E5E5;
+  color: cadetblue;
+  font-size: 2.5vh;
 
-   .navLogotype{
-      margin-left: 2vw;
-   }
+  .navLogotype {
+    margin-left: 2vw;
+  }
 
-   .navLinksBox{
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      margin-right: 2vw;
+  .navLinksBox {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-right: 2vw;
 
-      .navLink{
+    .navLink {
 
-         margin: 0 1vw;
-      }
-   }
+      margin: 0 1vw;
+    }
+    .activeLink {
+      color: salmon;
+    }
+
+  }
 }
 
