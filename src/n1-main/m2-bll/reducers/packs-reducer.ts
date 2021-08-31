@@ -13,7 +13,8 @@ const initialState = {
     page: 1,
     pageCount: 10,
     pageSize: 10,
-    portionSize: 10
+    portionSize: 10,
+    term:'',
 }
 export type InitialStatePacksType = typeof initialState
 
@@ -34,21 +35,12 @@ export const packsReducer = (state: InitialStatePacksType = initialState, action
                 cardPacks: [...state.cardPacks].sort((a, b) => a.name < b.name ? -1 : 1)
             }
 
-        case 'packs/CHANGE-PAGE':
-            return {
-                ...state,
-                page: action.payload.page,
-                cardPacks: action.payload.cardPacks,
-            };
-
         default:
             return state
     }
-
 }
 
 
-export const setPacksCardsByPage = (payload: { cardPacks: Array<CardsPacksType>, page:number, pageCount?:number }) => ({type: 'packs/CHANGE-PAGE', payload} as const)
 const setPacksCardsAC = (payload: PacksType) => ({type: 'packs/SET-PACKS-CARDS', payload} as const)
 export const sortNameAC = () => ({type: 'packs/SORT-NAME'} as const)
 
@@ -100,22 +92,13 @@ export const updatePackTC = (id: string): ThunkType => async (dispatch) => {
         dispatch(setAppStatusAC('succeeded'))
     }
 }
-export const getPacksCardsByPage = (page:number) => async (dispatch:Dispatch) => {
-    try {
-        dispatch(setAppStatusAC('loading'))
-        const res = await packsApi.getPacksByPage(page)
-        dispatch(setPacksCardsByPage({ cardPacks:res.data.cardPacks, page }))
-    } catch (e) {
-        alert(e.response.data.error)
-    } finally {
-        dispatch(setAppStatusAC('succeeded'))
-    }
-}
+
+
+
 
 type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsType>
 type ActionsType = ReturnType<typeof setPacksCardsAC>
     | ReturnType<typeof sortNameAC>
-    | ReturnType<typeof setPacksCardsByPage>
     | SetAppStatusActionType
 
 
