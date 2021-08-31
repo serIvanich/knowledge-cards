@@ -11,9 +11,8 @@ const initialState = {
     maxCardsCount: 100,
     minCardsCount: 0,
     page: 1,
-    pageCount: 4,
+    pageCount: 10,
     pageSize: 10,
-    currentPage: 1,
     portionSize: 10
 }
 export type InitialStatePacksType = typeof initialState
@@ -35,16 +34,11 @@ export const packsReducer = (state: InitialStatePacksType = initialState, action
                 cardPacks: [...state.cardPacks].sort((a, b) => a.name < b.name ? -1 : 1)
             }
 
-        case 'packs/CHANGE-CURRENT-PAGE-AND-PACKS':
-            debugger
-            const firstCardIdx = (state.currentPage - 1) * state.pageSize;
-            let lastCardIdx = state.currentPage * state.pageSize - 1;
+        case 'packs/CHANGE-PAGE':
             return {
                 ...state,
-                currentPage: action.payload,
-                cardPacks:
-                    [...state.cardPacks]
-                    .filter((p, idx) => firstCardIdx >= idx || idx <= lastCardIdx)
+                page: action.payload.page,
+                cardPacks: action.payload.cardPacks,
             };
 
         default:
@@ -54,7 +48,7 @@ export const packsReducer = (state: InitialStatePacksType = initialState, action
 }
 
 
-export const changeCurrentPageAndPacks = (payload: number) => ({type: 'packs/CHANGE-CURRENT-PAGE-AND-PACKS', payload} as const)
+export const setPacksCardsByPage = (payload: { cardPacks: Array<CardsPacksType>, page:number, pageCount?:number }) => ({type: 'packs/CHANGE-PAGE', payload} as const)
 const setPacksCardsAC = (payload: PacksType) => ({type: 'packs/SET-PACKS-CARDS', payload} as const)
 export const sortNameAC = () => ({type: 'packs/SORT-NAME'} as const)
 
@@ -106,12 +100,22 @@ export const updatePackTC = (id: string): ThunkType => async (dispatch) => {
         dispatch(setAppStatusAC('succeeded'))
     }
 }
-
+export const getPacksCardsByPage = (page:number) => async (dispatch:Dispatch) => {
+    try {
+        dispatch(setAppStatusAC('loading'))
+        const res = await packsApi.getPacksByPage(page)
+        dispatch(setPacksCardsByPage({ cardPacks:res.data.cardPacks, page }))
+    } catch (e) {
+        alert(e.response.data.error)
+    } finally {
+        dispatch(setAppStatusAC('succeeded'))
+    }
+}
 
 type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsType>
 type ActionsType = ReturnType<typeof setPacksCardsAC>
     | ReturnType<typeof sortNameAC>
-    | ReturnType<typeof changeCurrentPageAndPacks>
+    | ReturnType<typeof setPacksCardsByPage>
     | SetAppStatusActionType
 
 

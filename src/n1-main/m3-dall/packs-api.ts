@@ -15,6 +15,9 @@ export const packsApi = {
     deletePacks(id: string) {
 
         return instance.delete(`cards/pack?id=${id}`)
+    },
+    getPacksByPage(page:number, pageCount:number = 10) {
+        return instance.get<PacksType>(`cards/pack?page=${page}&pageCount${pageCount}`)
     }
 }
 
