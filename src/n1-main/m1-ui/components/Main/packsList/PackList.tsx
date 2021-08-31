@@ -1,9 +1,8 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import s from '../../profile/Profile.module.scss';
 import {Search} from '../../../../../n2-features/f4-search/Search';
 import {PacksListTable} from '../../../../../n2-features/f1-packsListTable/PacksListTable';
 import {Paginator} from '../../../../../n2-features/f3-paginator/Paginator';
-import {ToggleMyPacks} from '../../../../../n2-features/f5-toggleMyPacks/ToggleMyPacks';
 import {CardsPacksType, getPacksCardsTC, postPackTC} from '../../../../m2-bll/reducers/packs-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppStateType} from '../../../../m2-bll/store';
@@ -13,12 +12,14 @@ import {Redirect} from "react-router-dom";
 import {routes} from "../../../routes/routes";
 import {SelectNumberItems} from "../../../../../n2-features/f7-selectNumberItems/SelectNumberItems";
 
+
+import {ToggleMyPacksContainer} from '../../../../../n2-features/f5-toggleMyPacks/ToggleMyPacksContainer';
+
 export const PacksList: React.FC = () => {
 
     const dispatch = useDispatch()
     const isLogged = useSelector<AppStateType, boolean>(state => state.auth.isLogged)
     const pageCount = useSelector<AppStateType, number>(state => state.packs.pageCount)
-    const [valueSelect, setValueSelect] = useState<number>(pageCount)
     useEffect(() => {
         dispatch(getPacksCardsTC({pageCount}))
     }, [])
@@ -39,8 +40,7 @@ export const PacksList: React.FC = () => {
         <div className={s.pagesContainer}>
 
             <div className={s.sideBar}>
-
-                <ToggleMyPacks/>
+                <ToggleMyPacksContainer/>
                 <DoubleSliderContainer/>
             </div>
             <div className={s.mainPart}>

@@ -38,7 +38,6 @@ export type ResponseCardsType = {
     page: number
     pageCount: number
     packUserId: string
-
 }
 
 export type CardType = {

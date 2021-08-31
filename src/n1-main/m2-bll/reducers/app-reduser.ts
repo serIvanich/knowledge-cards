@@ -3,13 +3,15 @@ import {handleServerNetworkError} from "../../../utils/error-utils";
 import {authApi} from "../../m3-dall/app-api";
 import {isLoggedAC} from "./auth-reducer";
 import {setUserProfileAC} from "./profile-reducer";
+import {CardsPacksType} from './packs-reducer';
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
 const initialState = {
     status: 'succeeded' as RequestStatusType,
     error: null as string | null,
-    isInitialized: false
+    isInitialized: false,
+    dataUser: {} as CardsPacksType | null
 }
 
 export type AppInitialStateType = typeof initialState

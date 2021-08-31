@@ -1,9 +1,9 @@
-import {handleServerNetworkError} from "../../../utils/error-utils";
-import {Dispatch} from "redux";
-import {setAppStatusAC, SetAppStatusActionType} from "./app-reduser";
-import {packsApi, RequestParamsType} from "../../m3-dall/packs-api";
-import {ThunkAction} from "redux-thunk";
-import {AppStateType} from "../store";
+import {handleServerNetworkError} from '../../../utils/error-utils';
+import {Dispatch} from 'redux';
+import {setAppStatusAC, SetAppStatusActionType} from './app-reduser';
+import {packsApi, RequestParamsType} from '../../m3-dall/packs-api';
+import {ThunkAction} from 'redux-thunk';
+import {AppStateType} from '../store';
 
 const initialState = {
     cardPacks: [] as Array<CardsPacksType>,
@@ -11,16 +11,19 @@ const initialState = {
     maxCardsCount: 100,
     minCardsCount: 0,
     page: 1,
-    pageCount: 10,
+    pageCount: 4,
     pageSize: 10,
     portionSize: 10,
     term:'',
+    myPacks: false,
 }
 export type InitialStatePacksType = typeof initialState
 
 export const packsReducer = (state: InitialStatePacksType = initialState, action: ActionsType) => {
     switch (action.type) {
-        case "packs/SET-PACKS-CARDS":
+
+        case 'packs/SET-PACKS-CARDS':
+
             const newState = {
                 ...state,
                 ...action.payload,
@@ -28,7 +31,7 @@ export const packsReducer = (state: InitialStatePacksType = initialState, action
             }
             return newState
 
-        case "packs/SORT-NAME":
+        case 'packs/SORT-NAME':
 
             return {
                 ...state,
@@ -75,6 +78,23 @@ export const packsReducer = (state: InitialStatePacksType = initialState, action
                     })
             }
 
+        case 'packs/SET-MY-PACKS':
+            return {
+                ...state,
+                myPacks: action.myPacks
+            };
+        case 'packs/SET-USER-ID':
+            return {
+                ...state,
+                user_id: action.userId
+            };
+        case 'packs/SET-MIN-MAX-VALUE':
+            return {
+                ...state,
+                min: action.newMin,
+                max: action.newMax
+            };
+
         default:
             return state
     }
@@ -87,6 +107,9 @@ export const sortNameAC = (value: boolean) => ({type: 'packs/SORT-NAME', value} 
 export const sortCardsAC = (value: boolean) => ({type: 'packs/SORT-CARDS', value} as const)
 export const sortForUpdateAC = (value: boolean) => ({type: 'packs/SORT-FOR-UPDATE', value} as const)
 export const sortForCreatorAC = (value: boolean) => ({type: 'packs/SORT-FOR-CREATOR', value} as const)
+export const setMyPacksAC = (myPacks: boolean) => ({type: 'packs/SET-MY-PACKS', myPacks} as const)
+export const setUserIdAC = (userId: string) => ({type: 'packs/SET-USER-ID', userId} as const)
+export const setMinMaxValueAC = ([newMin, newMax]: number[]) => ({type: 'packs/SET-MIN-MAX-VALUE', newMin, newMax} as const)
 
 
 export const getPacksCardsTC = (params: RequestParamsType) => async (dispatch: Dispatch) => {
@@ -152,6 +175,10 @@ type ActionsType = ReturnType<typeof setPacksCardsAC>
     | ReturnType<typeof sortForUpdateAC>
     | ReturnType<typeof sortForCreatorAC>
 
+
+    | ReturnType<typeof setMyPacksAC>
+    | ReturnType<typeof setUserIdAC>
+    | ReturnType<typeof setMinMaxValueAC>
     | SetAppStatusActionType
 
 
