@@ -2,19 +2,22 @@ import React, {useState} from 'react';
 import s from './Paginator.module.scss'
 import {AppStateType} from "../../n1-main/m2-bll/store";
 import {useDispatch, useSelector} from "react-redux";
-import {changeCurrentPageAndPacks, InitialStatePacksType} from "../../n1-main/m2-bll/reducers/packs-reducer";
+import {
+    getPacksCardsTC,
+    InitialStatePacksType
+} from "../../n1-main/m2-bll/reducers/packs-reducer";
 
 
-export const Paginator = () => {
+export const Paginator = React.memo(() => {
     const packsState = useSelector<AppStateType, InitialStatePacksType>(
         state => state.packs)
     const dispatch = useDispatch()
 
     const {
-
         cardPacksTotalCount,
         pageSize,
-        currentPage,
+        pageCount,
+        page,
         portionSize
     } = packsState
 
@@ -35,33 +38,36 @@ export const Paginator = () => {
     return (
         <div className={s.paginator}>
             <div className={s.paginatorContainer}>
+                { pageCount > 10 &&
                 <button
                     className = {s.paginatorBtn}
                     disabled={ !(portionNumber > 1) }
                     onClick={() => setPortionNumber(portionNumber - 1)}>
                     {'<<<'}
-                </button>
+                </button>}
                 <div className={s.pageNumbersBlock}>
                     {
                         pages
                             .filter (p => p>= leftPortionPageNumber && p<= rightPortionPageNumber)
                             .map((p) => {
-                                return <div className={`${s.pageNumber} ${currentPage === p ? s.selectedPage:''}`}
-                                             key = {p}
-                                             onClick={ () => dispatch(changeCurrentPageAndPacks(p))  }> {p}</div>
+                                return <div className={`${s.pageNumber} ${page === p ? s.selectedPage:''}`}
+                                            key = {p}
+                                            onClick={ () => dispatch(getPacksCardsTC({page: p}))  }> {p}</div>
                             })
 
                     }
                 </div>
+                { pageCount > 10 &&
                 <button
                     className = {s.paginatorBtn}
                     disabled={ !(portionCount > portionNumber) }
-                        onClick={() => setPortionNumber(portionNumber + 1)}>
+                    onClick={() => setPortionNumber(portionNumber + 1)}>
                     {'>>>'}
-                </button>
+                </button> }
+
             </div>
 
         </div>
     )
-}
+})
 

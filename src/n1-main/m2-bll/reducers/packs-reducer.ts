@@ -11,10 +11,10 @@ const initialState = {
     maxCardsCount: 100,
     minCardsCount: 0,
     page: 1,
-    pageCount: 4,
+    pageCount: 10,
     pageSize: 10,
-    currentPage: 1,
-    portionSize: 10
+    portionSize: 10,
+    term:'',
 }
 export type InitialStatePacksType = typeof initialState
 
@@ -75,18 +75,6 @@ export const packsReducer = (state: InitialStatePacksType = initialState, action
                     })
             }
 
-        case 'packs/CHANGE-CURRENT-PAGE-AND-PACKS':
-            debugger
-            const firstCardIdx = (state.currentPage - 1) * state.pageSize;
-            let lastCardIdx = state.currentPage * state.pageSize - 1;
-            return {
-                ...state,
-                currentPage: action.payload,
-                cardPacks:
-                    [...state.cardPacks]
-                        .filter((p, idx) => firstCardIdx >= idx || idx <= lastCardIdx)
-            };
-
         default:
             return state
     }
@@ -94,10 +82,6 @@ export const packsReducer = (state: InitialStatePacksType = initialState, action
 }
 
 
-export const changeCurrentPageAndPacks = (payload: number) => ({
-    type: 'packs/CHANGE-CURRENT-PAGE-AND-PACKS',
-    payload
-} as const)
 const setPacksCardsAC = (payload: PacksType) => ({type: 'packs/SET-PACKS-CARDS', payload} as const)
 export const sortNameAC = (value: boolean) => ({type: 'packs/SORT-NAME', value} as const)
 export const sortCardsAC = (value: boolean) => ({type: 'packs/SORT-CARDS', value} as const)
@@ -163,11 +147,11 @@ type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsType>
 type ActionsType = ReturnType<typeof setPacksCardsAC>
     | ReturnType<typeof sortNameAC>
 
-    | ReturnType<typeof changeCurrentPageAndPacks>
+
     | ReturnType<typeof sortCardsAC>
     | ReturnType<typeof sortForUpdateAC>
     | ReturnType<typeof sortForCreatorAC>
-    | ReturnType<typeof changeCurrentPageAndPacks>
+
     | SetAppStatusActionType
 
 
@@ -187,7 +171,7 @@ export type CardsPacksType = {
     _v: string
 }
 export type PacksType = {
-    cardPacks: Array<CardsPacksType>
+    cardPacks:  Array<CardsPacksType>
     cardPacksTotalCount: number
     maxCardsCount: number
     minCardsCount: number
