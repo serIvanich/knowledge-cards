@@ -1,9 +1,11 @@
 import React from 'react'
 import s from './Search.module.scss'
 import {Field, Form, Formik} from "formik";
+import { getPacksCardsTC} from "../../n1-main/m2-bll/reducers/packs-reducer";
+import {useDispatch} from "react-redux";
 
 
-type searchSearchFormObjectTypeFormType = {
+type SearchFormObjectTypeFormType = {
     term: string,
 
 }
@@ -15,16 +17,20 @@ const searchFormValidate = (values:any) => {
 
 
 
-export const Search: React.FC = () => {
+export const Search: React.FC = React.memo(() => {
+    const dispatch = useDispatch();
 
-
-    const submit = (values:searchSearchFormObjectTypeFormType, {setSubmitting}:{setSubmitting:(isSubmitting:boolean) => void}) => {
+    const submit = (values:SearchFormObjectTypeFormType, {
+        setSubmitting, resetForm }:{
+        setSubmitting:(isSubmitting:boolean) => void, resetForm:()=>void} ) => {
 
         setTimeout(() => {
-            alert(JSON.stringify(values));
+            dispatch(getPacksCardsTC({packName: values.term}))
+            // resetForm();
             setSubmitting(false);
         }, 400);
     }
+
     return (
         <div className={s.searchBlock}>
             <Formik
@@ -34,7 +40,7 @@ export const Search: React.FC = () => {
             >
                 {({isSubmitting}) => (
                     <Form>
-                        <Field type='text' name='term'>
+                        <Field type='text' name='term' placeholder='Search' >
 
                         </Field>
 
@@ -45,4 +51,4 @@ export const Search: React.FC = () => {
             </Formik>
         </div>
     )
-}
+})

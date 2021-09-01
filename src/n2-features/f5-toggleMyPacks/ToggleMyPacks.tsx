@@ -1,28 +1,28 @@
-import React, {useState} from 'react'
-import s from '../../n1-main/m1-ui/components/profile/Profile.module.scss'
+import React from 'react'
 import {useDispatch, useSelector} from 'react-redux';
-import {AppStateType} from '../../n1-main/m2-bll/store';
-import {getMyPacksCardsTC, getPacksCardsTC} from '../../n1-main/m2-bll/reducers/packs-reducer';
-
+import {setMyPacksAC} from '../../n1-main/m2-bll/reducers/packs-reducer';
+import s from '../../n1-main/m1-ui/components/profile/Profile.module.scss'
+import {AppStateType} from "../../n1-main/m2-bll/store";
 
 export const ToggleMyPacks: React.FC = () => {
-    const userId = useSelector<AppStateType, string | undefined>(state => state.profile._id)
-
+const myPacks = useSelector<AppStateType, boolean>(state => state.packs.myPacks)
     const dispatch = useDispatch()
+    const showAllPacks = () => {
+        dispatch(setMyPacksAC(false))
+    }
+    const showMyPacks = () => {
 
-    const getMyPacks = () => {
-        // debugger
-        // @ts-ignore
-        dispatch(getMyPacksCardsTC(userId))
+        dispatch(setMyPacksAC(true))
     }
-    const getAllPacks = () => {
-        debugger
-        dispatch(getPacksCardsTC({}))
-    }
+
+
     return (
         <div className={s.buttonMyAll}>
-            <button onClick={getMyPacks}>My</button>
-            <button onClick={getAllPacks}> All</button>
+            Show packs cards
+
+            <button className={myPacks? s.buttonMyAllIsOn: ''} onClick={showMyPacks}>My</button>
+            <button className={!myPacks? s.buttonMyAllIsOn: ''} onClick={showAllPacks}>All</button>
+
         </div>
     )
 }

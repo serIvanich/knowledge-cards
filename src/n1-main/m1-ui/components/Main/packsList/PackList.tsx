@@ -3,27 +3,27 @@ import s from '../../profile/Profile.module.scss';
 import {Search} from '../../../../../n2-features/f4-search/Search';
 import {PacksListTable} from '../../../../../n2-features/f1-packsListTable/PacksListTable';
 import {Paginator} from '../../../../../n2-features/f3-paginator/Paginator';
-import {
-    CardsPacksType,
-    getPacksCardsTC,
-    postPackTC
-} from '../../../../m2-bll/reducers/packs-reducer';
+import {CardsPacksType, getPacksCardsTC, postPackTC} from '../../../../m2-bll/reducers/packs-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppStateType} from '../../../../m2-bll/store';
 import Preloader from '../../../common/Preloader/Preloader';
 import {DoubleSliderContainer} from '../../../../../n2-features/f6-doubleSlider/DoubleSliderContainer';
-import {Redirect} from 'react-router-dom';
-import {routes} from '../../../routes/routes';
-import {ToggleMyPacks} from '../../../../../n2-features/f5-toggleMyPacks/ToggleMyPacks';
+import {Redirect} from "react-router-dom";
+import {routes} from "../../../routes/routes";
+import {SelectNumberItems} from "../../../../../n2-features/f7-selectNumberItems/SelectNumberItems";
+import {ToggleMyPacks} from "../../../../../n2-features/f5-toggleMyPacks/ToggleMyPacks";
 
 export const PacksList: React.FC = () => {
 
     const dispatch = useDispatch()
     const isLogged = useSelector<AppStateType, boolean>(state => state.auth.isLogged)
+    const myPacks = useSelector<AppStateType, boolean>(state => state.packs.myPacks)
+    const pageCount = useSelector<AppStateType, number>(state => state.packs.pageCount)
 
     useEffect(() => {
-        dispatch(getPacksCardsTC({}))
-    }, [])
+
+        dispatch(getPacksCardsTC({pageCount}))
+    }, [myPacks])
 
 
     const packs = useSelector<AppStateType, CardsPacksType []>(state => state.packs.cardPacks)
@@ -41,7 +41,7 @@ export const PacksList: React.FC = () => {
         <div className={s.pagesContainer}>
 
             <div className={s.sideBar}>
-                <ToggleMyPacks />
+                <ToggleMyPacks/>
                 <DoubleSliderContainer/>
             </div>
             <div className={s.mainPart}>
@@ -53,7 +53,13 @@ export const PacksList: React.FC = () => {
                     </div>
                 </div>
                 <PacksListTable/>
-                <Paginator/>
+                <div className={s.paginatorBlock}>
+                    <Paginator/>
+                    <div className={s.select}>
+                        <SelectNumberItems pageCount={pageCount}/>
+                    </div>
+
+                </div>
             </div>
 
 

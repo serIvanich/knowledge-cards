@@ -54,16 +54,16 @@ const [createdUpDown, setCreatedUpDown] = useState<boolean>(true)
     return (
         <div className={s.tableBlock}>
             <tr className={s.tableRow}>
-                <th className={s.tableCell} align={"left"} data-set={'name'}
+                <th className={s.tableCell} align={"left"} data-set={'name'} title={'sort name'}
                     onClick={(e) => clickedSort(e)}>Name
                 </th>
-                <th className={s.tableCell} align={"left"} data-set={'cards'}
+                <th className={s.tableCell} align={"left"} data-set={'cards'} title={'sort of number cards'}
                     onClick={(e) => clickedSort(e)}>Cards
                 </th>
-                <th className={s.tableCell} align={"left"} data-set={'update'}
+                <th className={s.tableCell} align={"left"} data-set={'update'} title={'sort of date last update'}
                     onClick={(e) => clickedSort(e)}>Last Updated
                 </th>
-                <th className={s.tableCell} align={"left"} data-set={'creator'}
+                <th className={s.tableCell} align={"left"} data-set={'creator'} title={'sort of creator'}
                     onClick={(e) => clickedSort(e)}>Created by</th>
                 <th className={s.tableCell}>Actions</th>
             </tr>
