@@ -1,5 +1,5 @@
-import {instance} from "./app-api";
-import {PacksType} from "../m2-bll/reducers/packs-reducer";
+import {instance} from './app-api';
+import {PacksType} from '../m2-bll/reducers/packs-reducer';
 
 export const packsApi = {
     getPacks(params: RequestParamsType) {
@@ -9,7 +9,7 @@ export const packsApi = {
     createPack(cardsPack: CreateCardsPackType) {
         return instance.post('cards/pack', {cardsPack})
     },
-    updatePack(cardsPack: CreateCardsPackType & {_id: string}) {
+    updatePack(cardsPack: CreateCardsPackType & { _id: string }) {
         return instance.put('cards/pack', {cardsPack})
     },
     deletePacks(id: string) {
@@ -28,6 +28,8 @@ export type RequestParamsType = {
     pageCount?: number // не обязательно
     user_id?: string // чьи колоды
     // не обязательно, или прийдут все
+    id?: string | undefined
+    _id?: string | undefined
 }
 
 type CreateCardsPackType = {

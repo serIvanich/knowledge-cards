@@ -5,7 +5,7 @@ import {PacksListTable} from '../../../../../n2-features/f1-packsListTable/Packs
 import {Paginator} from '../../../../../n2-features/f3-paginator/Paginator';
 import {
     CardsPacksType,
-    getPacksCardsTC, InitialStatePacksType,
+    getPacksCardsTC,
     postPackTC
 } from '../../../../m2-bll/reducers/packs-reducer';
 import {useDispatch, useSelector} from 'react-redux';
@@ -14,8 +14,7 @@ import Preloader from '../../../common/Preloader/Preloader';
 import {DoubleSliderContainer} from '../../../../../n2-features/f6-doubleSlider/DoubleSliderContainer';
 import {Redirect} from 'react-router-dom';
 import {routes} from '../../../routes/routes';
-import {ToggleMyPacksContainer} from '../../../../../n2-features/f5-toggleMyPacks/ToggleMyPacksContainer';
-import {RequestParamsType} from '../../../../m3-dall/packs-api';
+import {ToggleMyPacks} from '../../../../../n2-features/f5-toggleMyPacks/ToggleMyPacks';
 
 export const PacksList: React.FC = () => {
 
@@ -42,7 +41,7 @@ export const PacksList: React.FC = () => {
         <div className={s.pagesContainer}>
 
             <div className={s.sideBar}>
-                <ToggleMyPacksContainer />
+                <ToggleMyPacks />
                 <DoubleSliderContainer/>
             </div>
             <div className={s.mainPart}>
