@@ -15,7 +15,7 @@
     }
 
     .paginatorBtn:hover {
-      background-color: darkgrey;
+      background-color: salmon;
       color: black;
       font-weight: 700;
     }
@@ -41,8 +41,12 @@
 
     .pageNumber.selectedPage {
       font-weight: bold;
-      border-color: black;
-      color: #21268F;
+      border-color: salmon;
+      color: salmon;
+    }
+    .pageNumber:hover {
+     background-color: salmon;
+      color:  #21268F;
     }
 
 

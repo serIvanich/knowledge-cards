@@ -1,5 +1,4 @@
 import {handleServerNetworkError} from '../../../utils/error-utils';
-import {Dispatch} from 'redux';
 import {setAppStatusAC, SetAppStatusActionType} from './app-reduser';
 import {packsApi, RequestParamsType} from '../../m3-dall/packs-api';
 import {ThunkAction} from 'redux-thunk';
@@ -12,9 +11,9 @@ const initialState = {
     minCardsCount: 0,
     page: 1,
     pageCount: 4,
-    pageSize: 10,
-    portionSize: 10,
-    term:'',
+
+    portionSize: 7,
+    term: '',
     myPacks: false,
 }
 export type InitialStatePacksType = typeof initialState
@@ -79,6 +78,7 @@ export const packsReducer = (state: InitialStatePacksType = initialState, action
             }
 
         case 'packs/SET-MY-PACKS':
+
             return {
                 ...state,
                 myPacks: action.myPacks
@@ -109,17 +109,26 @@ export const sortForUpdateAC = (value: boolean) => ({type: 'packs/SORT-FOR-UPDAT
 export const sortForCreatorAC = (value: boolean) => ({type: 'packs/SORT-FOR-CREATOR', value} as const)
 export const setMyPacksAC = (myPacks: boolean) => ({type: 'packs/SET-MY-PACKS', myPacks} as const)
 export const setUserIdAC = (userId: string) => ({type: 'packs/SET-USER-ID', userId} as const)
-export const setMinMaxValueAC = ([newMin, newMax]: number[]) => ({type: 'packs/SET-MIN-MAX-VALUE', newMin, newMax} as const)
+export const setMinMaxValueAC = ([newMin, newMax]: number[]) => ({
+    type: 'packs/SET-MIN-MAX-VALUE',
+    newMin,
+    newMax
+} as const)
 
 
-export const getPacksCardsTC = (params: RequestParamsType) => async (dispatch: Dispatch) => {
+export const getPacksCardsTC = (params: RequestParamsType, myPacks?: boolean): ThunkType => async (dispatch, getState) => {
     try {
         dispatch(setAppStatusAC('loading'))
+        const userId = getState().profile._id
+        const myPacks = getState().packs.myPacks
+        const initialPageCount = getState().packs.pageCount
         if (params.pageCount === undefined) {
-            params = {...params, pageCount: initialState.pageCount}
+            params = {...params, pageCount: initialPageCount}
         } else {
             params = {...params}
         }
+        if (myPacks)
+            params = {...params, user_id: userId}
         const data = await packsApi.getPacks(params)
         dispatch(setPacksCardsAC(data))
     } catch (e) {
@@ -198,7 +207,7 @@ export type CardsPacksType = {
     _v: string
 }
 export type PacksType = {
-    cardPacks:  Array<CardsPacksType>
+    cardPacks: Array<CardsPacksType>
     cardPacksTotalCount: number
     maxCardsCount: number
     minCardsCount: number

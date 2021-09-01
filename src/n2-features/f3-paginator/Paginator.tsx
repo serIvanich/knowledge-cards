@@ -15,13 +15,13 @@ export const Paginator = React.memo(() => {
 
     const {
         cardPacksTotalCount,
-        pageSize,
+
         pageCount,
         page,
         portionSize
     } = packsState
 
-    let pagesCount = Math.ceil(cardPacksTotalCount / pageSize);
+    let pagesCount = Math.ceil(cardPacksTotalCount / pageCount);
     let pages:number[] = [];
 
     for (let i = 1; i<=pagesCount; i++) {
@@ -38,7 +38,7 @@ export const Paginator = React.memo(() => {
     return (
         <div className={s.paginator}>
             <div className={s.paginatorContainer}>
-                { pageCount > 10 &&
+                { portionNumber > 1 &&
                 <button
                     className = {s.paginatorBtn}
                     disabled={ !(portionNumber > 1) }
@@ -49,15 +49,15 @@ export const Paginator = React.memo(() => {
                     {
                         pages
                             .filter (p => p>= leftPortionPageNumber && p<= rightPortionPageNumber)
-                            .map((p) => {
+                            .map((p, i) => {
                                 return <div className={`${s.pageNumber} ${page === p ? s.selectedPage:''}`}
-                                            key = {p}
+                                            key = {i}
                                             onClick={ () => dispatch(getPacksCardsTC({page: p}))  }> {p}</div>
                             })
 
                     }
                 </div>
-                { pageCount > 10 &&
+                { portionCount > portionNumber &&
                 <button
                     className = {s.paginatorBtn}
                     disabled={ !(portionCount > portionNumber) }

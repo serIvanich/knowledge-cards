@@ -26,7 +26,7 @@ export const Search: React.FC = React.memo(() => {
 
         setTimeout(() => {
             dispatch(getPacksCardsTC({packName: values.term}))
-            resetForm();
+            // resetForm();
             setSubmitting(false);
         }, 400);
     }
