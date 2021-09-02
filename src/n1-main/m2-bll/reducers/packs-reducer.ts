@@ -92,19 +92,31 @@ export const packsReducer = (state: InitialStatePacksType = initialState, action
                 ...state,
                 page: action.page
             };
+        case 'packs/SET-PAGE-COUNT':
+            return {
+                ...state,
+                pageCount: action.pageCount
+            };
+        case 'packs/SET-TOTAL-PAGE-COUNT':
+            return {
+                ...state,
+                totalPacksCount: action.totalPacksCount
+            };
+        case 'packs/PACKS/SET-CURRENT-PAGE':
+            return {
+                ...state,
+                pageNumber: action.pageNumber
+            };
         case 'packs/SET-MIN-MAX-VALUE':
             return {
                 ...state,
-                min: action.newMin,
-                max: action.newMax
+                minCardsCount: action.newMin,
+                maxCardsCount: action.newMax
             };
-
         default:
             return state
     }
-
 }
-
 
 const setPacksCardsAC = (payload: PacksType) => ({type: 'packs/SET-PACKS-CARDS', payload} as const)
 export const sortNameAC = (value: boolean) => ({type: 'packs/SORT-NAME', value} as const)
@@ -114,6 +126,12 @@ export const sortForCreatorAC = (value: boolean) => ({type: 'packs/SORT-FOR-CREA
 export const setMyPacksAC = (myPacks: boolean) => ({type: 'packs/SET-MY-PACKS', myPacks} as const)
 export const setUserIdAC = (userId: string) => ({type: 'packs/SET-USER-ID', userId} as const)
 export const setPageAC = (page: number) => ({type: 'packs/SET-PAGE', page} as const)
+export const setPageCountAC = (pageCount: number) => ({type: 'packs/SET-PAGE-COUNT', pageCount} as const)
+export const setCurrentPageAC = (pageNumber: number) => ({type: 'packs/PACKS/SET-CURRENT-PAGE', pageNumber} as const)
+export const setTotalPacksCountAC = (totalPacksCount: number) => ({
+    type: 'packs/SET-TOTAL-PAGE-COUNT',
+    totalPacksCount
+} as const)
 export const setMinMaxValueAC = ([newMin, newMax]: number[]) => ({
     type: 'packs/SET-MIN-MAX-VALUE',
     newMin,
@@ -121,14 +139,16 @@ export const setMinMaxValueAC = ([newMin, newMax]: number[]) => ({
 } as const)
 
 
-export const getPacksCardsTC = (params: RequestParamsType, myPacks?: boolean, min?: number, max?: number): ThunkType => async (dispatch, getState) => {
+export const getPacksCardsTC = (params: RequestParamsType, myPacks?: boolean, min?: number, max?: number, pageCount?: number): ThunkType => async (dispatch, getState) => {
     try {
         dispatch(setAppStatusAC('loading'))
         const userId = getState().profile._id
         const myPacks = getState().packs.myPacks
+        const min = getState().packs.minCardsCount
+        const max = getState().packs.maxCardsCount
         const initialPageCount = getState().packs.pageCount
         if (params.pageCount === undefined) {
-            params = {...params, pageCount: initialPageCount}
+            params = {...params, pageCount: initialPageCount, min: min, max: max}
         } else {
             params = {...params}
         }
@@ -136,6 +156,8 @@ export const getPacksCardsTC = (params: RequestParamsType, myPacks?: boolean, mi
             params = {...params, user_id: userId}
         const data = await packsApi.getPacks(params)
         dispatch(setPacksCardsAC(data))
+        debugger
+        dispatch(setMinMaxValueAC([min, max]))
     } catch (e) {
         handleServerNetworkError(e, dispatch)
     } finally {
@@ -193,7 +215,10 @@ type ActionsType = ReturnType<typeof setPacksCardsAC>
     | ReturnType<typeof setMyPacksAC>
     | ReturnType<typeof setUserIdAC>
     | ReturnType<typeof setPageAC>
+    | ReturnType<typeof setPageCountAC>
+    | ReturnType<typeof setTotalPacksCountAC>
     | ReturnType<typeof setMinMaxValueAC>
+    | ReturnType<typeof setCurrentPageAC>
     | SetAppStatusActionType
 
 
