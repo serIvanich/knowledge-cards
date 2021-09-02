@@ -167,10 +167,11 @@ export const getPacksCardsTC = (params: RequestParamsType, myPacks?: boolean): T
         if (myPacks) {
             params = {...params, user_id: userId}
         }
-        if (!params.packName) {
+        if (params.packName === undefined) {
+
             params = {...params, packName: initialSearch}
         }
-        if (!params.min && !params.max) {
+        if (params.min === undefined && params.max === undefined) {
             params = {...params, min: initialMin, max: initialMax}
         }
         if (!params.pageCount) {
@@ -179,7 +180,7 @@ export const getPacksCardsTC = (params: RequestParamsType, myPacks?: boolean): T
 
         const data = await packsApi.getPacks(params)
         dispatch(setPacksCardsAC(data))
-        debugger
+
         dispatch(setMinMaxValueAC([min, max]))
     } catch (e) {
         handleServerNetworkError(e, dispatch)

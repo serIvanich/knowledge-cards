@@ -3,7 +3,7 @@ import {PacksType} from '../m2-bll/reducers/packs-reducer';
 
 export const packsApi = {
     getPacks(params: RequestParamsType) {
-        debugger
+
         return instance.get<PacksType>('cards/pack', {params}).then(res => res.data)
     },
     createPack(cardsPack: CreateCardsPackType) {
