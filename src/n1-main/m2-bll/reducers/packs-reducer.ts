@@ -84,6 +84,7 @@ export const packsReducer = (state: InitialStatePacksType = initialState, action
                 myPacks: action.myPacks
             };
         case 'packs/SET-USER-ID':
+            debugger
             return {
                 ...state,
                 user_id: action.userId
