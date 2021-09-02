@@ -13,8 +13,12 @@ export const DoubleSliderContainer: React.FC = () => {
         setValue1(newValue[0]);
         setValue2(newValue[1]);
         dispatch(setMinMaxValueAC(newValue))
-        dispatch(getPacksCardsTC({min: newValue[0], max: newValue[1]}))
     }
+
+    const handleChangeCommitted = () => {
+        dispatch(getPacksCardsTC({min: value1, max: value2}))
+    }
+
     return (
         <div>
             Number of cards
@@ -24,6 +28,7 @@ export const DoubleSliderContainer: React.FC = () => {
                     <span>{value2}</span>
                 </div>
                 <DoubleSlider value={[value1, value2]}
+                              handleChangeCommitted={handleChangeCommitted}
                               onChangeRange={handleChange}/>
             </div>
         </div>
