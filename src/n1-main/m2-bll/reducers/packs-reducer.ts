@@ -13,8 +13,9 @@ const initialState = {
     pageCount: 4,
 
     portionSize: 7,
-    term: '',
+
     myPacks: false,
+    search: '',
 }
 export type InitialStatePacksType = typeof initialState
 
@@ -28,6 +29,7 @@ export const packsReducer = (state: InitialStatePacksType = initialState, action
                 ...action.payload,
                 cardPacks: [...action.payload.cardPacks]
             }
+
             return newState
 
         case 'packs/SORT-NAME':
@@ -92,11 +94,18 @@ export const packsReducer = (state: InitialStatePacksType = initialState, action
                 ...state,
                 page: action.page
             };
-        case 'packs/SET-MIN-MAX-VALUE':
+        case 'packs/SET-SEARCH':
+
             return {
                 ...state,
-                min: action.newMin,
-                max: action.newMax
+                search: action.search
+            };
+        case 'packs/SET-MIN-MAX-VALUE':
+
+            return {
+                ...state,
+                minCardsCount: action.newMin,
+                maxCardsCount: action.newMax
             };
 
         default:
@@ -114,6 +123,7 @@ export const sortForCreatorAC = (value: boolean) => ({type: 'packs/SORT-FOR-CREA
 export const setMyPacksAC = (myPacks: boolean) => ({type: 'packs/SET-MY-PACKS', myPacks} as const)
 export const setUserIdAC = (userId: string) => ({type: 'packs/SET-USER-ID', userId} as const)
 export const setPageAC = (page: number) => ({type: 'packs/SET-PAGE', page} as const)
+export const setSearchAC = (search: string) => ({type: 'packs/SET-SEARCH', search} as const)
 export const setMinMaxValueAC = ([newMin, newMax]: number[]) => ({
     type: 'packs/SET-MIN-MAX-VALUE',
     newMin,
@@ -121,20 +131,32 @@ export const setMinMaxValueAC = ([newMin, newMax]: number[]) => ({
 } as const)
 
 
-export const getPacksCardsTC = (params: RequestParamsType, myPacks?: boolean, min?: number, max?: number): ThunkType => async (dispatch, getState) => {
+export const getPacksCardsTC = (params: RequestParamsType, myPacks?: boolean): ThunkType => async (dispatch, getState) => {
     try {
         dispatch(setAppStatusAC('loading'))
         const userId = getState().profile._id
         const myPacks = getState().packs.myPacks
         const initialPageCount = getState().packs.pageCount
-        if (params.pageCount === undefined) {
-            params = {...params, pageCount: initialPageCount}
-        } else {
-            params = {...params}
-        }
-        if (myPacks)
+        const initialMin = getState().packs.minCardsCount
+        const initialMax = getState().packs.maxCardsCount
+        const initialSearch = getState().packs.search
+
+
+        if (myPacks) {
             params = {...params, user_id: userId}
+        }
+        if (!params.packName) {
+            params = {...params, packName: initialSearch}
+        }
+        if (!params.min && !params.max) {
+            params = {...params, min: initialMin, max: initialMax}
+        }
+        if (!params.pageCount) {
+            params = {...params, pageCount: initialPageCount}
+        }
+
         const data = await packsApi.getPacks(params)
+
         dispatch(setPacksCardsAC(data))
     } catch (e) {
         handleServerNetworkError(e, dispatch)
@@ -193,6 +215,7 @@ type ActionsType = ReturnType<typeof setPacksCardsAC>
     | ReturnType<typeof setMyPacksAC>
     | ReturnType<typeof setUserIdAC>
     | ReturnType<typeof setPageAC>
+    | ReturnType<typeof setSearchAC>
     | ReturnType<typeof setMinMaxValueAC>
     | SetAppStatusActionType
 
