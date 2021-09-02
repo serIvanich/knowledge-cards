@@ -4,7 +4,7 @@ import s from './DoubleSlider.module.scss'
 import {getPacksCardsTC, setMinMaxValueAC} from '../../n1-main/m2-bll/reducers/packs-reducer';
 import {useDispatch} from 'react-redux';
 
-export const DoubleSliderContainer: React.FC = () => {
+export const DoubleSliderContainer: React.FC = React.memo(() => {
     const dispatch = useDispatch()
     const [value1, setValue1] = useState<number>(0);
     const [value2, setValue2] = useState<number>(100);
@@ -33,4 +33,4 @@ export const DoubleSliderContainer: React.FC = () => {
             </div>
         </div>
     )
-}
+});
