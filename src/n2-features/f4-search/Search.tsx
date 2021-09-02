@@ -1,7 +1,7 @@
 import React from 'react'
 import s from './Search.module.scss'
 import {Field, Form, Formik} from "formik";
-import { getPacksCardsTC} from "../../n1-main/m2-bll/reducers/packs-reducer";
+import {getPacksCardsTC, setSearchAC} from "../../n1-main/m2-bll/reducers/packs-reducer";
 import {useDispatch} from "react-redux";
 
 
@@ -26,6 +26,7 @@ export const Search: React.FC = React.memo(() => {
 
         setTimeout(() => {
             dispatch(getPacksCardsTC({packName: values.term}))
+            dispatch(setSearchAC(values.term))
             // resetForm();
             setSubmitting(false);
         }, 400);
