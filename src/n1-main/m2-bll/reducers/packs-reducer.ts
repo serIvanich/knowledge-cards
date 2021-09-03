@@ -151,13 +151,15 @@ export const getPacksCardsTC = (params: RequestParamsType, myPacks?: boolean): T
         if (!params.min && !params.max) {
             params = {...params, min: initialMin, max: initialMax}
         }
+
         if (!params.pageCount) {
             params = {...params, pageCount: initialPageCount}
         }
 
         const data = await packsApi.getPacks(params)
-
         dispatch(setPacksCardsAC(data))
+        dispatch(setMinMaxValueAC([initialMin, initialMax]))
+
     } catch (e) {
         handleServerNetworkError(e, dispatch)
     } finally {
