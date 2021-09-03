@@ -100,8 +100,22 @@ export const packsReducer = (state: InitialStatePacksType = initialState, action
                 ...state,
                 search: action.search
             };
+        case 'packs/SET-PAGE-COUNT':
+            return {
+                ...state,
+                pageCount: action.pageCount
+            };
+        case 'packs/SET-TOTAL-PAGE-COUNT':
+            return {
+                ...state,
+                totalPacksCount: action.totalPacksCount
+            };
+        case 'packs/PACKS/SET-CURRENT-PAGE':
+            return {
+                ...state,
+                pageNumber: action.pageNumber
+            };
         case 'packs/SET-MIN-MAX-VALUE':
-
             return {
                 ...state,
                 minCardsCount: action.newMin,
@@ -123,6 +137,12 @@ export const sortForCreatorAC = (value: boolean) => ({type: 'packs/SORT-FOR-CREA
 export const setMyPacksAC = (myPacks: boolean) => ({type: 'packs/SET-MY-PACKS', myPacks} as const)
 export const setUserIdAC = (userId: string) => ({type: 'packs/SET-USER-ID', userId} as const)
 export const setPageAC = (page: number) => ({type: 'packs/SET-PAGE', page} as const)
+export const setPageCountAC = (pageCount: number) => ({type: 'packs/SET-PAGE-COUNT', pageCount} as const)
+export const setCurrentPageAC = (pageNumber: number) => ({type: 'packs/PACKS/SET-CURRENT-PAGE', pageNumber} as const)
+export const setTotalPacksCountAC = (totalPacksCount: number) => ({
+    type: 'packs/SET-TOTAL-PAGE-COUNT',
+    totalPacksCount
+} as const)
 export const setSearchAC = (search: string) => ({type: 'packs/SET-SEARCH', search} as const)
 export const setMinMaxValueAC = ([newMin, newMax]: number[]) => ({
     type: 'packs/SET-MIN-MAX-VALUE',
@@ -136,6 +156,8 @@ export const getPacksCardsTC = (params: RequestParamsType, myPacks?: boolean): T
         dispatch(setAppStatusAC('loading'))
         const userId = getState().profile._id
         const myPacks = getState().packs.myPacks
+        const min = getState().packs.minCardsCount
+        const max = getState().packs.maxCardsCount
         const initialPageCount = getState().packs.pageCount
         const initialMin = getState().packs.minCardsCount
         const initialMax = getState().packs.maxCardsCount
@@ -145,21 +167,21 @@ export const getPacksCardsTC = (params: RequestParamsType, myPacks?: boolean): T
         if (myPacks) {
             params = {...params, user_id: userId}
         }
-        if (!params.packName) {
+        if (params.packName === undefined) {
+
             params = {...params, packName: initialSearch}
         }
-        if (!params.min && !params.max) {
+        if (params.min === undefined && params.max === undefined) {
             params = {...params, min: initialMin, max: initialMax}
         }
-
         if (!params.pageCount) {
             params = {...params, pageCount: initialPageCount}
         }
 
         const data = await packsApi.getPacks(params)
         dispatch(setPacksCardsAC(data))
-        dispatch(setMinMaxValueAC([initialMin, initialMax]))
 
+        dispatch(setMinMaxValueAC([min, max]))
     } catch (e) {
         handleServerNetworkError(e, dispatch)
     } finally {
@@ -218,7 +240,10 @@ type ActionsType = ReturnType<typeof setPacksCardsAC>
     | ReturnType<typeof setUserIdAC>
     | ReturnType<typeof setPageAC>
     | ReturnType<typeof setSearchAC>
+    | ReturnType<typeof setPageCountAC>
+    | ReturnType<typeof setTotalPacksCountAC>
     | ReturnType<typeof setMinMaxValueAC>
+    | ReturnType<typeof setCurrentPageAC>
     | SetAppStatusActionType
 
 

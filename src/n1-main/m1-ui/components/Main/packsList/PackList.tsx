@@ -20,6 +20,7 @@ export const PacksList: React.FC = () => {
     const myPacks = useSelector<AppStateType, boolean>(state => state.packs.myPacks)
     const pageCount = useSelector<AppStateType, number>(state => state.packs.pageCount)
 
+
     useEffect(() => {
 
         dispatch(getPacksCardsTC({pageCount}))
