@@ -7,7 +7,6 @@ import {useDispatch} from "react-redux";
 
 type SearchFormObjectTypeFormType = {
     term: string,
-
 }
 const searchFormValidate = (values:any) => {
     const errors = {}
@@ -20,14 +19,12 @@ const searchFormValidate = (values:any) => {
 export const Search: React.FC = React.memo(() => {
     const dispatch = useDispatch();
 
-    const submit = (values:SearchFormObjectTypeFormType, {
-        setSubmitting, resetForm }:{
-        setSubmitting:(isSubmitting:boolean) => void, resetForm:()=>void} ) => {
+    const submit = (values:SearchFormObjectTypeFormType, {setSubmitting }:{
+        setSubmitting:(isSubmitting:boolean) => void } ) => {
 
         setTimeout(() => {
             dispatch(getPacksCardsTC({packName: values.term}))
             dispatch(setSearchAC(values.term))
-            // resetForm();
             setSubmitting(false);
         }, 400);
     }

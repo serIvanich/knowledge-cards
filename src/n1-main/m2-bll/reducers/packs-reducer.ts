@@ -1,5 +1,5 @@
 import {handleServerNetworkError} from '../../../utils/error-utils';
-import {setAppStatusAC, SetAppStatusActionType} from './app-reduser';
+import {setAppStatusAC, SetAppStatusActionType, SetIsShowModalActionType, setIsShowModalWindow} from './app-reduser';
 import {packsApi, RequestParamsType} from '../../m3-dall/packs-api';
 import {ThunkAction} from 'redux-thunk';
 import {AppStateType} from '../store';
@@ -24,13 +24,11 @@ export const packsReducer = (state: InitialStatePacksType = initialState, action
 
         case 'packs/SET-PACKS-CARDS':
 
-            const newState = {
+            return {
                 ...state,
                 ...action.payload,
                 cardPacks: [...action.payload.cardPacks]
             }
-
-            return newState
 
         case 'packs/SORT-NAME':
 
@@ -122,6 +120,8 @@ export const packsReducer = (state: InitialStatePacksType = initialState, action
                 maxCardsCount: action.newMax
             };
 
+
+
         default:
             return state
     }
@@ -188,16 +188,20 @@ export const getPacksCardsTC = (params: RequestParamsType, myPacks?: boolean): T
         dispatch(setAppStatusAC('succeeded'))
     }
 }
-export const postPackTC = (): ThunkType => async (dispatch) => {
-    try {
-        dispatch(setAppStatusAC('loading'))
+export const postPackTC = (name: string): ThunkType => async (dispatch) => {
 
-        const data = await packsApi.createPack({name: 'first fix packName'})
-        dispatch(getPacksCardsTC({}))
+    try {
+        dispatch(setAppStatusAC('loading'));
+        const data = await packsApi.createPack({name})
+        dispatch(getPacksCardsTC({}));
+        // dispatch(setIsShowModalWindow({isShowModal:false, modalType: ''}));
+
     } catch (e) {
         handleServerNetworkError(e, dispatch)
+        alert(e.response.data.error)
     } finally {
         dispatch(setAppStatusAC('succeeded'))
+        dispatch(setIsShowModalWindow({isShowModal:true, modalType: ''}))
     }
 }
 export const deletePackTC = (id: string): ThunkType => async (dispatch) => {
@@ -245,6 +249,7 @@ type ActionsType = ReturnType<typeof setPacksCardsAC>
     | ReturnType<typeof setMinMaxValueAC>
     | ReturnType<typeof setCurrentPageAC>
     | SetAppStatusActionType
+    | SetIsShowModalActionType
 
 
 export type CardsPacksType = {

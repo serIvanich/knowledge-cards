@@ -1,76 +1,28 @@
-import React, {CSSProperties} from "react";
+import React from "react";
+import style from './Modal.module.scss'
 
-interface IModal {
-    enableBackground?: boolean;
-    backgroundStyle?: CSSProperties;
-    backgroundOnClick?: ()=>void;
 
-    width:number;
-    height: number;
-    modalStyle?: CSSProperties;
-    modalOnClick?: ()=>void;
-
-    isShow: boolean;
+type ModalPropsType = {
+    isShow: boolean
+    backgroundOnClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>)=>void
 }
 
-const Modal: React.FC<IModal> = (
-    {
-        enableBackground,
-        backgroundStyle,
-        backgroundOnClick = () => {
-        },
-        width,
-        height,
-        modalStyle,
-        modalOnClick,
-        isShow,
-        children
-    },
-) => {
-    const top = `calc(50vh - ${height / 2}px)`;
-    const left = `calc(50vh - ${width / 2}px)`;
 
+const Modal: React.FC <ModalPropsType>= ({
+    isShow,
+    backgroundOnClick,
+     children}) => {
     if (!isShow) return null;
 
     return (
-        <>
-            { enableBackground && <div
-                style={{
-                    position: 'fixed',
-                    top: '0px',
-                    left: '0px',
-                    width: '100vh',
-
-                    background: 'black',
-                    opacity: 0.35,
-                    zIndex: 20,
-
-                    ...backgroundStyle,
-                }}
-                onClick = {backgroundOnClick}
-
-                />
-            }
-            <div style={{
-                position: 'fixed',
-                top,
-                left,
-                width,
-                height,
-                display: 'flex',
-                flexFlow: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                background: '#fff',
-                zIndex: 21,
-                borderRadius: '15%',
-                ...modalStyle,
-
-            }}
-                 onClick = {modalOnClick} >
-                {children}
+        <div className={ isShow ? `${style.modal} ${style.active}` : `${style.modal}`} onClick={backgroundOnClick}>
+            <div className={ isShow ? `${style.modalContent} ${style.active}` : `${style.modalContent}`}
+                 onClick={e => e.stopPropagation()}>
+                    {children}
             </div>
-        </>
+
+
+        </div>
     )
 }
 

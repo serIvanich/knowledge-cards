@@ -13,16 +13,17 @@ import {AppStateType} from '../../m2-bll/store';
 import Preloader from '../common/Preloader/Preloader';
 import ForgotContainerPass from '../auth/password/fogotPassword/ForgotContainerPass';
 import {ProfileContainer} from "../components/profile/ProfileContainer";
-import {Main} from '../components/Main/Main';
-import {getPacksCardsTC} from "../../m2-bll/reducers/packs-reducer";
 import {CardsList} from "../components/Main/cardsList/CardsList";
 import {PacksList} from "../components/Main/packsList/PackList";
+import ModalContainer from "../../../n2-features/f8-modals/ModalContainer";
 
 
 function App() {
     const dispatch = useDispatch()
     const isInitialized = useSelector<AppStateType, boolean>(state => state.app.isInitialized)
     const status = useSelector<AppStateType, RequestStatusType>(state => state.app.status)
+    const isShowModal = useSelector<AppStateType, boolean>(state => state.app.isShowModal)
+
     useEffect(() => {
         if (!isInitialized) {
             dispatch(initializeAppTC())
@@ -53,6 +54,7 @@ function App() {
                     <Route path={routes.err404} render={() => <Error404/>}/>
                     <Route path='*' render={() => <Redirect to={routes.err404}/>}/>
                 </Switch>
+                { isShowModal && <ModalContainer/>}
             </div>
 
         </div>
