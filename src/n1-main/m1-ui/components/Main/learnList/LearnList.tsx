@@ -27,7 +27,7 @@ export const LearnList: React.FC<LearnListPropsType> = () => {
     return (
         <div className={s.cardPage}>
             <div className={`${s.cardContainer} + ${s.learnListContainer}`}>
-                <LearnQuetion name={name} question={question}/>
+                <LearnQuestion name={name} question={question}/>
             </div>
 
         </div>
@@ -38,7 +38,7 @@ type LearnQuestionPropsType = {
     name: string
     question: string
 }
-const LearnQuetion: React.FC<LearnQuestionPropsType> = ({name, question}) => {
+const LearnQuestion: React.FC<LearnQuestionPropsType> = ({name, question}) => {
 
     return <>
         <h3>Learn {name}</h3>
