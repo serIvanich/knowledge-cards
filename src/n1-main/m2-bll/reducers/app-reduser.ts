@@ -40,6 +40,7 @@ export const initializeAppTC = () => async (dispatch: Dispatch) => {
     try {
 
         const data = await authApi.me()
+
         dispatch(setUserProfileAC(data))
         dispatch(setIsInitializedAC(true))
         dispatch(isLoggedAC(true))

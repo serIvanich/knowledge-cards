@@ -16,7 +16,7 @@ export const Profile: React.FC<ProfilePropsType> = ({isLogged, profile, isLogout
     //     return <Redirect to={routes.login}/>
     // }
     return (
-        <div className={s.profileSidebar}>
+        < >
             <div className={s.infoBlock}>
                 <div>my name: {name}</div>
                 <div>
@@ -33,6 +33,6 @@ export const Profile: React.FC<ProfilePropsType> = ({isLogged, profile, isLogout
             <div>
                 <DoubleSliderContainer />
             </div>
-        </div>
+        </>
     )
 }

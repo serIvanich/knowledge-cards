@@ -18,7 +18,7 @@ const myPacks = useSelector<AppStateType, boolean>(state => state.packs.myPacks)
 
     return (
         <div className={s.buttonMyAll}>
-            Show packs cards
+            <h4>Show packs cards</h4>
 
             <button className={myPacks? s.buttonMyAllIsOn: ''} onClick={showMyPacks}>My</button>
             <button className={!myPacks? s.buttonMyAllIsOn: ''} onClick={showAllPacks}>All</button>
