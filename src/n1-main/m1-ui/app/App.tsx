@@ -22,6 +22,7 @@ import {LearnList} from "../components/Main/learnList/LearnList";
 function App() {
     const dispatch = useDispatch()
     const isInitialized = useSelector<AppStateType, boolean>(state => state.app.isInitialized)
+    const toLogin = useSelector<AppStateType, boolean>(state => state.auth.toLogin)
     const status = useSelector<AppStateType, RequestStatusType>(state => state.app.status)
     const isShowModal = useSelector<AppStateType, boolean>(state => state.app.isShowModal)
 
@@ -38,9 +39,11 @@ function App() {
         appCss = 'appPreloader'
     }
 
-    if (!isInitialized) {
+    if (!isInitialized ) {
+if(toLogin){ return <LoginContainer/>}
         return <Preloader/>
     }
+
     return (
 
         <div className={'app'}>

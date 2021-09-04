@@ -1,7 +1,7 @@
 import {Dispatch} from "redux"
 import {handleServerNetworkError} from "../../../utils/error-utils";
 import {authApi} from "../../m3-dall/app-api";
-import {isLoggedAC} from "./auth-reducer";
+import {isLoggedAC, toLoginAC} from "./auth-reducer";
 import {setUserProfileAC, UserProfileType} from './profile-reducer';
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
@@ -28,9 +28,11 @@ export const appReducer = (state: AppInitialStateType = initialState, action: Ap
             return {...state, isInitialized: action.isInitialized}
 
         case 'APP/SET-IS-SHOW-MODAL-WINDOW':
-            return {...state,
+            return {
+                ...state,
                 isShowModal: action.payload.isShowModal,
-                modalWindowType: action.payload.modalType }
+                modalWindowType: action.payload.modalType
+            }
 
 
         default:
@@ -41,7 +43,10 @@ export const appReducer = (state: AppInitialStateType = initialState, action: Ap
 export const setAppStatusAC = (status: RequestStatusType) => ({type: 'APP/SET-STATUS', status} as const)
 export const setAppErrorAC = (error: string | null) => ({type: 'APP/SET-ERROR', error} as const)
 export const setIsInitializedAC = (isInitialized: boolean) => ({type: 'APP/SET-IS-INITIALIZED', isInitialized} as const)
-export const setIsShowModalWindow =(payload:{isShowModal:boolean, modalType: ModalWindowType}) => ({type: 'APP/SET-IS-SHOW-MODAL-WINDOW', payload} as const)
+export const setIsShowModalWindow = (payload: { isShowModal: boolean, modalType: ModalWindowType }) => ({
+    type: 'APP/SET-IS-SHOW-MODAL-WINDOW',
+    payload
+} as const)
 
 
 export const initializeAppTC = () => async (dispatch: Dispatch) => {
@@ -55,7 +60,9 @@ export const initializeAppTC = () => async (dispatch: Dispatch) => {
         dispatch(isLoggedAC(true))
 
     } catch (e) {
-
+        if (e.response.data.error) {
+            dispatch(toLoginAC(true))
+        }
         handleServerNetworkError(e, dispatch)
     } finally {
         dispatch(setAppStatusAC('succeeded'))
