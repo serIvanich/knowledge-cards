@@ -12,6 +12,7 @@ import {Redirect} from 'react-router-dom';
 import {routes} from '../../../routes/routes';
 import {SelectNumberItems} from '../../../../../n2-features/f7-selectNumberItems/SelectNumberItems';
 import {ToggleMyPacks} from '../../../../../n2-features/f5-toggleMyPacks/ToggleMyPacks';
+import {setIsShowModalWindow} from "../../../../m2-bll/reducers/app-reduser";
 
 export const PacksList: React.FC = () => {
 
@@ -19,7 +20,6 @@ export const PacksList: React.FC = () => {
     const isLogged = useSelector<AppStateType, boolean>(state => state.auth.isLogged)
     const myPacks = useSelector<AppStateType, boolean>(state => state.packs.myPacks)
     const pageCount = useSelector<AppStateType, number>(state => state.packs.pageCount)
-
 
     useEffect(() => {
 
@@ -33,7 +33,9 @@ export const PacksList: React.FC = () => {
     }
 
     const createPack = () => {
-        dispatch(postPackTC())
+        // dispatch(postPackTC())
+        dispatch(setIsShowModalWindow({isShowModal:true, modalType: 'CREATE-NEW-PACK'}))
+
     }
     if (!isLogged) {
         return <Redirect to={routes.login}/>

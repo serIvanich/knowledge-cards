@@ -1,0 +1,48 @@
+
+.modal {
+
+
+  height: 100vh;
+  min-width: 100vw;
+  width: 100%;
+
+  background-color: rgba(0,0,0,0.4);
+  position: fixed;
+  top:0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.5s;
+
+  &.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .modalContent {
+
+    input {
+      padding: 5px 10px;
+      outline: none;
+      margin: 10px 0 40px ;
+      width: 90%;
+    }
+    button {
+
+    }
+    padding: 40px;
+    border-radius: 12px;
+    background-color: #fff;
+    width: 30vw;
+    transform: scale(0.5);
+    transition: 0.5s all;
+
+    &.active {
+      transform: scale(1);
+    }
+  }
+
+}
