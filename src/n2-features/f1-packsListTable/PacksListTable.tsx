@@ -12,7 +12,8 @@ import {
     sortNameAC,
     updatePackTC
 } from '../../n1-main/m2-bll/reducers/packs-reducer';
-import {NavLink} from 'react-router-dom';
+import {NavLink, Redirect} from 'react-router-dom';
+import {routes} from "../../n1-main/m1-ui/routes/routes";
 
 export const PacksListTable: React.FC = () => {
     const dispatch = useDispatch()
@@ -50,6 +51,11 @@ const [createdUpDown, setCreatedUpDown] = useState<boolean>(true)
     const updatePack = (id: string) => {
         dispatch(updatePackTC(id))
     }
+ const gotoLearn = () => {
+        return
+        <Redirect to={routes.learnQuestion}/>
+    }
+    
 
     return (
         <div className={s.tableBlock}>
@@ -90,7 +96,11 @@ const [createdUpDown, setCreatedUpDown] = useState<boolean>(true)
                                     </button>
                                 </div>
                                 <div className={s.buttonInTable}>
-                                    <button>learn</button>
+                                    <button>
+                                        <NavLink to={`/LearnQuestion/${p.name}/${p._id}`} >
+                                            learn
+                                        </NavLink>
+                                    </button>
                                 </div>
                             </div>
                         </td>

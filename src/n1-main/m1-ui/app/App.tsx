@@ -16,6 +16,7 @@ import {ProfileContainer} from "../components/profile/ProfileContainer";
 import {CardsList} from "../components/Main/cardsList/CardsList";
 import {PacksList} from "../components/Main/packsList/PackList";
 import ModalContainer from "../../../n2-features/f8-modals/ModalContainer";
+import {LearnList} from "../components/Main/learnList/LearnList";
 
 
 function App() {
@@ -55,6 +56,7 @@ function App() {
                     <Route path={routes.setPass} render={() => <SetPass/>}/>
                     <Route path={routes.forgotPass} render={() => <ForgotContainerPass/>}/>
                     <Route path={routes.profile} render={() => <ProfileContainer/>}/>
+                    <Route path={routes.learnQuestion} render={() => <LearnList/>}/>
                     {/*<Route path={routes.testPage} render={() => <TestPage/>}/>*/}
                     <Route path={routes.err404} render={() => <Error404/>}/>
                     <Route path='*' render={() => <Redirect to={routes.err404}/>}/>
