@@ -24,6 +24,7 @@ function App() {
     const isInitialized = useSelector<AppStateType, boolean>(state => state.app.isInitialized)
     const status = useSelector<AppStateType, RequestStatusType>(state => state.app.status)
     useEffect(() => {
+
         if (!isInitialized) {
             dispatch(initializeAppTC())
         }
@@ -35,7 +36,11 @@ function App() {
         appCss = 'appPreloader'
     }
 
+    if (!isInitialized) {
+        return <Preloader/>
+    }
     return (
+
         <div className={'app'}>
             {status === 'loading' && <Preloader/>}
             <div className={appCss}>
