@@ -11,9 +11,9 @@ const initialState = {
     minCardsCount: 0,
     page: 1,
     pageCount: 4,
-
+min:0,
     portionSize: 7,
-
+max: 100,
     myPacks: false,
     search: '',
 }
@@ -200,7 +200,7 @@ export const postPackTC = (name: string): ThunkType => async (dispatch) => {
         handleServerNetworkError(e, dispatch)
         alert(e.response.data.error)
     } finally {
-        dispatch(setAppStatusAC('succeeded'))
+        // dispatch(setAppStatusAC('succeeded'))
         dispatch(setIsShowModalWindow({isShowModal:true, modalType: ''}))
     }
 }
@@ -213,7 +213,7 @@ export const deletePackTC = (id: string): ThunkType => async (dispatch) => {
     } catch (e) {
         handleServerNetworkError(e, dispatch)
     } finally {
-        dispatch(setAppStatusAC('succeeded'))
+        // dispatch(setAppStatusAC('succeeded'))
     }
 }
 export const updatePackTC = (id: string): ThunkType => async (dispatch) => {
@@ -225,7 +225,7 @@ export const updatePackTC = (id: string): ThunkType => async (dispatch) => {
     } catch (e) {
         handleServerNetworkError(e, dispatch)
     } finally {
-        dispatch(setAppStatusAC('succeeded'))
+        // dispatch(setAppStatusAC('succeeded'))
     }
 }
 

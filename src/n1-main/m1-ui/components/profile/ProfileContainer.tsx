@@ -17,10 +17,12 @@ export const ProfileContainer: React.FC = () => {
     const dispatch = useDispatch()
     const isLogged = useSelector<AppStateType, boolean>(state => state.auth.isLogged)
     const profile = useSelector<AppStateType, UserProfileType>(state => state.profile)
-    const {name} = profile
+
+    const {name, _id, } = profile
 
     useEffect(() => {
-        dispatch(getPacksCardsTC({}))
+        dispatch(getPacksCardsTC({user_id: _id}))
+
     }, [])
     const isLogout = () => {
         dispatch(logoutTC())
