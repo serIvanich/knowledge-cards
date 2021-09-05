@@ -10,6 +10,7 @@ const initialState = {
     status: 'succeeded' as RequestStatusType,
     error: null as string | null,
     isInitialized: false,
+    goToLogin: false,
     dataUser: {} as UserProfileType | null,
     isShowModal: false,
     modalWindowType: '' as ModalWindowType,
@@ -26,6 +27,8 @@ export const appReducer = (state: AppInitialStateType = initialState, action: Ap
 
         case "APP/SET-IS-INITIALIZED":
             return {...state, isInitialized: action.isInitialized}
+        case "APP/SET-GO-TO-LOGIN":
+            return {...state, goToLogin: action.goToLogin}
 
         case 'APP/SET-IS-SHOW-MODAL-WINDOW':
             return {
@@ -43,6 +46,7 @@ export const appReducer = (state: AppInitialStateType = initialState, action: Ap
 export const setAppStatusAC = (status: RequestStatusType) => ({type: 'APP/SET-STATUS', status} as const)
 export const setAppErrorAC = (error: string | null) => ({type: 'APP/SET-ERROR', error} as const)
 export const setIsInitializedAC = (isInitialized: boolean) => ({type: 'APP/SET-IS-INITIALIZED', isInitialized} as const)
+export const setGoToLoginAC = (goToLogin: boolean) => ({type: 'APP/SET-GO-TO-LOGIN', goToLogin} as const)
 export const setIsShowModalWindow = (payload: { isShowModal: boolean, modalType: ModalWindowType }) => ({
     type: 'APP/SET-IS-SHOW-MODAL-WINDOW',
     payload
@@ -59,9 +63,10 @@ export const initializeAppTC = () => async (dispatch: Dispatch) => {
         dispatch(setIsInitializedAC(true))
         dispatch(isLoggedAC(true))
 
+
     } catch (e) {
         if (e.response.data.error) {
-            dispatch(toLoginAC(true))
+            dispatch(setGoToLoginAC(true))
         }
         handleServerNetworkError(e, dispatch)
     } finally {
@@ -71,7 +76,8 @@ export const initializeAppTC = () => async (dispatch: Dispatch) => {
 
 export type SetAppStatusActionType = ReturnType<typeof setAppStatusAC>
 export type SetAppErrorActionType = ReturnType<typeof setAppErrorAC>
-export type SetIsInitializedAC = ReturnType<typeof setIsInitializedAC>
+export type SetIsInitializedActionType = ReturnType<typeof setIsInitializedAC>
+export type SetGoToLoginActionType = ReturnType<typeof setGoToLoginAC>
 export type SetIsShowModalActionType = ReturnType<typeof setIsShowModalWindow>
 export type ModalWindowType = '' | 'CREATE-NEW-CARD' | 'CREATE-NEW-PACK'
 
@@ -79,7 +85,8 @@ export type ModalWindowType = '' | 'CREATE-NEW-CARD' | 'CREATE-NEW-PACK'
 export type AppActionsType =
     SetAppStatusActionType
     | SetAppErrorActionType
-    | SetIsInitializedAC
+    | SetIsInitializedActionType
+    | SetGoToLoginActionType
     | SetIsShowModalActionType
 
 

@@ -2,12 +2,12 @@ import React, {useState} from 'react'
 import {ForgotPass} from './ForgotPass';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppStateType} from '../../../../m2-bll/store';
-import {forgotPasswordTC} from '../../../../m2-bll/reducers/forgotPasswordThunk';
 import Preloader from '../../../common/Preloader/Preloader';
 import s from './ForgotPass.module.scss'
 import {useFormik} from 'formik';
 import CheckEmail from './CheckEmail/CheckEmail';
 import {ForgotDataType} from '../../../../m3-dall/app-api';
+import {forgotPasswordTC} from "../../../../m2-bll/reducers/auth-reducer";
 
 type FormikErrorType = {
     email?: string

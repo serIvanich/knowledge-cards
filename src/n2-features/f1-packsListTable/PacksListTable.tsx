@@ -12,20 +12,19 @@ import {
     sortNameAC,
     updatePackTC
 } from '../../n1-main/m2-bll/reducers/packs-reducer';
-import {NavLink, Redirect} from 'react-router-dom';
-import {routes} from "../../n1-main/m1-ui/routes/routes";
+import {NavLink} from 'react-router-dom';
 
 export const PacksListTable: React.FC = () => {
     const dispatch = useDispatch()
-    let cardPacks = useSelector<AppStateType, Array<CardsPacksType>>(state => state.packs.cardPacks)
+    let {cardPacks} = useSelector<AppStateType, InitialStatePacksType>(state => state.packs)
     const profileId = useSelector<AppStateType, string>(state => state.profile._id)
 
-const [nameUpDown, setNameUpDown] = useState<boolean>(true)
-const [cardsUpDown, setCardsUpDown] = useState<boolean>(true)
-const [updateUpDown, setUpdateUpDown] = useState<boolean>(false)
-const [createdUpDown, setCreatedUpDown] = useState<boolean>(true)
 
-    const packsState = useSelector<AppStateType, InitialStatePacksType>(state => state.packs)
+    const [nameUpDown, setNameUpDown] = useState<boolean>(true)
+    const [cardsUpDown, setCardsUpDown] = useState<boolean>(true)
+    const [updateUpDown, setUpdateUpDown] = useState<boolean>(false)
+    const [createdUpDown, setCreatedUpDown] = useState<boolean>(true)
+
 
 
 
@@ -51,11 +50,6 @@ const [createdUpDown, setCreatedUpDown] = useState<boolean>(true)
     const updatePack = (id: string) => {
         dispatch(updatePackTC(id))
     }
- const gotoLearn = () => {
-        return
-        <Redirect to={routes.learnQuestion}/>
-    }
-    
 
     return (
         <div className={s.tableBlock}>
@@ -70,7 +64,8 @@ const [createdUpDown, setCreatedUpDown] = useState<boolean>(true)
                     onClick={(e) => clickedSort(e)}>Last Updated
                 </th>
                 <th className={s.tableCell} align={"left"} data-set={'creator'} title={'sort of creator'}
-                    onClick={(e) => clickedSort(e)}>Created by</th>
+                    onClick={(e) => clickedSort(e)}>Created by
+                </th>
                 <th className={s.tableCell}>Actions</th>
             </tr>
             {cardPacks
@@ -97,7 +92,7 @@ const [createdUpDown, setCreatedUpDown] = useState<boolean>(true)
                                 </div>
                                 <div className={s.buttonInTable}>
                                     <button>
-                                        <NavLink to={`/LearnQuestion/${p.name}/${p._id}`} >
+                                        <NavLink to={`/LearnQuestion/${p.name}/${p._id}`}>
                                             learn
                                         </NavLink>
                                     </button>

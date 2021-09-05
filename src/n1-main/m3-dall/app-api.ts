@@ -23,6 +23,7 @@ export const authApi = {
         return instance.delete('auth/me')
     },
     forgot(data: ForgotDataType) {
+        debugger
         return instance.post('auth/forgot', data)
     }
 }

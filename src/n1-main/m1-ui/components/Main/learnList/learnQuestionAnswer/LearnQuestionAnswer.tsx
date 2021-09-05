@@ -3,7 +3,7 @@ import s from "../LearnList.module.scss";
 
 
 export const LearnQuestionAnswer: React.FC<LearnQuestionAnswerPropsType> = (
-    {name, question, answer, setAnswerTrue}) => {
+    {name, question, answer, setAnswerTrue, callbackRedirectBack}) => {
 
     return <>
 
@@ -22,7 +22,7 @@ export const LearnQuestionAnswer: React.FC<LearnQuestionAnswerPropsType> = (
             <li>Knew the answer</li>
         </ul>
         <div className={s.buttonBlock}>
-            <button onClick={() => setAnswerTrue(false)}>cancel</button>
+            <button onClick={callbackRedirectBack}>cancel</button>
             <button>Show answer</button>
         </div>
     </>
@@ -34,4 +34,5 @@ type LearnQuestionAnswerPropsType = {
     question: string
     answer: string
     setAnswerTrue: (answerTrue: boolean) => void
+    callbackRedirectBack:() => void
 }

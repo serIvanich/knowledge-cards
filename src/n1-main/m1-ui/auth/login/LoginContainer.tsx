@@ -55,7 +55,7 @@ export const LoginContainer: React.FC = () => {
     });
 
     if (isLogged) {
-        return <Redirect to={routes.profile}/>
+        return <Redirect to={routes.mainPacks}/>
     }
     return (
         <div>
