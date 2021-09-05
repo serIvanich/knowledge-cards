@@ -23,7 +23,7 @@ export const LearnQuestionAnswer: React.FC<LearnQuestionAnswerPropsType> = (
         </ul>
         <div className={s.buttonBlock}>
             <button onClick={callbackRedirectBack}>cancel</button>
-            <button>Show answer</button>
+            <button onClick={()=>setAnswerTrue(false)}>next</button>
         </div>
     </>
 }

@@ -25,7 +25,7 @@ const history = useHistory();
     const cards = useSelector<AppStateType, CardType[]>(state => state.cards.cards)
     let question = ''
     let answer = ''
-    if (cards[0]) {
+    if (cards.length > 0) {
         question = cards[0].question
         answer = cards[0].answer
     }
