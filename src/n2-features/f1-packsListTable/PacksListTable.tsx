@@ -4,7 +4,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../n1-main/m2-bll/store";
 import {
     CardsPacksType,
-    deletePackTC,
     InitialStatePacksType,
     sortCardsAC,
     sortForCreatorAC,
@@ -13,6 +12,7 @@ import {
     updatePackTC
 } from '../../n1-main/m2-bll/reducers/packs-reducer';
 import {NavLink} from 'react-router-dom';
+import {setIsShowModalWindow} from "../../n1-main/m2-bll/reducers/modal-reducer";
 
 export const PacksListTable: React.FC = () => {
     const dispatch = useDispatch()
@@ -43,12 +43,12 @@ const [createdUpDown, setCreatedUpDown] = useState<boolean>(true)
             setCreatedUpDown(!createdUpDown)
         }
     }
-    const deletePack = (id: string) => {
-
-        dispatch(deletePackTC(id))
+    const deletePack = (packId: string) => {
+        dispatch(setIsShowModalWindow({isShowModal:true, modalType: 'DELETE-PACK', packId}))
     }
-    const updatePack = (id: string) => {
-        dispatch(updatePackTC(id))
+
+    const updatePack = (idPack: string) => {
+        dispatch(updatePackTC(idPack))
     }
 
     return (

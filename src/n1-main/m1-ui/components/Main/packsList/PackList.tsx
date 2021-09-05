@@ -12,7 +12,7 @@ import {Redirect} from 'react-router-dom';
 import {routes} from '../../../routes/routes';
 import {SelectNumberItems} from '../../../../../n2-features/f7-selectNumberItems/SelectNumberItems';
 import {ToggleMyPacks} from '../../../../../n2-features/f5-toggleMyPacks/ToggleMyPacks';
-import {setIsShowModalWindow} from "../../../../m2-bll/reducers/app-reduser";
+import {setIsShowModalWindow} from "../../../../m2-bll/reducers/modal-reducer";
 
 export const PacksList: React.FC = () => {
 
@@ -33,7 +33,6 @@ export const PacksList: React.FC = () => {
     }
 
     const createPack = () => {
-        // dispatch(postPackTC())
         dispatch(setIsShowModalWindow({isShowModal:true, modalType: 'CREATE-NEW-PACK'}))
 
     }

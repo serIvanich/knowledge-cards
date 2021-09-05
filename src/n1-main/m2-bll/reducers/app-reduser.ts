@@ -11,8 +11,6 @@ const initialState = {
     error: null as string | null,
     isInitialized: false,
     dataUser: {} as UserProfileType | null,
-    isShowModal: false,
-    modalWindowType: '' as ModalWindowType,
 }
 
 export type AppInitialStateType = typeof initialState
@@ -27,11 +25,6 @@ export const appReducer = (state: AppInitialStateType = initialState, action: Ap
         case "APP/SET-IS-INITIALIZED":
             return {...state, isInitialized: action.isInitialized}
 
-        case 'APP/SET-IS-SHOW-MODAL-WINDOW':
-            return {...state,
-                isShowModal: action.payload.isShowModal,
-                modalWindowType: action.payload.modalType }
-
 
         default:
             return state
@@ -41,7 +34,6 @@ export const appReducer = (state: AppInitialStateType = initialState, action: Ap
 export const setAppStatusAC = (status: RequestStatusType) => ({type: 'APP/SET-STATUS', status} as const)
 export const setAppErrorAC = (error: string | null) => ({type: 'APP/SET-ERROR', error} as const)
 export const setIsInitializedAC = (isInitialized: boolean) => ({type: 'APP/SET-IS-INITIALIZED', isInitialized} as const)
-export const setIsShowModalWindow =(payload:{isShowModal:boolean, modalType: ModalWindowType}) => ({type: 'APP/SET-IS-SHOW-MODAL-WINDOW', payload} as const)
 
 
 export const initializeAppTC = () => async (dispatch: Dispatch) => {
@@ -64,15 +56,12 @@ export const initializeAppTC = () => async (dispatch: Dispatch) => {
 export type SetAppStatusActionType = ReturnType<typeof setAppStatusAC>
 export type SetAppErrorActionType = ReturnType<typeof setAppErrorAC>
 export type SetIsInitializedAC = ReturnType<typeof setIsInitializedAC>
-export type SetIsShowModalActionType = ReturnType<typeof setIsShowModalWindow>
-export type ModalWindowType = '' | 'CREATE-NEW-CARD' | 'CREATE-NEW-PACK'
 
 
 export type AppActionsType =
     SetAppStatusActionType
     | SetAppErrorActionType
     | SetIsInitializedAC
-    | SetIsShowModalActionType
 
 
 

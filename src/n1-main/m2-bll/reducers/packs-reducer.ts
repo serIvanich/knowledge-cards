@@ -1,8 +1,9 @@
 import {handleServerNetworkError} from '../../../utils/error-utils';
-import {setAppStatusAC, SetAppStatusActionType, SetIsShowModalActionType, setIsShowModalWindow} from './app-reduser';
+import {setAppStatusAC, SetAppStatusActionType } from './app-reduser';
 import {packsApi, RequestParamsType} from '../../m3-dall/packs-api';
 import {ThunkAction} from 'redux-thunk';
 import {AppStateType} from '../store';
+import {SetIsShowModalActionType, setIsShowModalWindow} from "./modal-reducer";
 
 const initialState = {
     cardPacks: [] as Array<CardsPacksType>,
@@ -121,7 +122,6 @@ export const packsReducer = (state: InitialStatePacksType = initialState, action
             };
 
 
-
         default:
             return state
     }
@@ -201,7 +201,7 @@ export const postPackTC = (name: string): ThunkType => async (dispatch) => {
         alert(e.response.data.error)
     } finally {
         dispatch(setAppStatusAC('succeeded'))
-        dispatch(setIsShowModalWindow({isShowModal:true, modalType: ''}))
+        dispatch(setIsShowModalWindow({isShowModal:false, modalType: ''}))
     }
 }
 export const deletePackTC = (id: string): ThunkType => async (dispatch) => {
@@ -214,6 +214,7 @@ export const deletePackTC = (id: string): ThunkType => async (dispatch) => {
         handleServerNetworkError(e, dispatch)
     } finally {
         dispatch(setAppStatusAC('succeeded'))
+        dispatch(setIsShowModalWindow({isShowModal:false, modalType: '', packId:''}))
     }
 }
 export const updatePackTC = (id: string): ThunkType => async (dispatch) => {

@@ -22,7 +22,7 @@ function App() {
     const dispatch = useDispatch()
     const isInitialized = useSelector<AppStateType, boolean>(state => state.app.isInitialized)
     const status = useSelector<AppStateType, RequestStatusType>(state => state.app.status)
-    const isShowModal = useSelector<AppStateType, boolean>(state => state.app.isShowModal)
+    const isShowModal = useSelector<AppStateType, boolean>(state => state.modal.isShowModal)
 
     useEffect(() => {
         if (!isInitialized) {
