@@ -22,9 +22,10 @@ import {LearnList} from "../components/Main/learnList/LearnList";
 function App() {
     const dispatch = useDispatch()
     const isInitialized = useSelector<AppStateType, boolean>(state => state.app.isInitialized)
-    const toLogin = useSelector<AppStateType, boolean>(state => state.auth.toLogin)
+    const goToLogin = useSelector<AppStateType, boolean>(state => state.app.goToLogin)
+
     const status = useSelector<AppStateType, RequestStatusType>(state => state.app.status)
-    const isShowModal = useSelector<AppStateType, boolean>(state => state.app.isShowModal)
+    const isShowModal = useSelector<AppStateType, boolean>(state => state.modal.isShowModal)
 
     useEffect(() => {
 
@@ -39,10 +40,10 @@ function App() {
         appCss = 'appPreloader'
     }
 
-    if (!isInitialized ) {
-if(toLogin){ return <LoginContainer/>}
-        return <Preloader/>
-    }
+if (!isInitialized) {
+    if (!goToLogin){
+    return <Preloader/>}
+}
 
     return (
 
@@ -52,7 +53,7 @@ if(toLogin){ return <LoginContainer/>}
                 <Header/>
                 <Switch>
                     <Route exact path={'/'} render={() => <Redirect to={routes.mainPacks}/>}/>
-                    <Route exact path={routes.mainPacks} render={() => <PacksList />}/>
+                    <Route exact path={routes.mainPacks} render={() => <PacksList/>}/>
                     <Route exact path={routes.mainCards} render={() => <CardsList/>}/>
                     <Route path={routes.login} render={() => <LoginContainer/>}/>
                     <Route path={routes.register} render={() => <Register/>}/>
@@ -64,7 +65,7 @@ if(toLogin){ return <LoginContainer/>}
                     <Route path={routes.err404} render={() => <Error404/>}/>
                     <Route path='*' render={() => <Redirect to={routes.err404}/>}/>
                 </Switch>
-                { isShowModal && <ModalContainer/>}
+                {isShowModal && <ModalContainer/>}
             </div>
 
         </div>

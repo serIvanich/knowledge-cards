@@ -5,12 +5,12 @@ import {Navbar} from "./Navbar/Navbar";
 
 export const Header: React.FC = () => {
 
-    const isLogged = useSelector<AppStateType, boolean>(state => state.auth.isLogged)
+    const isInitialized = useSelector<AppStateType, boolean>(state => state.app.isInitialized)
 
     return (
         <div>
 
-            {isLogged? <Navbar/>:<FakeNavbar/>}
+            {isInitialized? <Navbar/>:<FakeNavbar/>}
         </div>
     )
 }

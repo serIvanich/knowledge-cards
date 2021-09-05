@@ -23,7 +23,7 @@ export const ProfileContainer: React.FC = () => {
     useEffect(() => {
         dispatch(getPacksCardsTC({user_id: _id}))
 
-    }, [isLogged])
+    }, [])
     const isLogout = () => {
         dispatch(logoutTC())
     }

@@ -3,7 +3,7 @@ import s from '../LearnList.module.scss';
 import {RateYourself} from '../../../../../../n2-features/f9-Rating/RateYourself';
 
 export const LearnQuestionAnswer: React.FC<LearnQuestionAnswerPropsType> = (
-    {name, question, answer, setAnswerTrue}) => {
+    {name, question, answer, setAnswerTrue, callbackRedirectBack}) => {
 
     return <>
         <div>
@@ -15,8 +15,8 @@ export const LearnQuestionAnswer: React.FC<LearnQuestionAnswerPropsType> = (
         </div>
         <RateYourself/>
         <div className={s.buttonBlock}>
-            <button onClick={() => setAnswerTrue(false)}>cancel</button>
-            <button>Show answer</button>
+            <button onClick={callbackRedirectBack}>cancel</button>
+            <button onClick={()=>setAnswerTrue(false)}>next</button>
         </div>
     </>
 }
@@ -26,4 +26,5 @@ type LearnQuestionAnswerPropsType = {
     question: string
     answer: string
     setAnswerTrue: (answerTrue: boolean) => void
+    callbackRedirectBack:() => void
 }

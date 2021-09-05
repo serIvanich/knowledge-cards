@@ -12,11 +12,13 @@ export const DoubleSliderContainer: React.FC = React.memo(() => {
     const handleChange = (newValue: number[]) => {
         setValue1(newValue[0]);
         setValue2(newValue[1]);
-        dispatch(setMinMaxValueAC(newValue))
+        dispatch(setMinMaxValueAC({newMin: newValue[0], newMax: newValue[1]}))
     }
 
     const handleChangeCommitted = () => {
+
         dispatch(getPacksCardsTC({min: value1, max: value2}))
+
     }
 
     return (

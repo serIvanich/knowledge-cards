@@ -1,12 +1,12 @@
-import {authApi, LoginDataType} from "../../m3-dall/app-api";
+import {authApi, ForgotDataType, LoginDataType} from "../../m3-dall/app-api";
 import {Dispatch} from "redux";
 import {handleServerNetworkError} from "../../../utils/error-utils";
-import {setAppStatusAC} from "./app-reduser";
+import {setAppStatusAC, setIsInitializedAC} from "./app-reduser";
 import {setUserProfileAC} from "./profile-reducer";
 import {passwordRecoveryApi} from "../../m3-dall/passwordRecovery-api";
 
 const initialState = {
-    toLogin: false,
+    // toLogin: false,
     isLogged: false,
     message: '',
     checkMailPage: false,
@@ -21,11 +21,11 @@ export const authReducer = (state: InitialStateType = initialState, action: Acti
                 ...state,
                 isLogged: action.isLogged
             }
-        case 'auth/TO-LOGIN':
-            return {
-                ...state,
-                toLogin: action.toLogin
-            }
+        // case 'auth/TO-LOGIN':
+        //     return {
+        //         ...state,
+        //         toLogin: action.toLogin
+        //     }
         case 'auth/SET-NEW_PASSWORD':
             return {...state, message: action.message}
         default:
@@ -44,11 +44,13 @@ export const loginTC = (payload: LoginDataType) => async (dispatch: Dispatch) =>
         dispatch(setAppStatusAC('loading'))
         const data = await authApi.login(payload)
         dispatch(isLoggedAC(true))
-        dispatch(toLoginAC(false))
+        dispatch(setIsInitializedAC(true))
         dispatch(setUserProfileAC(data))
-        dispatch(setAppStatusAC('succeeded'))
+
     } catch (e) {
         handleServerNetworkError(e, dispatch)
+    } finally {
+        dispatch(setAppStatusAC('succeeded'))
     }
 }
 
@@ -57,9 +59,11 @@ export const logoutTC = () => async (dispatch: Dispatch) => {
         dispatch(setAppStatusAC('loading'))
         const data = await authApi.logout()
         dispatch(isLoggedAC(false))
-        dispatch(setAppStatusAC('succeeded'))
+
     } catch (e) {
         handleServerNetworkError(e, dispatch)
+    } finally {
+        dispatch(setAppStatusAC('succeeded'))
     }
 }
 
@@ -76,8 +80,21 @@ export const setNewPasswordTC = (password: string, token: string) => async (disp
     }
 }
 
+export const forgotPasswordTC = (param: ForgotDataType ) => async (dispatch: Dispatch) => {
+    try {
+        dispatch(setAppStatusAC('loading'))
+        const res = await authApi.forgot(param)
+
+    }catch(e) {
+                handleServerNetworkError(e, dispatch)
+
+    }finally {
+        dispatch(setAppStatusAC('succeeded'))
+    }
+}
+
 
 type InitialStateType = typeof initialState
 type ActionType = ReturnType<typeof isLoggedAC>
     | ReturnType<typeof setNewPasswordAC>
-    | ReturnType<typeof toLoginAC>
+// | ReturnType<typeof toLoginAC>

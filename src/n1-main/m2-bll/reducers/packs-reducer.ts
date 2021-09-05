@@ -1,8 +1,9 @@
 import {handleServerNetworkError} from '../../../utils/error-utils';
-import {setAppStatusAC, SetAppStatusActionType, SetIsShowModalActionType, setIsShowModalWindow} from './app-reduser';
+import {setAppStatusAC, SetAppStatusActionType} from './app-reduser';
 import {packsApi, RequestParamsType} from '../../m3-dall/packs-api';
 import {ThunkAction} from 'redux-thunk';
 import {AppStateType} from '../store';
+import {SetIsShowModalActionType, setIsShowModalWindow} from "./modal-reducer";
 
 const initialState = {
     cardPacks: [] as Array<CardsPacksType>,
@@ -11,9 +12,9 @@ const initialState = {
     minCardsCount: 0,
     page: 1,
     pageCount: 4,
-min:0,
+    min: 0,
+    max: 100,
     portionSize: 7,
-max: 100,
     myPacks: false,
     search: '',
 }
@@ -27,7 +28,7 @@ export const packsReducer = (state: InitialStatePacksType = initialState, action
             return {
                 ...state,
                 ...action.payload,
-                cardPacks: [...action.payload.cardPacks]
+                // cardPacks: [...action.payload.cardPacks]
             }
 
         case 'packs/SORT-NAME':
@@ -103,23 +104,13 @@ export const packsReducer = (state: InitialStatePacksType = initialState, action
                 ...state,
                 pageCount: action.pageCount
             };
-        case 'packs/SET-TOTAL-PAGE-COUNT':
-            return {
-                ...state,
-                totalPacksCount: action.totalPacksCount
-            };
-        case 'packs/PACKS/SET-CURRENT-PAGE':
-            return {
-                ...state,
-                pageNumber: action.pageNumber
-            };
         case 'packs/SET-MIN-MAX-VALUE':
+
             return {
                 ...state,
-                minCardsCount: action.newMin,
-                maxCardsCount: action.newMax
+                min: action.payload.newMin,
+                max: action.payload.newMax
             };
-
 
 
         default:
@@ -138,30 +129,21 @@ export const setMyPacksAC = (myPacks: boolean) => ({type: 'packs/SET-MY-PACKS', 
 export const setUserIdAC = (userId: string) => ({type: 'packs/SET-USER-ID', userId} as const)
 export const setPageAC = (page: number) => ({type: 'packs/SET-PAGE', page} as const)
 export const setPageCountAC = (pageCount: number) => ({type: 'packs/SET-PAGE-COUNT', pageCount} as const)
-export const setCurrentPageAC = (pageNumber: number) => ({type: 'packs/PACKS/SET-CURRENT-PAGE', pageNumber} as const)
-export const setTotalPacksCountAC = (totalPacksCount: number) => ({
-    type: 'packs/SET-TOTAL-PAGE-COUNT',
-    totalPacksCount
-} as const)
 export const setSearchAC = (search: string) => ({type: 'packs/SET-SEARCH', search} as const)
-export const setMinMaxValueAC = ([newMin, newMax]: number[]) => ({
+export const setMinMaxValueAC = (payload: { newMin: number, newMax: number}) => ({
     type: 'packs/SET-MIN-MAX-VALUE',
-    newMin,
-    newMax
+    payload
 } as const)
 
 
-export const getPacksCardsTC = (params: RequestParamsType, myPacks?: boolean): ThunkType => async (dispatch, getState) => {
+export const getPacksCardsTC = (params: RequestParamsType, myPacks?: boolean): ThunkType =>
+    async (dispatch, getState) => {
     try {
+
         dispatch(setAppStatusAC('loading'))
         const userId = getState().profile._id
-        const myPacks = getState().packs.myPacks
-        const min = getState().packs.minCardsCount
-        const max = getState().packs.maxCardsCount
-        const initialPageCount = getState().packs.pageCount
-        const initialMin = getState().packs.minCardsCount
-        const initialMax = getState().packs.maxCardsCount
-        const initialSearch = getState().packs.search
+        const {myPacks, pageCount, search, min, max} = getState().packs
+
 
 
         if (myPacks) {
@@ -169,19 +151,19 @@ export const getPacksCardsTC = (params: RequestParamsType, myPacks?: boolean): T
         }
         if (params.packName === undefined) {
 
-            params = {...params, packName: initialSearch}
+            params = {...params, packName: search}
         }
-        if (params.min === undefined && params.max === undefined) {
-            params = {...params, min: initialMin, max: initialMax}
+        if (!params.min && !params.max) {
+            params = {...params, min, max}
         }
         if (!params.pageCount) {
-            params = {...params, pageCount: initialPageCount}
+            params = {...params, pageCount}
         }
+
 
         const data = await packsApi.getPacks(params)
         dispatch(setPacksCardsAC(data))
 
-        dispatch(setMinMaxValueAC([min, max]))
     } catch (e) {
         handleServerNetworkError(e, dispatch)
     } finally {
@@ -194,14 +176,13 @@ export const postPackTC = (name: string): ThunkType => async (dispatch) => {
         dispatch(setAppStatusAC('loading'));
         const data = await packsApi.createPack({name})
         dispatch(getPacksCardsTC({}));
-        // dispatch(setIsShowModalWindow({isShowModal:false, modalType: ''}));
 
     } catch (e) {
         handleServerNetworkError(e, dispatch)
-        alert(e.response.data.error)
+
     } finally {
         // dispatch(setAppStatusAC('succeeded'))
-        dispatch(setIsShowModalWindow({isShowModal:true, modalType: ''}))
+        dispatch(setIsShowModalWindow({isShowModal: true, modalType: ''}))
     }
 }
 export const deletePackTC = (id: string): ThunkType => async (dispatch) => {
@@ -214,18 +195,21 @@ export const deletePackTC = (id: string): ThunkType => async (dispatch) => {
         handleServerNetworkError(e, dispatch)
     } finally {
         // dispatch(setAppStatusAC('succeeded'))
+        dispatch(setIsShowModalWindow({isShowModal:false, modalType: '', packId:''}))
     }
 }
-export const updatePackTC = (id: string): ThunkType => async (dispatch) => {
+export const updatePackTC = (param:{id: string, name:string}): ThunkType => async (dispatch) => {
+    const {id, name} = param
+
     try {
         dispatch(setAppStatusAC('loading'))
-
-        const data = await packsApi.updatePack({_id: id, name: 'update packName'})
+        const data = await packsApi.updatePack({_id: id, name})
         dispatch(getPacksCardsTC({}))
     } catch (e) {
         handleServerNetworkError(e, dispatch)
     } finally {
-        // dispatch(setAppStatusAC('succeeded'))
+        // dispatch(setAppStatusAC('succeeded'));
+        dispatch(setIsShowModalWindow({isShowModal:false, modalType: '', packId:''}))
     }
 }
 
@@ -233,21 +217,15 @@ export const updatePackTC = (id: string): ThunkType => async (dispatch) => {
 type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsType>
 type ActionsType = ReturnType<typeof setPacksCardsAC>
     | ReturnType<typeof sortNameAC>
-
-
     | ReturnType<typeof sortCardsAC>
     | ReturnType<typeof sortForUpdateAC>
     | ReturnType<typeof sortForCreatorAC>
-
-
     | ReturnType<typeof setMyPacksAC>
     | ReturnType<typeof setUserIdAC>
     | ReturnType<typeof setPageAC>
     | ReturnType<typeof setSearchAC>
     | ReturnType<typeof setPageCountAC>
-    | ReturnType<typeof setTotalPacksCountAC>
     | ReturnType<typeof setMinMaxValueAC>
-    | ReturnType<typeof setCurrentPageAC>
     | SetAppStatusActionType
     | SetIsShowModalActionType
 
