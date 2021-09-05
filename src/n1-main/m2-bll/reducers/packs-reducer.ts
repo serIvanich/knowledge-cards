@@ -1,5 +1,5 @@
 import {handleServerNetworkError} from '../../../utils/error-utils';
-import {setAppStatusAC, SetAppStatusActionType, SetIsShowModalActionType, setIsShowModalWindow} from './app-reduser';
+import {setAppStatusAC, SetAppStatusActionType} from './app-reduser';
 import {packsApi, RequestParamsType} from '../../m3-dall/packs-api';
 import {ThunkAction} from 'redux-thunk';
 import {AppStateType} from '../store';
@@ -194,13 +194,13 @@ export const deletePackTC = (id: string): ThunkType => async (dispatch) => {
     } catch (e) {
         handleServerNetworkError(e, dispatch)
     } finally {
-        dispatch(setAppStatusAC('succeeded'))
+        // dispatch(setAppStatusAC('succeeded'))
         dispatch(setIsShowModalWindow({isShowModal:false, modalType: '', packId:''}))
     }
 }
 export const updatePackTC = (param:{id: string, name:string}): ThunkType => async (dispatch) => {
     const {id, name} = param
-    debugger
+
     try {
         dispatch(setAppStatusAC('loading'))
         const data = await packsApi.updatePack({_id: id, name})
@@ -208,7 +208,7 @@ export const updatePackTC = (param:{id: string, name:string}): ThunkType => asyn
     } catch (e) {
         handleServerNetworkError(e, dispatch)
     } finally {
-        dispatch(setAppStatusAC('succeeded'));
+        // dispatch(setAppStatusAC('succeeded'));
         dispatch(setIsShowModalWindow({isShowModal:false, modalType: '', packId:''}))
     }
 }
