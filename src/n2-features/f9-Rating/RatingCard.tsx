@@ -20,7 +20,7 @@ export const RatingCard: React.FC<RatingCardType> = ({card_id, grade}) => {
         <div>
             <Rating
                 defaultValue={grade}
-                precision={0.5}
+                precision={1}
                 onChange={setNewGradeForCard}
             />
         </div>

@@ -4,12 +4,11 @@ import {useDispatch, useSelector} from 'react-redux';
 import {AppStateType} from '../../n1-main/m2-bll/store';
 import {CardType} from '../../n1-main/m3-dall/cards-api';
 import {deleteCardTC, updateCardTC} from '../../n1-main/m2-bll/reducers/cards-reducer';
-import {RatingCard} from '../f9-RatingCard/RatingCard';
+import {RatingCard} from '../f9-Rating/RatingCard';
 
 export const CardsListTable: React.FC<{ disabled: boolean }> = ({disabled}) => {
     const dispatch = useDispatch()
     const cards = useSelector<AppStateType, CardType[]>(state => state.cards.cards)
-    // const card_id = useSelector<AppStateType, CardType>(state => state.cards.cards._id)
 
     const deleteCard = (cardId: string, packId: string) => {
         dispatch(deleteCardTC(cardId, packId))

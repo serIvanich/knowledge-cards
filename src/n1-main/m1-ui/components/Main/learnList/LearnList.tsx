@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import s from '../cardsList/CardList.module.scss'
 import style from './LearnList.module.scss'
 import {useParams} from "react-router-dom";
@@ -33,7 +33,7 @@ export const LearnList: React.FC<LearnListPropsType> = () => {
         <div className={s.cardPage}>
             <div className={`${s.cardContainer} + ${s.learnListContainer}`}>
                 {!answerTrue ? <LearnQuestion name={name} question={question} setAnswerTrue={setAnswerTrue}/>
-                    : <LearnQuestionAnswer name={name} question={question} answer={answer} setAnswerTrue={setAnswerTrue}/>}
+                    : <LearnQuestionAnswer name={name} question={question} answer={answer} setAnswerTrue={setAnswerTrue} />}
             </div>
 
         </div>
