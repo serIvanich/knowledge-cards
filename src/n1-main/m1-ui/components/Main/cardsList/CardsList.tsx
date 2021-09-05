@@ -9,7 +9,6 @@ import {Paginator} from "../../../../../n2-features/f3-paginator/Paginator";
 import {useDispatch, useSelector} from "react-redux";
 import {createCardTC, getCardsTC} from "../../../../m2-bll/reducers/cards-reducer";
 import {AppStateType} from "../../../../m2-bll/store";
-import {CardType} from "../../../../m3-dall/cards-api";
 
 export const CardsList: React.FC = () => {
     const isLogged = useSelector<AppStateType, boolean>(state => state.auth.isLogged)

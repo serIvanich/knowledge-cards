@@ -1,12 +1,11 @@
-import React from "react";
-import s from "../LearnList.module.scss";
-
+import React from 'react';
+import s from '../LearnList.module.scss';
+import {RateYourself} from '../../../../../../n2-features/f9-Rating/RateYourself';
 
 export const LearnQuestionAnswer: React.FC<LearnQuestionAnswerPropsType> = (
     {name, question, answer, setAnswerTrue, callbackRedirectBack}) => {
 
     return <>
-
         <div>
             <h3>Learn {name}</h3>
             <h4>Question:</h4>
@@ -14,20 +13,13 @@ export const LearnQuestionAnswer: React.FC<LearnQuestionAnswerPropsType> = (
             <h4>Answer:</h4>
             {answer}
         </div>
-        <ul className={s.rateYourself}> Rate yourself
-            <li>Did not know</li>
-            <li>Forgot</li>
-            <li>A lot of thought</li>
-            <li>Confused</li>
-            <li>Knew the answer</li>
-        </ul>
+        <RateYourself/>
         <div className={s.buttonBlock}>
             <button onClick={callbackRedirectBack}>cancel</button>
             <button onClick={()=>setAnswerTrue(false)}>next</button>
         </div>
     </>
 }
-
 
 type LearnQuestionAnswerPropsType = {
     name: string

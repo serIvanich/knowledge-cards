@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import s from '../cardsList/CardList.module.scss'
 import style from './LearnList.module.scss'
 import {useHistory, useParams} from "react-router-dom";
@@ -25,13 +25,11 @@ const history = useHistory();
     const cards = useSelector<AppStateType, CardType[]>(state => state.cards.cards)
     let question = ''
     let answer = ''
-    if (cards.length > 0) {
+    if (cards[0]) {
         question = cards[0].question
         answer = cards[0].answer
     }
-const callbackRedirectBack = () => {
-    history.goBack();
-}
+
     return (
         <div className={s.cardPage}>
             <div className={`${s.cardContainer} + ${s.learnListContainer}`}>

@@ -1,0 +1,33 @@
+.form {
+  align-self: flex-start;
+  width: 100%;
+  ul {
+    padding-left: 0;
+  }
+
+  .listSpan {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 27px;
+    color: #000;
+  }
+
+  .list {
+    li {
+      list-style: none;
+    }
+
+    .item {
+      margin-top: 10px;
+
+      .input {
+        width: 10px;
+      }
+
+      .label {
+        position: static;
+        margin-left: 5px;
+      }
+    }
+  }
+}

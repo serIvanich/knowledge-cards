@@ -12,7 +12,6 @@ export const DoubleSlider: React.FC<SuperDoubleRangePropsType> = ({onChangeRange
         onChangeRange && onChangeRange(newValue as [number, number])
     }
 
-
     return (
         <div>
             <Slider
