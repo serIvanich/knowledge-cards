@@ -13,17 +13,21 @@ import {AppStateType} from '../../m2-bll/store';
 import Preloader from '../common/Preloader/Preloader';
 import ForgotContainerPass from '../auth/password/fogotPassword/ForgotContainerPass';
 import {ProfileContainer} from "../components/profile/ProfileContainer";
-import {Main} from '../components/Main/Main';
-import {getPacksCardsTC} from "../../m2-bll/reducers/packs-reducer";
 import {CardsList} from "../components/Main/cardsList/CardsList";
 import {PacksList} from "../components/Main/packsList/PackList";
+import ModalContainer from "../../../n2-features/f8-modals/ModalContainer";
+import {LearnList} from "../components/Main/learnList/LearnList";
 
 
 function App() {
     const dispatch = useDispatch()
     const isInitialized = useSelector<AppStateType, boolean>(state => state.app.isInitialized)
+    const toLogin = useSelector<AppStateType, boolean>(state => state.auth.toLogin)
     const status = useSelector<AppStateType, RequestStatusType>(state => state.app.status)
+    const isShowModal = useSelector<AppStateType, boolean>(state => state.app.isShowModal)
+
     useEffect(() => {
+
         if (!isInitialized) {
             dispatch(initializeAppTC())
         }
@@ -35,7 +39,13 @@ function App() {
         appCss = 'appPreloader'
     }
 
+    if (!isInitialized ) {
+if(toLogin){ return <LoginContainer/>}
+        return <Preloader/>
+    }
+
     return (
+
         <div className={'app'}>
             {status === 'loading' && <Preloader/>}
             <div className={appCss}>
@@ -49,10 +59,12 @@ function App() {
                     <Route path={routes.setPass} render={() => <SetPass/>}/>
                     <Route path={routes.forgotPass} render={() => <ForgotContainerPass/>}/>
                     <Route path={routes.profile} render={() => <ProfileContainer/>}/>
+                    <Route path={routes.learnQuestion} render={() => <LearnList/>}/>
                     {/*<Route path={routes.testPage} render={() => <TestPage/>}/>*/}
                     <Route path={routes.err404} render={() => <Error404/>}/>
                     <Route path='*' render={() => <Redirect to={routes.err404}/>}/>
                 </Switch>
+                { isShowModal && <ModalContainer/>}
             </div>
 
         </div>

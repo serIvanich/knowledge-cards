@@ -1,0 +1,30 @@
+
+.buttonBlock{
+    width: 100%;
+    display: flex;
+
+    justify-content: space-around;
+
+}
+
+.rateYourself {
+list-style-type: circle;
+}
+
+.questionContainer {
+    font-size: 18px;
+}
+
+
+.linkOnPacks {
+    text-decoration: none;
+
+}
+.buttonBlock a:hover {
+
+    color: floralwhite;
+}
+.buttonBlock a:visited {
+
+    color: cornflowerblue;
+}

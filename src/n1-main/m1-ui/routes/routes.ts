@@ -8,5 +8,6 @@ export const routes = {
     err404: '/404',
     profile: '/profile',
     testPage: '/TestPage',
+    learnQuestion: '/LearnQuestion/:name/:id'
 
 }

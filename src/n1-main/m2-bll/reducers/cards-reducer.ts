@@ -60,8 +60,8 @@ export const createCardTC = (id:string): ThunkType => async (dispatch) => {
                 dispatch(getCardsTC(id))
         } catch (e) {
                 handleServerNetworkError(e, dispatch)
-        } finally {
-                dispatch(setAppStatusAC('succeeded'))
+        // } finally {
+        //         dispatch(setAppStatusAC('succeeded'))
         }
 }
 export const updateCardTC = (cardId:string, packId: string): ThunkType => async (dispatch) => {
@@ -74,8 +74,8 @@ export const updateCardTC = (cardId:string, packId: string): ThunkType => async 
                 dispatch(getCardsTC(packId))
         } catch (e) {
                 handleServerNetworkError(e, dispatch)
-        } finally {
-                dispatch(setAppStatusAC('succeeded'))
+        // } finally {
+        //         dispatch(setAppStatusAC('succeeded'))
         }
 }
 export const deleteCardTC = (cardId:string, packId: string): ThunkType => async (dispatch) => {
@@ -88,8 +88,8 @@ export const deleteCardTC = (cardId:string, packId: string): ThunkType => async 
                 dispatch(getCardsTC(packId))
         } catch (e) {
                 handleServerNetworkError(e, dispatch)
-        } finally {
-                dispatch(setAppStatusAC('succeeded'))
+        // } finally {
+        //         dispatch(setAppStatusAC('succeeded'))
         }
 }
 

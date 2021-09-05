@@ -6,6 +6,7 @@ import {setUserProfileAC} from "./profile-reducer";
 import {passwordRecoveryApi} from "../../m3-dall/passwordRecovery-api";
 
 const initialState = {
+    toLogin: false,
     isLogged: false,
     message: '',
     checkMailPage: false,
@@ -14,29 +15,36 @@ const initialState = {
 
 export const authReducer = (state: InitialStateType = initialState, action: ActionType) => {
 
-    switch(action.type) {
+    switch (action.type) {
         case 'auth/IS-LOGGED':
             return {
                 ...state,
                 isLogged: action.isLogged
             }
+        case 'auth/TO-LOGIN':
+            return {
+                ...state,
+                toLogin: action.toLogin
+            }
         case 'auth/SET-NEW_PASSWORD':
-            return {...state, message: action.message }
+            return {...state, message: action.message}
         default:
             return state
     }
 
 }
 
-export const isLoggedAC = (isLogged: boolean) => ({type: 'auth/IS-LOGGED', isLogged }as const)
-export const setNewPasswordAC = (message:string) => ({type: 'auth/SET-NEW_PASSWORD', message } as const)
+export const isLoggedAC = (isLogged: boolean) => ({type: 'auth/IS-LOGGED', isLogged} as const)
+export const toLoginAC = (toLogin: boolean) => ({type: 'auth/TO-LOGIN', toLogin} as const)
+export const setNewPasswordAC = (message: string) => ({type: 'auth/SET-NEW_PASSWORD', message} as const)
 
 
 export const loginTC = (payload: LoginDataType) => async (dispatch: Dispatch) => {
-    try{
+    try {
         dispatch(setAppStatusAC('loading'))
         const data = await authApi.login(payload)
         dispatch(isLoggedAC(true))
+        dispatch(toLoginAC(false))
         dispatch(setUserProfileAC(data))
         dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
@@ -45,7 +53,7 @@ export const loginTC = (payload: LoginDataType) => async (dispatch: Dispatch) =>
 }
 
 export const logoutTC = () => async (dispatch: Dispatch) => {
-    try{
+    try {
         dispatch(setAppStatusAC('loading'))
         const data = await authApi.logout()
         dispatch(isLoggedAC(false))
@@ -55,7 +63,7 @@ export const logoutTC = () => async (dispatch: Dispatch) => {
     }
 }
 
-export const setNewPasswordTC = (password:string, token:string) => async (dispatch:Dispatch) => {
+export const setNewPasswordTC = (password: string, token: string) => async (dispatch: Dispatch) => {
     try {
         dispatch(setAppStatusAC('loading'))
         const res = await passwordRecoveryApi.setNewPassword(password, token)
@@ -69,6 +77,7 @@ export const setNewPasswordTC = (password:string, token:string) => async (dispat
 }
 
 
-
 type InitialStateType = typeof initialState
-type ActionType = ReturnType<typeof isLoggedAC> | ReturnType<typeof setNewPasswordAC>
+type ActionType = ReturnType<typeof isLoggedAC>
+    | ReturnType<typeof setNewPasswordAC>
+    | ReturnType<typeof toLoginAC>
