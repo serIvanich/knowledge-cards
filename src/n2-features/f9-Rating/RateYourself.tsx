@@ -1,18 +1,22 @@
-import React from 'react'
+import React, {ChangeEvent} from 'react'
 import s from './Rating.module.scss';
+import {changeGradeCardTC} from '../../n1-main/m2-bll/reducers/cards-reducer';
+import {useDispatch, useSelector} from 'react-redux';
+import {AppStateType} from '../../n1-main/m2-bll/store';
+import {CardType} from '../../n1-main/m3-dall/cards-api';
 
 const grades = ['Did not know', 'Forgot', 'A lot of thought', 'Confused', 'Knew the answer'];
 
 export const RateYourself: React.FC = () => {
 
-       return (
+    return (
         <div>
             <form className={s.form}>
                 <span className={s.listSpan}>Rate yourself:</span>
                 <ul className={s.list}>
                     {grades.map((g, i) => (
                         <li className={s.item} key={'grade-' + i}>
-                            <input className={s.input} name='rating' type="radio" id="1"/>
+                            <input className={s.input} name="rating" type="radio" id="1"/>
                             <label className={s.label} htmlFor="1">{g}</label>
                         </li>
                     ))}
