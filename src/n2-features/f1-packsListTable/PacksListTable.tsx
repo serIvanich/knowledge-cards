@@ -9,7 +9,6 @@ import {
     sortForCreatorAC,
     sortForUpdateAC,
     sortNameAC,
-    updatePackTC
 } from '../../n1-main/m2-bll/reducers/packs-reducer';
 import {NavLink} from 'react-router-dom';
 import {setIsShowModalWindow} from "../../n1-main/m2-bll/reducers/modal-reducer";
@@ -47,8 +46,8 @@ const [createdUpDown, setCreatedUpDown] = useState<boolean>(true)
         dispatch(setIsShowModalWindow({isShowModal:true, modalType: 'DELETE-PACK', packId}))
     }
 
-    const updatePack = (idPack: string) => {
-        dispatch(updatePackTC(idPack))
+    const updatePack = (packId: string) => {
+        dispatch(setIsShowModalWindow({isShowModal:true, modalType: "UPDATE-PACK", packId }))
     }
 
     return (

@@ -30,6 +30,7 @@ export type ModalWindowType = ''
     | 'CREATE-NEW-CARD'
     | 'CREATE-NEW-PACK'
     | 'DELETE-PACK'
+    | 'UPDATE-PACK'
 
 
 export type ModalActionsType =

@@ -3,16 +3,11 @@ import Modal from './Modal';
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../n1-main/m2-bll/store";
 import {ModalWindowType, setIsShowModalWindow} from "../../n1-main/m2-bll/reducers/modal-reducer";
-import {CardsPacksType, deletePackTC, postPackTC} from "../../n1-main/m2-bll/reducers/packs-reducer";
+import {CardsPacksType, deletePackTC, postPackTC, updatePackTC} from "../../n1-main/m2-bll/reducers/packs-reducer";
 import {Field, Form, Formik} from "formik";
+import {useParams} from "react-router-dom";
 
 
-
-
-// const searchFormValidate = (values:any) => {
-//     const errors = {}
-//     return errors;
-// }
 
 
 const ModalContainer: React.FC = () => {
@@ -21,14 +16,22 @@ const ModalContainer: React.FC = () => {
     const isShow = useSelector<AppStateType, boolean>(state => state.modal.isShowModal)
     const packId = useSelector<AppStateType, string>(state => state.modal.packId)
     const cardPacks = useSelector<AppStateType, CardsPacksType[]>( state => state.packs.cardPacks)
+    // const {id} = useParams<{id: string}>();
+
 
     const submit = (values: { packName:string }, {
         setSubmitting, resetForm }:{
         setSubmitting:(isSubmitting:boolean) => void, resetForm:()=>void} ) => {
-            if (!values.packName) {
+
+        if (!values.packName) {
                 alert('Enter Pack Name')
             } else {
-                dispatch(postPackTC(values.packName))
+                if (modalType === 'CREATE-NEW-PACK') {
+                    dispatch(postPackTC(values.packName))
+                } else
+                if (modalType === 'UPDATE-PACK') {
+                    dispatch(updatePackTC({id: packId, name: values.packName}))
+                }
             }
             resetForm()
             setSubmitting(false);
@@ -48,11 +51,10 @@ const ModalContainer: React.FC = () => {
         return pack ? pack.name : ''
     }
 
-    const createNewPackModal = <>
+    const createPackModal = <>
         <h2>Create New Pack</h2>
         <Formik
             initialValues={{ packName: '' }}
-            // validate={}
             onSubmit={submit}
         >
             {({isSubmitting}) => (
@@ -63,14 +65,35 @@ const ModalContainer: React.FC = () => {
                     justifyContent: 'space-around',
                 }}>
                     <Field type='text' name='packName' placeholder='Enter Pack Name' >
-
                     </Field>
-
                     <button type="submit" disabled={isSubmitting}>Create New Pack</button>
                 </Form>
             )}
         </Formik>
     </>
+    const updatePackModal = <>
+        <h2>Update Pack</h2>
+        <Formik
+            initialValues={{ packName: '' }}
+            onSubmit={submit}
+        >
+            {({isSubmitting}) => (
+                <Form style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'start',
+                    justifyContent: 'space-around',
+                }}>
+                    <Field type='text' name='packName' placeholder='Update Pack Name' >
+
+                    </Field>
+
+                    <button type="submit" disabled={isSubmitting}>Update Pack</button>
+                </Form>
+            )}
+        </Formik>
+    </>
+
     const deletePackModal = <>
             <h2>Delete Pack</h2>
             <div style={{
@@ -115,8 +138,9 @@ const ModalContainer: React.FC = () => {
     return(
 
             <Modal backgroundOnClick={backgroundOnClick} isShow={isShow}>
-                { modalType === 'CREATE-NEW-PACK' && createNewPackModal}
-                { modalType === 'DELETE-PACK' && deletePackModal}
+                { modalType === 'CREATE-NEW-PACK' && createPackModal}
+                { modalType === 'UPDATE-PACK' && updatePackModal}
+                { modalType === 'DELETE-PACK'  && deletePackModal}
             </Modal>
 
 
