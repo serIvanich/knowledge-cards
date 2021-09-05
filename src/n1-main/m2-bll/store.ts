@@ -7,6 +7,7 @@ import {registerReducer} from "../m1-ui/auth/register/register-reducer";
 import {cardsReducer} from "./reducers/cards-reducer";
 import {packsReducer} from "./reducers/packs-reducer";
 import {configureStore} from "@reduxjs/toolkit";
+import {modalReducer} from "./reducers/modal-reducer";
 
 const rootReducers = combineReducers({
     app: appReducer,
@@ -15,6 +16,10 @@ const rootReducers = combineReducers({
     profile: profileReducer,
     cards: cardsReducer,
     packs: packsReducer,
+    modal:modalReducer,
+
+
+
 })
 
 export const store = configureStore({

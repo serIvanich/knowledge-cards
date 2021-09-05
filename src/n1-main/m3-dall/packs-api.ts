@@ -9,11 +9,10 @@ export const packsApi = {
     createPack(cardsPack: CreateCardsPackType) {
         return instance.post('cards/pack', {cardsPack})
     },
-    updatePack(cardsPack: CreateCardsPackType & { _id: string }) {
+    updatePack(cardsPack: CreateCardsPackType & { _id: string}) {
         return instance.put('cards/pack', {cardsPack})
     },
     deletePacks(id: string) {
-
         return instance.delete(`cards/pack?id=${id}`)
     },
 

@@ -25,7 +25,7 @@ function App() {
     const goToLogin = useSelector<AppStateType, boolean>(state => state.app.goToLogin)
 
     const status = useSelector<AppStateType, RequestStatusType>(state => state.app.status)
-    const isShowModal = useSelector<AppStateType, boolean>(state => state.app.isShowModal)
+    const isShowModal = useSelector<AppStateType, boolean>(state => state.modal.isShowModal)
 
     useEffect(() => {
 

@@ -3,6 +3,7 @@ import {setAppStatusAC, SetAppStatusActionType, SetIsShowModalActionType, setIsS
 import {packsApi, RequestParamsType} from '../../m3-dall/packs-api';
 import {ThunkAction} from 'redux-thunk';
 import {AppStateType} from '../store';
+import {SetIsShowModalActionType, setIsShowModalWindow} from "./modal-reducer";
 
 const initialState = {
     cardPacks: [] as Array<CardsPacksType>,
@@ -175,7 +176,6 @@ export const postPackTC = (name: string): ThunkType => async (dispatch) => {
         dispatch(setAppStatusAC('loading'));
         const data = await packsApi.createPack({name})
         dispatch(getPacksCardsTC({}));
-        // dispatch(setIsShowModalWindow({isShowModal:false, modalType: ''}));
 
     } catch (e) {
         handleServerNetworkError(e, dispatch)
@@ -194,19 +194,22 @@ export const deletePackTC = (id: string): ThunkType => async (dispatch) => {
     } catch (e) {
         handleServerNetworkError(e, dispatch)
     } finally {
-        // dispatch(setAppStatusAC('succeeded'))
+        dispatch(setAppStatusAC('succeeded'))
+        dispatch(setIsShowModalWindow({isShowModal:false, modalType: '', packId:''}))
     }
 }
-export const updatePackTC = (id: string): ThunkType => async (dispatch) => {
+export const updatePackTC = (param:{id: string, name:string}): ThunkType => async (dispatch) => {
+    const {id, name} = param
+    debugger
     try {
         dispatch(setAppStatusAC('loading'))
-
-        const data = await packsApi.updatePack({_id: id, name: 'update packName'})
+        const data = await packsApi.updatePack({_id: id, name})
         dispatch(getPacksCardsTC({}))
     } catch (e) {
         handleServerNetworkError(e, dispatch)
     } finally {
-        // dispatch(setAppStatusAC('succeeded'))
+        dispatch(setAppStatusAC('succeeded'));
+        dispatch(setIsShowModalWindow({isShowModal:false, modalType: '', packId:''}))
     }
 }
 
