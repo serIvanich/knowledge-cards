@@ -1,6 +1,5 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from '../cardsList/CardList.module.scss'
-import style from './LearnList.module.scss'
 import {useHistory, useParams} from "react-router-dom";
 import {getCardsTC} from "../../../../m2-bll/reducers/cards-reducer";
 import {useDispatch, useSelector} from "react-redux";
@@ -20,7 +19,7 @@ export const LearnList: React.FC<LearnListPropsType> = () => {
     useEffect(() => {
         dispatch(getCardsTC(id))
     }, [])
-const history = useHistory();
+    const history = useHistory();
 
     const cards = useSelector<AppStateType, CardType[]>(state => state.cards.cards)
     let question = ''
@@ -29,12 +28,15 @@ const history = useHistory();
         question = cards[0].question
         answer = cards[0].answer
     }
-
+    const callbackRedirectBack = () => {
+        history.goBack()
+    }
     return (
         <div className={s.cardPage}>
             <div className={`${s.cardContainer} + ${s.learnListContainer}`}>
                 {!answerTrue ? <LearnQuestion name={name} question={question}
-                                              setAnswerTrue={setAnswerTrue} callbackRedirectBack={callbackRedirectBack}/>
+                                              setAnswerTrue={setAnswerTrue}
+                                              callbackRedirectBack={callbackRedirectBack}/>
                     : <LearnQuestionAnswer name={name} question={question} answer={answer}
                                            setAnswerTrue={setAnswerTrue} callbackRedirectBack={callbackRedirectBack}/>}
             </div>

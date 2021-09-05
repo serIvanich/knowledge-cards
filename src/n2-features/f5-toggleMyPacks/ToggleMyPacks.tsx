@@ -1,6 +1,6 @@
 import React from 'react'
 import {useDispatch, useSelector} from 'react-redux';
-import {setMyPacksAC} from '../../n1-main/m2-bll/reducers/packs-reducer';
+import {InitialStatePacksType, setMyPacksAC} from '../../n1-main/m2-bll/reducers/packs-reducer';
 import s from '../../n1-main/m1-ui/components/profile/Profile.module.scss'
 import {AppStateType} from "../../n1-main/m2-bll/store";
 
