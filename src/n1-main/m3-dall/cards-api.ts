@@ -15,6 +15,9 @@ export const cardsApi = {
     deleteCard(id: string) {
 
         return instance.delete(`cards/card?id=${id}`)
+    },
+    changeGradeCard(card_id: string, grade: null | number) {
+        return instance.put<CardType>(`cards/grade`, {card_id, grade})
     }
 }
 

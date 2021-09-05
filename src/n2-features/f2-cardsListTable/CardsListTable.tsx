@@ -1,13 +1,15 @@
 import React from 'react'
-import s from "../f1-packsListTable/PackListTable.module.scss";
-import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../n1-main/m2-bll/store";
-import {CardType} from "../../n1-main/m3-dall/cards-api";
-import {deleteCardTC, updateCardTC} from "../../n1-main/m2-bll/reducers/cards-reducer";
+import s from '../f1-packsListTable/PackListTable.module.scss';
+import {useDispatch, useSelector} from 'react-redux';
+import {AppStateType} from '../../n1-main/m2-bll/store';
+import {CardType} from '../../n1-main/m3-dall/cards-api';
+import {deleteCardTC, updateCardTC} from '../../n1-main/m2-bll/reducers/cards-reducer';
+import {RatingCard} from '../f9-RatingCard/RatingCard';
 
-export const CardsListTable: React.FC<{disabled:boolean}> = ({disabled}) => {
+export const CardsListTable: React.FC<{ disabled: boolean }> = ({disabled}) => {
     const dispatch = useDispatch()
     const cards = useSelector<AppStateType, CardType[]>(state => state.cards.cards)
+    // const card_id = useSelector<AppStateType, CardType>(state => state.cards.cards._id)
 
     const deleteCard = (cardId: string, packId: string) => {
         dispatch(deleteCardTC(cardId, packId))
@@ -19,10 +21,10 @@ export const CardsListTable: React.FC<{disabled:boolean}> = ({disabled}) => {
     return (
         <div className={s.tableBlock}>
             <tr className={s.tableRow}>
-                <th className={s.tableCell} align={"left"} data-set={'question'}>Question</th>
-                <th className={s.tableCell} align={"left"} data-set={'answer'}>Answer</th>
-                <th className={s.tableCell} align={"left"} data-set={'last update'}>Last Updated</th>
-                <th className={s.tableCell} align={"left"} data-set={'grade'}>Grade</th>
+                <th className={s.tableCell} align={'left'} data-set={'question'}>Question</th>
+                <th className={s.tableCell} align={'left'} data-set={'answer'}>Answer</th>
+                <th className={s.tableCell} align={'left'} data-set={'last update'}>Last Updated</th>
+                <th className={s.tableCell} align={'left'} data-set={'grade'}>Grade</th>
                 <th className={s.tableCell}>Actions</th>
             </tr>
 
@@ -35,7 +37,14 @@ export const CardsListTable: React.FC<{disabled:boolean}> = ({disabled}) => {
                         <td className={s.tableCell}>{c.question}</td>
                         <td className={s.tableCell}>{c.answer}</td>
                         <td className={s.tableCell}>{data}</td>
-                        <td className={s.tableCell}>{c.grade}</td>
+                        <td className={s.tableCell}>
+                            {/*{c.grade}*/}
+
+                            <RatingCard
+                                card_id={c._id}
+                                grade={c.grade}
+                            />
+                        </td>
                         <td className={s.tableCell}>
                             <div className={s.buttonInTableContainer}>
                                 <div className={s.buttonInTable}>
