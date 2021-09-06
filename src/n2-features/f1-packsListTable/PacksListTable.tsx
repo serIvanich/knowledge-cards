@@ -12,6 +12,7 @@ import {
 } from '../../n1-main/m2-bll/reducers/packs-reducer';
 import {NavLink} from 'react-router-dom';
 import {setIsShowModalWindow} from "../../n1-main/m2-bll/reducers/modal-reducer";
+import Preloader from "../../n1-main/m1-ui/common/Preloader/Preloader";
 
 export const PacksListTable: React.FC = () => {
     const dispatch = useDispatch()
@@ -49,7 +50,9 @@ export const PacksListTable: React.FC = () => {
     const updatePack = (packId: string) => {
         dispatch(setIsShowModalWindow({isShowModal:true, modalType: "UPDATE-PACK", packId }))
     }
-
+    if (!cardPacks) {
+        return <Preloader/>
+    }
     return (
         <div className={s.tableBlock}>
             <tr className={s.tableRow}>
@@ -107,4 +110,4 @@ export const PacksListTable: React.FC = () => {
 }
 
 
-export type UpDownType = 'up' | 'down'
+// export type UpDownType = 'up' | 'down'
