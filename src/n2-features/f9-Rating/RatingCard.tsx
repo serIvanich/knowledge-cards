@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react'
+import React, {ChangeEvent, useCallback, useState} from 'react'
 import {Rating} from '@material-ui/lab';
 import {changeGradeCardTC} from '../../n1-main/m2-bll/reducers/cards-reducer';
 import {useDispatch} from 'react-redux';
@@ -9,18 +9,18 @@ type RatingCardType = {
 }
 
 export const RatingCard: React.FC<RatingCardType> = ({card_id, grade}) => {
-    const dispatch = useDispatch()
-    const setNewGradeForCard = (e: ChangeEvent<{}>, value: number | null) => {
-        dispatch(changeGradeCardTC(card_id, value))
-    }
+    // const dispatch = useDispatch()
+    // const setNewGradeForCard = useCallback((e: ChangeEvent<{}>, value: number | null) => {
+    //     dispatch(changeGradeCardTC(card_id, value))
+    // }, [dispatch])
     return (
         <div>
             <Rating
                 name="rating"
                 defaultValue={grade}
                 precision={0.1}
-                onChange={setNewGradeForCard}
-                // readOnly
+                // onChange={setNewGradeForCard}
+                readOnly
             />
         </div>
     )

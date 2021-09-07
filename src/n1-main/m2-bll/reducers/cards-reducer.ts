@@ -96,7 +96,6 @@ export const changeGradeCardTC = (card_id: string, grade: null | number): ThunkT
     try {
         dispatch(setAppStatusAC('loading'))
         const data = cardsApi.changeGradeCard(card_id, grade)
-
         dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
         handleServerNetworkError(e, dispatch)
