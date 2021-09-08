@@ -5,6 +5,7 @@ import {AppStateType} from "../../n1-main/m2-bll/store";
 import {ModalWindowType, setIsShowModalWindow} from "../../n1-main/m2-bll/reducers/modal-reducer";
 import {CardsPacksType, deletePackTC, postPackTC, updatePackTC} from "../../n1-main/m2-bll/reducers/packs-reducer";
 import {Field, Form, Formik} from "formik";
+import {createCardTC} from "../../n1-main/m2-bll/reducers/cards-reducer";
 
 
 
@@ -15,8 +16,6 @@ const ModalContainer: React.FC = () => {
     const isShow = useSelector<AppStateType, boolean>(state => state.modal.isShowModal)
     const packId = useSelector<AppStateType, string>(state => state.modal.packId)
     const cardPacks = useSelector<AppStateType, CardsPacksType[]>( state => state.packs.cardPacks)
-    // const {id} = useParams<{id: string}>();
-
 
     const submit = (values: { name:string, isPrivate:boolean }, {
         setSubmitting, resetForm }:{
@@ -25,16 +24,42 @@ const ModalContainer: React.FC = () => {
         if (!values.name) {
                 alert('Enter Pack Name')
             } else {
-                if (modalType === 'CREATE-NEW-PACK') {
-                    dispatch(postPackTC({name:values.name, isPrivate:values.isPrivate})) //
-                } else
-                if (modalType === 'UPDATE-PACK') {
-                    dispatch(updatePackTC({id: packId, name: values.name, isPrivate:values.isPrivate}))
+                switch (modalType){
+                    case "CREATE-NEW-PACK":
+                        dispatch(postPackTC({name:values.name, isPrivate:values.isPrivate}));
+                        break;
+                    case "UPDATE-PACK":
+                        dispatch(updatePackTC({id: packId, name: values.name, isPrivate:values.isPrivate}));
+                        break;
+
+                    default: break;
                 }
             }
             resetForm()
             setSubmitting(false);
 
+    }
+
+    const submitCard = (values: { question:string, answer:string }, {
+        setSubmitting, resetForm }:{
+        setSubmitting:(isSubmitting:boolean) => void, resetForm:()=>void} ) => {
+        const {question, answer} = values
+        if (!question || !answer) {
+            alert('Enter question or/and answer')
+        } else {
+            switch (modalType){
+                case "CREATE-NEW-CARD":
+                    dispatch(createCardTC({packId, question, answer}));
+                    break;
+                // case "UPDATE-CARD":
+                //     dispatch(updatePackTC({id: packId, name: values.name, isPrivate:values.isPrivate}));
+                //     break;
+
+                default: break;
+            }
+        }
+        resetForm()
+        setSubmitting(false);
     }
 
     const backgroundOnClick = (e: React.MouseEvent<HTMLDivElement | HTMLButtonElement, MouseEvent>) => {
@@ -105,7 +130,6 @@ const ModalContainer: React.FC = () => {
             )}
         </Formik>
     </>
-
     const deletePackModal = <>
             <h2>Delete Pack</h2>
             <div style={{
@@ -144,18 +168,51 @@ const ModalContainer: React.FC = () => {
             </div>
 
     </>
+    const createCardModal = <>
+        <h2>Create Card</h2>
+        <Formik
+            initialValues={{ question: '', answer: '' }}
+            onSubmit={submitCard}
+        >
+            {({isSubmitting, values}) => (
+                <Form style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'start',
+                    justifyContent: 'space-around',
+                }}>
+                    <Field type='text' name='question' placeholder='Enter question' >
+                    </Field>
+                    <Field type='text' name='answer' placeholder='Enter answer' >
+                    </Field>
+
+                    <button type="submit" disabled={isSubmitting}>Create Card</button>
+                </Form>
+            )}
+        </Formik>
+    </>
+
 
     if (!modalType) return null;
+    const getModalBody = () => {
+        switch (modalType) {
+            case "CREATE-NEW-PACK":
+                return createPackModal;
+            case "UPDATE-PACK":
+                return updatePackModal;
+            case "DELETE-PACK":
+                return deletePackModal;
+            case "CREATE-NEW-CARD":
+                return createCardModal;
+
+            default: break;
+        }
+    }
 
     return(
-
             <Modal backgroundOnClick={backgroundOnClick} isShow={isShow}>
-                { modalType === 'CREATE-NEW-PACK' && createPackModal}
-                { modalType === 'UPDATE-PACK' && updatePackModal}
-                { modalType === 'DELETE-PACK'  && deletePackModal}
+                { getModalBody() }
             </Modal>
-
-
     )
 }
 
