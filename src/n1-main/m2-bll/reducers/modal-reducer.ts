@@ -27,10 +27,11 @@ export const setIsShowModalWindow = (payload:{isShowModal:boolean, modalType: Mo
 
 export type SetIsShowModalActionType = ReturnType<typeof setIsShowModalWindow>
 export type ModalWindowType = ''
-    | 'CREATE-NEW-CARD'
     | 'CREATE-NEW-PACK'
     | 'DELETE-PACK'
     | 'UPDATE-PACK'
+    | 'CREATE-NEW-CARD'
+    | 'UPDATE-CARD'
 
 
 export type ModalActionsType =

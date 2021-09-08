@@ -9,6 +9,7 @@ import {Paginator} from "../../../../../n2-features/f3-paginator/Paginator";
 import {useDispatch, useSelector} from "react-redux";
 import {createCardTC, getCardsTC} from "../../../../m2-bll/reducers/cards-reducer";
 import {AppStateType} from "../../../../m2-bll/store";
+import {setIsShowModalWindow} from "../../../../m2-bll/reducers/modal-reducer";
 
 export const CardsList: React.FC = () => {
     const isLogged = useSelector<AppStateType, boolean>(state => state.auth.isLogged)
@@ -25,7 +26,8 @@ export const CardsList: React.FC = () => {
 
 
     const addCard = () => {
-        dispatch(createCardTC(id))
+        // dispatch(createCardTC(id))
+        dispatch(setIsShowModalWindow({isShowModal:true, modalType: "CREATE-NEW-CARD", packId:id}))
     }
 
     if (!isLogged) {
@@ -36,7 +38,7 @@ export const CardsList: React.FC = () => {
             <div className={s.cardContainer}>
                 <div className={s.linkToPacks}>
                     <NavLink to={routes.mainPacks}>
-                        <h3><img style={{width: '25px'}} src={image}/> {name}</h3>
+                        <h3><img style={{width: '25px'}} src={image} /> {name}</h3>
 
                     </NavLink>
 

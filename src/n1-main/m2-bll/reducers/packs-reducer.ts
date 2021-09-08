@@ -170,11 +170,11 @@ export const getPacksCardsTC = (params: RequestParamsType, myPacks?: boolean): T
         dispatch(setAppStatusAC('succeeded'))
     }
 }
-export const postPackTC = (name: string): ThunkType => async (dispatch) => {
-
+export const postPackTC = (params:{name: string, isPrivate:boolean}): ThunkType => async (dispatch) => {
+    const {name, isPrivate} = params
     try {
         dispatch(setAppStatusAC('loading'));
-        const data = await packsApi.createPack({name})
+        const data = await packsApi.createPack({name, private: isPrivate})
         dispatch(getPacksCardsTC({}));
 
     } catch (e) {
@@ -198,12 +198,14 @@ export const deletePackTC = (id: string): ThunkType => async (dispatch) => {
         dispatch(setIsShowModalWindow({isShowModal:false, modalType: '', packId:''}))
     }
 }
-export const updatePackTC = (param:{id: string, name:string}): ThunkType => async (dispatch) => {
-    const {id, name} = param
 
+
+export const updatePackTC = (param:{id: string, name:string, isPrivate:boolean}): ThunkType => async (dispatch) => {
+    const {id, name, isPrivate} = param
+    debugger
     try {
         dispatch(setAppStatusAC('loading'))
-        const data = await packsApi.updatePack({_id: id, name})
+        const data = await packsApi.updatePack({_id: id, name, private:isPrivate})
         dispatch(getPacksCardsTC({}))
     } catch (e) {
         handleServerNetworkError(e, dispatch)

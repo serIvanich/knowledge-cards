@@ -1,8 +1,11 @@
-import {cardsApi, CardType, ResponseCardsType} from '../../m3-dall/cards-api';
-import {ThunkAction} from 'redux-thunk';
-import {AppStateType} from '../store';
-import {setAppStatusAC, SetAppStatusActionType} from './app-reduser';
-import {handleServerNetworkError} from '../../../utils/error-utils';
+import {cardsApi, CardType, ResponseCardsType} from "../../m3-dall/cards-api";
+import {ThunkAction} from "redux-thunk";
+import {AppStateType} from "../store";
+import {setAppStatusAC, SetAppStatusActionType} from "./app-reduser";
+import {handleServerNetworkError} from "../../../utils/error-utils";
+import {SetIsShowModalActionType, setIsShowModalWindow} from "./modal-reducer";
+
+
 
 const initialState = {
     cards: [] as CardType[],
@@ -55,13 +58,19 @@ export const createCardTC = (id: string): ThunkType => async (dispatch) => {
         dispatch(setAppStatusAC('loading'))
         const card = {cardsPack_id: id, question: 'first question', answer: 'first answer'}
         const data = await cardsApi.createCard(card)
+export const createCardTC = (params: {packId:string, question:string, answer:string }): ThunkType => async (dispatch) => {
+        const {packId, question, answer} = params
+        try {
+                dispatch(setAppStatusAC('loading'))
+                const card = {cardsPack_id: packId, question, answer }
+                const data = await cardsApi.createCard(card)
 
         dispatch(getCardsTC(id))
     } catch (e) {
         handleServerNetworkError(e, dispatch)
-        // } finally {
-        //         dispatch(setAppStatusAC('succeeded'))
-    }
+        } finally {
+                dispatch(setIsShowModalWindow({isShowModal:false, modalType: '', packId:''}))
+        }
 }
 export const updateCardTC = (cardId: string, packId: string): ThunkType => async (dispatch) => {
     try {
@@ -106,7 +115,9 @@ export const changeGradeCardTC = (card_id: string, grade: null | number): ThunkT
 }
 
 type ActionsType = ReturnType<typeof setCardsAC>
-    | SetAppStatusActionType
+        | SetAppStatusActionType
+        | SetIsShowModalActionType
+
 
 type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsType>
 
