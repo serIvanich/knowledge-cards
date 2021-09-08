@@ -3,7 +3,7 @@ import s from '../f1-packsListTable/PackListTable.module.scss';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppStateType} from '../../n1-main/m2-bll/store';
 import {CardType} from '../../n1-main/m3-dall/cards-api';
-import {changeGradeCardTC, deleteCardTC, updateCardTC} from '../../n1-main/m2-bll/reducers/cards-reducer';
+import {deleteCardTC, updateCardTC} from '../../n1-main/m2-bll/reducers/cards-reducer';
 import {RatingCard} from '../f9-Rating/RatingCard';
 
 export const CardsListTable: React.FC<{ disabled: boolean }> = ({disabled}) => {
