@@ -52,8 +52,8 @@ export type CardType = {
     shots: number
     type: TypeType
     user_id: string
-    created: Date
-    updated: Date
+    created: string
+    updated: string
     __v: number
     _id: string
 }

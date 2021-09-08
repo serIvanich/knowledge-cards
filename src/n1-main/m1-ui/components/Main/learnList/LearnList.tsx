@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import s from '../cardsList/CardList.module.scss'
-import {useHistory, useParams} from "react-router-dom";
-import {getCardsTC} from "../../../../m2-bll/reducers/cards-reducer";
-import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../../../m2-bll/store";
-import {CardType} from "../../../../m3-dall/cards-api";
-import {LearnQuestion} from "./learnQuestion/LearnQuestion";
-import {LearnQuestionAnswer} from "./learnQuestionAnswer/LearnQuestionAnswer";
+import {useHistory, useParams} from 'react-router-dom';
+import {getCardsTC} from '../../../../m2-bll/reducers/cards-reducer';
+import {useDispatch, useSelector} from 'react-redux';
+import {AppStateType} from '../../../../m2-bll/store';
+import {CardType} from '../../../../m3-dall/cards-api';
+import {LearnQuestion} from './learnQuestion/LearnQuestion';
+import {LearnQuestionAnswer} from './learnQuestionAnswer/LearnQuestionAnswer';
 
 type LearnListPropsType = {
     // packName?: string
@@ -37,7 +37,7 @@ export const LearnList: React.FC<LearnListPropsType> = () => {
                 {!answerTrue ? <LearnQuestion name={name} question={question}
                                               setAnswerTrue={setAnswerTrue}
                                               callbackRedirectBack={callbackRedirectBack}/>
-                    : <LearnQuestionAnswer name={name} question={question} answer={answer}
+                    : <LearnQuestionAnswer name={name} id={id} cards={cards} question={question} answer={answer}
                                            setAnswerTrue={setAnswerTrue} callbackRedirectBack={callbackRedirectBack}/>}
             </div>
 
