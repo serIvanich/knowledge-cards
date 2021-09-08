@@ -5,7 +5,6 @@ import {AppStateType} from "../../n1-main/m2-bll/store";
 import {ModalWindowType, setIsShowModalWindow} from "../../n1-main/m2-bll/reducers/modal-reducer";
 import {CardsPacksType, deletePackTC, postPackTC, updatePackTC} from "../../n1-main/m2-bll/reducers/packs-reducer";
 import {Field, Form, Formik} from "formik";
-import {useParams} from "react-router-dom";
 
 
 
@@ -19,18 +18,18 @@ const ModalContainer: React.FC = () => {
     // const {id} = useParams<{id: string}>();
 
 
-    const submit = (values: { packName:string }, {
+    const submit = (values: { name:string, isPrivate:boolean }, {
         setSubmitting, resetForm }:{
         setSubmitting:(isSubmitting:boolean) => void, resetForm:()=>void} ) => {
 
-        if (!values.packName) {
+        if (!values.name) {
                 alert('Enter Pack Name')
             } else {
                 if (modalType === 'CREATE-NEW-PACK') {
-                    dispatch(postPackTC(values.packName))
+                    dispatch(postPackTC({name:values.name, isPrivate:values.isPrivate})) //
                 } else
                 if (modalType === 'UPDATE-PACK') {
-                    dispatch(updatePackTC({id: packId, name: values.packName}))
+                    dispatch(updatePackTC({id: packId, name: values.name, isPrivate:values.isPrivate}))
                 }
             }
             resetForm()
@@ -54,18 +53,25 @@ const ModalContainer: React.FC = () => {
     const createPackModal = <>
         <h2>Create New Pack</h2>
         <Formik
-            initialValues={{ packName: '' }}
+            initialValues={{ name: '', isPrivate: false }}
             onSubmit={submit}
         >
-            {({isSubmitting}) => (
+            {({isSubmitting, values}) => (
                 <Form style={{
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'start',
                     justifyContent: 'space-around',
                 }}>
-                    <Field type='text' name='packName' placeholder='Enter Pack Name' >
+                    <Field type='text' name='name' placeholder='Enter Pack Name' >
                     </Field>
+                    <label style={{
+                        display:'flex',
+                        cursor:'pointer',
+                    }}>
+                        <div>{ values.isPrivate ? 'Private' : 'Public'}</div>
+                        <Field type="checkbox" name="isPrivate" />
+                    </label>
                     <button type="submit" disabled={isSubmitting}>Create New Pack</button>
                 </Form>
             )}
@@ -74,20 +80,26 @@ const ModalContainer: React.FC = () => {
     const updatePackModal = <>
         <h2>Update Pack</h2>
         <Formik
-            initialValues={{ packName: '' }}
+            initialValues={{ name: '', isPrivate:false }}
             onSubmit={submit}
         >
-            {({isSubmitting}) => (
+            {({isSubmitting, values}) => (
                 <Form style={{
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'start',
                     justifyContent: 'space-around',
                 }}>
-                    <Field type='text' name='packName' placeholder='Update Pack Name' >
+                    <Field type='text' name='name' placeholder='Update Pack Name' >
 
                     </Field>
-
+                    <label style={{
+                        display:'flex',
+                        cursor:'pointer',
+                    }}>
+                        <div>{ values.isPrivate ? 'Private' : 'Public'}</div>
+                        <Field type="checkbox" name="isPrivate" />
+                    </label>
                     <button type="submit" disabled={isSubmitting}>Update Pack</button>
                 </Form>
             )}
