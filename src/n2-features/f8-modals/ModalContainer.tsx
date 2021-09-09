@@ -5,7 +5,8 @@ import {AppStateType} from "../../n1-main/m2-bll/store";
 import {ModalWindowType, setIsShowModalWindow} from "../../n1-main/m2-bll/reducers/modal-reducer";
 import {CardsPacksType, deletePackTC, postPackTC, updatePackTC} from "../../n1-main/m2-bll/reducers/packs-reducer";
 import {Field, Form, Formik} from "formik";
-import {createCardTC} from "../../n1-main/m2-bll/reducers/cards-reducer";
+import {createCardTC, updateCardTC} from "../../n1-main/m2-bll/reducers/cards-reducer";
+import {CardType} from "../../n1-main/m3-dall/cards-api";
 
 
 
@@ -15,7 +16,10 @@ const ModalContainer: React.FC = () => {
     const modalType = useSelector<AppStateType, ModalWindowType>(state => state.modal.modalType)
     const isShow = useSelector<AppStateType, boolean>(state => state.modal.isShowModal)
     const packId = useSelector<AppStateType, string>(state => state.modal.packId)
+    const cardId = useSelector<AppStateType, string>(state => state.modal.cardId)
     const cardPacks = useSelector<AppStateType, CardsPacksType[]>( state => state.packs.cardPacks)
+    const cards = useSelector<AppStateType, CardType[]>(state => state.cards.cards)
+
 
     const submit = (values: { name:string, isPrivate:boolean }, {
         setSubmitting, resetForm }:{
@@ -51,9 +55,9 @@ const ModalContainer: React.FC = () => {
                 case "CREATE-NEW-CARD":
                     dispatch(createCardTC({packId, question, answer}));
                     break;
-                // case "UPDATE-CARD":
-                //     dispatch(updatePackTC({id: packId, name: values.name, isPrivate:values.isPrivate}));
-                //     break;
+                case "UPDATE-CARD":
+                    dispatch(updateCardTC({cardId, packId, question, answer}))
+                    break;
 
                 default: break;
             }
@@ -191,7 +195,31 @@ const ModalContainer: React.FC = () => {
             )}
         </Formik>
     </>
+    const initQuestion = cards.filter(card => card._id === cardId)[0].question
+    const initAnswer = cards.filter(card => card._id === cardId)[0].answer
+    const updateCardModal = <>
+        <h2>Update Card</h2>
+        <Formik
+            initialValues={{ question:initQuestion, answer: initAnswer }}
+            onSubmit={submitCard}
+        >
+            {({isSubmitting, values}) => (
+                <Form style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'start',
+                    justifyContent: 'space-around',
+                }}>
+                    <Field type='text' name='question' defaultValue = {initQuestion} >
+                    </Field>
+                    <Field type='text' name='answer' placeholder='Enter answer' defaultValue = {initAnswer}>
+                    </Field>
 
+                    <button type="submit" disabled={isSubmitting}>Update Card</button>
+                </Form>
+            )}
+        </Formik>
+    </>
 
     if (!modalType) return null;
     const getModalBody = () => {
@@ -204,7 +232,10 @@ const ModalContainer: React.FC = () => {
                 return deletePackModal;
             case "CREATE-NEW-CARD":
                 return createCardModal;
+            case "UPDATE-CARD": {
+                return updateCardModal;
 
+            }
             default: break;
         }
     }

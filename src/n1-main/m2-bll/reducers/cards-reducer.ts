@@ -65,11 +65,11 @@ export const createCardTC = (params: {packId:string, question:string, answer:str
                 dispatch(setIsShowModalWindow({isShowModal:false, modalType: '', packId:''}))
         }
 }
-export const updateCardTC = (cardId:string, packId: string): ThunkType => async (dispatch) => {
+export const updateCardTC = (params:{ packId: string, cardId: string, question:string, answer:string }): ThunkType => async (dispatch) => {
+        const {packId, cardId, question, answer} = params
         try {
-
                 dispatch(setAppStatusAC('loading'))
-                const card = {_id: cardId, question:'update question', answer: 'update answer'}
+                const card = {_id: cardId, question, answer}
                 const data = await cardsApi.updateCard(card)
 
                 dispatch(getCardsTC(packId))
@@ -77,6 +77,7 @@ export const updateCardTC = (cardId:string, packId: string): ThunkType => async 
                 handleServerNetworkError(e, dispatch)
         } finally {
                 dispatch(setAppStatusAC('succeeded'))
+                dispatch(setIsShowModalWindow({isShowModal:false, modalType: '', packId:'', cardId: ''}))
         }
 }
 export const deleteCardTC = (cardId:string, packId: string): ThunkType => async (dispatch) => {

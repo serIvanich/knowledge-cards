@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../n1-main/m2-bll/store";
 import {CardType} from "../../n1-main/m3-dall/cards-api";
 import {deleteCardTC, updateCardTC} from "../../n1-main/m2-bll/reducers/cards-reducer";
+import {setIsShowModalWindow} from "../../n1-main/m2-bll/reducers/modal-reducer";
 
 export const CardsListTable: React.FC<{disabled:boolean}> = ({disabled}) => {
     const dispatch = useDispatch()
@@ -13,7 +14,8 @@ export const CardsListTable: React.FC<{disabled:boolean}> = ({disabled}) => {
         dispatch(deleteCardTC(cardId, packId))
     }
     const updateCard = (cardId: string, packId: string) => {
-        dispatch(updateCardTC(cardId, packId))
+        // dispatch(updateCardTC(cardId, packId))
+        dispatch(setIsShowModalWindow({isShowModal:true, modalType: 'UPDATE-CARD', packId, cardId}))
     }
 
     return (
