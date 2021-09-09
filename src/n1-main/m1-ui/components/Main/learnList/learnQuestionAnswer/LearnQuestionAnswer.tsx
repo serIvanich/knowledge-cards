@@ -20,27 +20,30 @@ export const LearnQuestionAnswer: React.FC<LearnQuestionAnswerPropsType> = (
         created: '',
         updated: '',
     });
-    // const onNext = useCallback(() => {
-    //     setAnswerTrue(false);
-    //     if (cards && cards.length > 0) {
-    //         setCard(getRandomCard(cards));
-    //     }
-    //
-    // },[cards])
+    const onNext = useCallback(() => {
+        setAnswerTrue(false);
+        if (cards && cards.length > 0) {
+            setCard(getRandomCard(cards));
+        }
+
+    },[cards])
 
     return <>
-        <div>
-            <h3>Learn {name}</h3>
-            <h4>Question:</h4>
-            {question}
-            <h4>Answer:</h4>
-            {answer}
-        </div>
-        <RateYourself cards={cards} card={card} setCard={setCard} id={id}/>
-        <div className={s.buttonBlock}>
-            <button onClick={callbackRedirectBack}>cancel</button>
-            <button onClick={() => setAnswerTrue(false)}>next</button>
-        </div>
+        {card && <div>
+            <div>
+                <h3>Learn {name}</h3>
+                <h4>Question:</h4>
+                {question}
+                <h4>Answer:</h4>
+                {answer}
+            </div>
+            <RateYourself cards={cards} card={card} setCard={setCard} id={id}/>
+            <div className={s.buttonBlock}>
+                <button onClick={callbackRedirectBack}>cancel</button>
+                {/*<button onClick={() => setAnswerTrue(false)}>next</button>*/}
+                <button onClick={() => onNext()}>next</button>
+            </div>
+        </div>}
     </>
 }
 
