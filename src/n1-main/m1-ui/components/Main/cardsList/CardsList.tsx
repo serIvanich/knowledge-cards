@@ -7,7 +7,7 @@ import image from '../../../../../assecs/image/images.png'
 import {NavLink, Redirect, useParams} from 'react-router-dom';
 import {Paginator} from "../../../../../n2-features/f3-paginator/Paginator";
 import {useDispatch, useSelector} from "react-redux";
-import {createCardTC, getCardsTC} from "../../../../m2-bll/reducers/cards-reducer";
+import {getCardsTC} from "../../../../m2-bll/reducers/cards-reducer";
 import {AppStateType} from "../../../../m2-bll/store";
 import {setIsShowModalWindow} from "../../../../m2-bll/reducers/modal-reducer";
 

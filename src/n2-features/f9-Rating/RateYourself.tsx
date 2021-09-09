@@ -1,37 +1,22 @@
-import React, {useCallback, useEffect, useState} from 'react'
+import React, {useCallback} from 'react'
 import s from './Rating.module.scss';
 import {useDispatch} from 'react-redux';
 import {CardType} from '../../n1-main/m3-dall/cards-api';
-import {changeGradeCardTC, getCardsTC} from '../../n1-main/m2-bll/reducers/cards-reducer';
-import {getRandomCard} from '../../utils/getRandomCard';
+import {changeGradeCardTC} from '../../n1-main/m2-bll/reducers/cards-reducer';
 
 const grades = ['Did not know', 'Forgot', 'A lot of thought', 'Confused', 'Knew the answer'];
 
 type RateYourselfType = {
-    cards: CardType[]
     card: CardType
-    setCard: (card: CardType) => void
-    id: string
 }
 
-export const RateYourself: React.FC<RateYourselfType> = ({cards, card, setCard, id}) => {
+export const RateYourself: React.FC<RateYourselfType> = ({card}) => {
     const dispatch = useDispatch()
-
-    const [first, setFirst] = useState<boolean>(true);
 
     const myCallBack = useCallback((card_id: string, grade: number) => {
         dispatch(changeGradeCardTC(card_id, grade))
     }, [dispatch])
 
-    useEffect(() => {
-        if (first) {
-            dispatch(getCardsTC(id))
-            setFirst(false);
-        }
-        if (cards.length > 0) setCard(getRandomCard(cards));
-        return () => {
-        }
-    }, [dispatch, id, cards, first])
 
     return (
         <div>
