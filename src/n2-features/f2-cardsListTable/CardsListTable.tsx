@@ -14,9 +14,10 @@ export const CardsListTable: React.FC<{disabled:boolean}> = ({disabled}) => {
         dispatch(deleteCardTC(cardId, packId))
     }
     const updateCard = (cardId: string, packId: string) => {
-        // dispatch(updateCardTC(cardId, packId))
         dispatch(setIsShowModalWindow({isShowModal:true, modalType: 'UPDATE-CARD', packId, cardId}))
     }
+
+    const forDELETING = 'DELETE ME))))))'
 
     return (
         <div className={s.tableBlock}>

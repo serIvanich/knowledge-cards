@@ -20,6 +20,7 @@ const ModalContainer: React.FC = () => {
     const cardPacks = useSelector<AppStateType, CardsPacksType[]>( state => state.packs.cardPacks)
     const cards = useSelector<AppStateType, CardType[]>(state => state.cards.cards)
 
+    const forDELETING = 'DELETE ME))))))'
 
     const submit = (values: { name:string, isPrivate:boolean }, {
         setSubmitting, resetForm }:{
