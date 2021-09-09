@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useCallback} from 'react'
+import React from 'react'
 import s from '../f1-packsListTable/PackListTable.module.scss';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppStateType} from '../../n1-main/m2-bll/store';
@@ -32,7 +32,6 @@ export const CardsListTable: React.FC<{ disabled: boolean }> = ({disabled}) => {
                 .map((c, i) => {
                     const dateUpdateStr = c.updated.toString().slice(0, 10)    //.split('').map(l => l === '-'? '.': l)
                     const data = `${dateUpdateStr.slice(8, 10)}.${dateUpdateStr.slice(5, 7)}.${dateUpdateStr.slice(0, 4)}`
-
                     return <tr key={i} className={s.tableRow}>
                         <td className={s.tableCell}>{c.question}</td>
                         <td className={s.tableCell}>{c.answer}</td>
