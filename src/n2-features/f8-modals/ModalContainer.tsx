@@ -20,7 +20,6 @@ const ModalContainer: React.FC = () => {
     const cardPacks = useSelector<AppStateType, CardsPacksType[]>( state => state.packs.cardPacks)
     const cards = useSelector<AppStateType, CardType[]>(state => state.cards.cards)
 
-    const forDELETING = 'DELETE ME))))))'
 
     const submit = (values: { name:string, isPrivate:boolean }, {
         setSubmitting, resetForm }:{
@@ -196,8 +195,8 @@ const ModalContainer: React.FC = () => {
             )}
         </Formik>
     </>
-    const initQuestion = cards.filter(card => card._id === cardId)[0].question
-    const initAnswer = cards.filter(card => card._id === cardId)[0].answer
+    const initQuestion = modalType=== "UPDATE-CARD" ? cards.filter(card => card._id === cardId)[0].question : '';
+    const initAnswer = modalType=== "UPDATE-CARD" ? cards.filter(card => card._id === cardId)[0].answer : '';
     const updateCardModal = <>
         <h2>Update Card</h2>
         <Formik

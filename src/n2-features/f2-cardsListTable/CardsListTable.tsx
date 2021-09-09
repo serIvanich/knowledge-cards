@@ -17,7 +17,6 @@ export const CardsListTable: React.FC<{disabled:boolean}> = ({disabled}) => {
         dispatch(setIsShowModalWindow({isShowModal:true, modalType: 'UPDATE-CARD', packId, cardId}))
     }
 
-    const forDELETING = 'DELETE ME))))))'
 
     return (
         <div className={s.tableBlock}>
