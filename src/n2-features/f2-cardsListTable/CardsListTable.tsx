@@ -1,12 +1,13 @@
 import React from 'react'
-import s from '../f1-packsListTable/PackListTable.module.scss';
-import {useDispatch, useSelector} from 'react-redux';
-import {AppStateType} from '../../n1-main/m2-bll/store';
-import {CardType} from '../../n1-main/m3-dall/cards-api';
-import {deleteCardTC, updateCardTC} from '../../n1-main/m2-bll/reducers/cards-reducer';
+import s from "../f1-packsListTable/PackListTable.module.scss";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType} from "../../n1-main/m2-bll/store";
+import {CardType} from "../../n1-main/m3-dall/cards-api";
+import {deleteCardTC, updateCardTC} from "../../n1-main/m2-bll/reducers/cards-reducer";
+import {setIsShowModalWindow} from "../../n1-main/m2-bll/reducers/modal-reducer";
 import {RatingCard} from '../f9-Rating/RatingCard';
 
-export const CardsListTable: React.FC<{ disabled: boolean }> = ({disabled}) => {
+export const CardsListTable: React.FC<{disabled:boolean}> = ({disabled}) => {
     const dispatch = useDispatch()
     const cards = useSelector<AppStateType, CardType[]>(state => state.cards.cards)
 
@@ -14,8 +15,10 @@ export const CardsListTable: React.FC<{ disabled: boolean }> = ({disabled}) => {
         dispatch(deleteCardTC(cardId, packId))
     }
     const updateCard = (cardId: string, packId: string) => {
-        dispatch(updateCardTC(cardId, packId))
+        dispatch(setIsShowModalWindow({isShowModal:true, modalType: 'UPDATE-CARD', packId, cardId}))
     }
+
+
 
     return (
         <div className={s.tableBlock}>
