@@ -62,6 +62,7 @@ export const createCardTC = (params: {packId:string, question:string, answer:str
     } catch (e) {
         handleServerNetworkError(e, dispatch)
         } finally {
+                dispatch(setAppStatusAC('succeeded'))
                 dispatch(setIsShowModalWindow({isShowModal:false, modalType: '', packId:''}))
         }
 }
@@ -80,22 +81,18 @@ export const updateCardTC = (params:{ packId: string, cardId: string, question:s
                 dispatch(setIsShowModalWindow({isShowModal:false, modalType: '', packId:'', cardId: ''}))
         }
 }
-
-export const deleteCardTC = (cardId: string, packId: string): ThunkType => async (dispatch) => {
-    try {
-
+export const deleteCardTC = (cardId:string, packId: string): ThunkType => async (dispatch) => {
+        try {
                 dispatch(setAppStatusAC('loading'))
-
                 const data = await cardsApi.deleteCard(cardId)
-
-        dispatch(getCardsTC(packId))
-    } catch (e) {
-        handleServerNetworkError(e, dispatch)
-        // } finally {
-        //         dispatch(setAppStatusAC('succeeded'))
-    }
+                dispatch(getCardsTC(packId))
+        } catch (e) {
+                handleServerNetworkError(e, dispatch)
+        } finally {
+                dispatch(setAppStatusAC('succeeded'))
+                dispatch(setIsShowModalWindow({isShowModal:false, modalType: '', packId:'', cardId: ''}))
+        }
 }
-
 export const changeGradeCardTC = (card_id: string, grade: null | number): ThunkType => async (dispatch) => {
     try {
         dispatch(setAppStatusAC('loading'))
@@ -103,11 +100,10 @@ export const changeGradeCardTC = (card_id: string, grade: null | number): ThunkT
 
     } catch (e) {
         handleServerNetworkError(e, dispatch)
-        } finally {
-                dispatch(setAppStatusAC('succeeded'))
+    } finally {
+        dispatch(setAppStatusAC('succeeded'))
     }
 }
-
 type ActionsType = ReturnType<typeof setCardsAC>
         | SetAppStatusActionType
         | SetIsShowModalActionType

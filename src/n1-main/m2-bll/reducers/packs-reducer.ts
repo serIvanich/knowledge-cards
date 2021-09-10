@@ -202,7 +202,7 @@ export const deletePackTC = (id: string): ThunkType => async (dispatch) => {
 
 export const updatePackTC = (param:{id: string, name:string, isPrivate:boolean}): ThunkType => async (dispatch) => {
     const {id, name, isPrivate} = param
-    debugger
+
     try {
         dispatch(setAppStatusAC('loading'))
         const data = await packsApi.updatePack({_id: id, name, private:isPrivate})
