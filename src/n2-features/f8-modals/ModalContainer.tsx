@@ -5,7 +5,7 @@ import {AppStateType} from "../../n1-main/m2-bll/store";
 import {ModalWindowType, setIsShowModalWindow} from "../../n1-main/m2-bll/reducers/modal-reducer";
 import {CardsPacksType, deletePackTC, postPackTC, updatePackTC} from "../../n1-main/m2-bll/reducers/packs-reducer";
 import {Field, Form, Formik} from "formik";
-import {createCardTC, updateCardTC} from "../../n1-main/m2-bll/reducers/cards-reducer";
+import {createCardTC, deleteCardTC, updateCardTC} from "../../n1-main/m2-bll/reducers/cards-reducer";
 import {CardType} from "../../n1-main/m3-dall/cards-api";
 
 
@@ -73,6 +73,9 @@ const ModalContainer: React.FC = () => {
     const deletePack = () => {
        dispatch(deletePackTC(packId))
     }
+    const deleteCard = () => {
+        dispatch(deleteCardTC(cardId, packId))
+    }
 
     const findPackNameById = () => {
         const pack = cardPacks.find( pack => pack._id === packId)
@@ -106,10 +109,11 @@ const ModalContainer: React.FC = () => {
             )}
         </Formik>
     </>
+    const initNameToUpdate = modalType=== "UPDATE-PACK" ? cardPacks.filter(pack => pack._id===packId)[0].name : '';
     const updatePackModal = <>
         <h2>Update Pack</h2>
         <Formik
-            initialValues={{ name: '', isPrivate:false }}
+            initialValues={{ name: initNameToUpdate, isPrivate:false }}
             onSubmit={submit}
         >
             {({isSubmitting, values}) => (
@@ -119,7 +123,7 @@ const ModalContainer: React.FC = () => {
                     alignItems: 'start',
                     justifyContent: 'space-around',
                 }}>
-                    <Field type='text' name='name' placeholder='Update Pack Name' >
+                    <Field type='text' name='name' defaultValue={initNameToUpdate} >
 
                     </Field>
                     <label style={{
@@ -195,8 +199,10 @@ const ModalContainer: React.FC = () => {
             )}
         </Formik>
     </>
-    const initQuestion = modalType=== "UPDATE-CARD" ? cards.filter(card => card._id === cardId)[0].question : '';
-    const initAnswer = modalType=== "UPDATE-CARD" ? cards.filter(card => card._id === cardId)[0].answer : '';
+    const initQuestion = modalType === "UPDATE-CARD" ? cards.filter(card => card._id === cardId)[0].question : '';
+    const cardName = modalType ===  "DELETE-CARD" ? cards.filter(card => card._id === cardId)[0].question : '';
+    const initAnswer = modalType === "UPDATE-CARD" ? cards.filter(card => card._id === cardId)[0].answer : '';
+
     const updateCardModal = <>
         <h2>Update Card</h2>
         <Formik
@@ -220,6 +226,45 @@ const ModalContainer: React.FC = () => {
             )}
         </Formik>
     </>
+    const deleteCardModal = <>
+        <h2>Delete Card</h2>
+        <div style={{
+            marginBottom: '22px',
+            fontSize: '22px',
+
+        }}>Do you really want to remove <span style={{
+            fontWeight: 'bold',
+        }}>Card "{cardName}"?</span></div>
+        <div style={{
+            marginBottom: '40px',
+            fontSize: '22px',
+        }}> The card will be excluded from this Pack.</div>
+        <div style={{
+            display:'flex',
+            justifyContent:'space-between',
+            alignItems:'center',
+
+        }}>
+            <button style={{
+                background: '#D7D8EF',
+                borderRadius: '25px',
+                fontSize:'20px',
+                padding: '9px 40px',
+                color: '#21268F',
+
+            }}
+                    onClick={e => backgroundOnClick(e) }>Cancel</button>
+            <button style={{
+                backgroundColor: '#F1453D',
+                borderRadius: '25px',
+                fontSize:'20px',
+                padding: '9px 40px',
+                color: '#ECECF9'
+            }}  onClick={deleteCard}>Delete</button>
+        </div>
+
+    </>
+
 
     if (!modalType) return null;
     const getModalBody = () => {
@@ -232,10 +277,11 @@ const ModalContainer: React.FC = () => {
                 return deletePackModal;
             case "CREATE-NEW-CARD":
                 return createCardModal;
-            case "UPDATE-CARD": {
+            case "UPDATE-CARD":
                 return updateCardModal;
+            case "DELETE-CARD":
+                return deleteCardModal;
 
-            }
             default: break;
         }
     }

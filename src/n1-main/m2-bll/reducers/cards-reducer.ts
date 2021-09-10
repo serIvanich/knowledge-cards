@@ -82,16 +82,14 @@ export const updateCardTC = (params:{ packId: string, cardId: string, question:s
 }
 export const deleteCardTC = (cardId:string, packId: string): ThunkType => async (dispatch) => {
         try {
-
                 dispatch(setAppStatusAC('loading'))
-
                 const data = await cardsApi.deleteCard(cardId)
-
                 dispatch(getCardsTC(packId))
         } catch (e) {
                 handleServerNetworkError(e, dispatch)
         } finally {
                 dispatch(setAppStatusAC('succeeded'))
+                dispatch(setIsShowModalWindow({isShowModal:false, modalType: '', packId:'', cardId: ''}))
         }
 }
 

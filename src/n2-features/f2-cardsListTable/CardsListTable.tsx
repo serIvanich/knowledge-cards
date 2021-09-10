@@ -11,7 +11,8 @@ export const CardsListTable: React.FC<{disabled:boolean}> = ({disabled}) => {
     const cards = useSelector<AppStateType, CardType[]>(state => state.cards.cards)
 
     const deleteCard = (cardId: string, packId: string) => {
-        dispatch(deleteCardTC(cardId, packId))
+        // dispatch(deleteCardTC(cardId, packId))
+        dispatch(setIsShowModalWindow({isShowModal:true, modalType: 'DELETE-CARD', packId, cardId}))
     }
     const updateCard = (cardId: string, packId: string) => {
         dispatch(setIsShowModalWindow({isShowModal:true, modalType: 'UPDATE-CARD', packId, cardId}))
