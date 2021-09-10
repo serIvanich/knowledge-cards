@@ -19,7 +19,6 @@ export const CardsListTable: React.FC<{disabled:boolean}> = ({disabled}) => {
     }
 
 
-
     return (
         <div className={s.tableBlock}>
             <tr className={s.tableRow}>
