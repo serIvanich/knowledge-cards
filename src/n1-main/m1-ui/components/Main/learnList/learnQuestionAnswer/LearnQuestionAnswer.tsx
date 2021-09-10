@@ -1,30 +1,57 @@
-import React from 'react';
+import React, {useCallback, useState} from 'react';
 import s from '../LearnList.module.scss';
 import {RateYourself} from '../../../../../../n2-features/f9-Rating/RateYourself';
 import {CardType} from '../../../../../m3-dall/cards-api';
+import {getRandomCard} from '../../../../../../utils/getRandomCard';
+import {changeGradeCardTC} from "../../../../../m2-bll/reducers/cards-reducer";
+import {useDispatch} from "react-redux";
+import {Redirect} from "react-router-dom";
+import {routes} from "../../../../routes/routes";
 
 export const LearnQuestionAnswer: React.FC<LearnQuestionAnswerPropsType> = (
-    {name, card, onNext, callbackRedirectBack}) => {
+    {name, id, card, cards, question, answer,
+        setAnswerTrue, callbackRedirectBack}) => {
+
+
+    const onNext = useCallback(() => {
+        setAnswerTrue(false);
+
+
+        return <Redirect to={routes.learnQuestion}/>
+        // if (cards && cards.length > 0) {
+        //     setCard(getRandomCard(cards));
+        // }
+
+    },[])
 
     return <>
-        <div>
-            <h3>Learn {name}</h3>
-            <h4>Question:</h4>
-            {card.question}
-            <h4>Answer:</h4>
-            {card.answer}
-        </div>
-        <RateYourself card={card}/>
-        <div className={s.buttonBlock}>
-            <button onClick={callbackRedirectBack}>cancel</button>
-            <button onClick={onNext}>next</button>
-        </div>
+        {card && <div>
+            <div>
+                <h3>Learn {name}</h3>
+                <h4>Question:</h4>
+                {question}
+                <h4>Answer:</h4>
+                {answer}
+            </div>
+            <RateYourself  card={card} />
+            <div className={s.buttonBlock}>
+                <button onClick={callbackRedirectBack}>cancel</button>
+                {/*<button onClick={() => setAnswerTrue(false)}>next</button>*/}
+                <button onClick={ onNext}>next</button>
+            </div>
+        </div>}
     </>
 }
 
+
 type LearnQuestionAnswerPropsType = {
     name: string
+    question: string
+    answer: string
     card: CardType
-    onNext: () => void
+
     callbackRedirectBack: () => void
+    setAnswerTrue: (answerTrue: boolean) => void
+    cards: CardType[]
+    id: string
 }

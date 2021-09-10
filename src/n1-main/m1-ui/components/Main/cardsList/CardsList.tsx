@@ -26,7 +26,6 @@ export const CardsList: React.FC = () => {
 
 
     const addCard = () => {
-        // dispatch(createCardTC(id))
         dispatch(setIsShowModalWindow({isShowModal:true, modalType: "CREATE-NEW-CARD", packId:id}))
     }
 
