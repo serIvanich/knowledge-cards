@@ -93,7 +93,17 @@ export const deleteCardTC = (cardId:string, packId: string): ThunkType => async 
                 dispatch(setIsShowModalWindow({isShowModal:false, modalType: '', packId:'', cardId: ''}))
         }
 }
+export const changeGradeCardTC = (card_id: string, grade: null | number): ThunkType => async (dispatch) => {
+    try {
+        dispatch(setAppStatusAC('loading'))
+        const data = await cardsApi.changeGradeCard(card_id, grade)
 
+    } catch (e) {
+        handleServerNetworkError(e, dispatch)
+    } finally {
+        dispatch(setAppStatusAC('succeeded'))
+    }
+}
 type ActionsType = ReturnType<typeof setCardsAC>
         | SetAppStatusActionType
         | SetIsShowModalActionType

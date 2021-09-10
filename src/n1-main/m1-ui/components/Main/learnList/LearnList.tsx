@@ -20,7 +20,7 @@ export const LearnList: React.FC<LearnListPropsType> = () => {
 
         dispatch(getCardsTC(id))
     }, [])
-    const [answerTrue, setAnswerTrue] = useState(false)
+
     const [question, setQuestion] = useState('')
     const [answer, setAnswer] = useState('')
     const cards = useSelector<AppStateType, CardType[]>(state => state.cards.cards)
@@ -81,8 +81,8 @@ export const LearnList: React.FC<LearnListPropsType> = () => {
                        callbackRedirectBack={callbackRedirectBack}/>
     </>
 
-        </div>
-    )
+
+
 }
 
 

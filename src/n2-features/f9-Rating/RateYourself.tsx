@@ -19,15 +19,15 @@ type RateYourselfType = {
 export const RateYourself: React.FC<RateYourselfType> = ({card}) => {
     const dispatch = useDispatch()
 
-    const myCallBack = (grade: number) => {
 
+
+
+
+    const myCallBack = useCallback(( grade: number) => {
         dispatch(changeGradeCardTC(card._id, grade))
-
-    const myCallBack = useCallback((card_id: string, grade: number) => {
-        dispatch(changeGradeCardTC(card_id, grade))
     }, [dispatch])
 
-    }
+
 
     // useEffect(() => {
     //     if (first) {
