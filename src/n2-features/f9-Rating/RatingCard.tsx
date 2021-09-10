@@ -1,7 +1,5 @@
-import React, {ChangeEvent, useCallback, useState} from 'react'
+import React from 'react'
 import {Rating} from '@material-ui/lab';
-import {changeGradeCardTC} from '../../n1-main/m2-bll/reducers/cards-reducer';
-import {useDispatch} from 'react-redux';
 
 type RatingCardType = {
 

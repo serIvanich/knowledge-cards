@@ -1,12 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import s from '../cardsList/CardList.module.scss'
 import {useHistory, useParams} from 'react-router-dom';
 import {getCardsTC} from '../../../../m2-bll/reducers/cards-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppStateType} from '../../../../m2-bll/store';
-import {CardType, TypeType} from '../../../../m3-dall/cards-api';
+import {CardType} from '../../../../m3-dall/cards-api';
 import {LearnQuestion} from './learnQuestion/LearnQuestion';
-import {LearnQuestionAnswer} from "./learnQuestionAnswer/LearnQuestionAnswer";
 
 type LearnListPropsType = {
     // packName?: string
@@ -14,11 +12,16 @@ type LearnListPropsType = {
 
 export const LearnList: React.FC<LearnListPropsType> = () => {
     const dispatch = useDispatch()
+    const {name, id} = useParams<{ name: string, id: string }>()
+    useEffect(() => {
+
+        dispatch(getCardsTC(id))
+    }, [])
     const [answerTrue, setAnswerTrue] = useState(false)
     const [question, setQuestion] = useState('')
     const [answer, setAnswer] = useState('')
     const cards = useSelector<AppStateType, CardType[]>(state => state.cards.cards)
-    const {name, id} = useParams<{ name: string, id: string }>()
+
     const [card, setCard] = useState<CardType>({
         _id: 'fake',
         cardsPack_id: '',
@@ -36,18 +39,18 @@ export const LearnList: React.FC<LearnListPropsType> = () => {
     });
     useEffect(() => {
 
-            dispatch(getCardsTC(id))
 
-if(!answerTrue && cards.length > 0){
-    let newCard = getCard(cards)
-    if (newCard._id === card._id) {
-        newCard = getCard(cards)
-    }
+        if (!answerTrue && cards.length > 0) {
+            let newCard = getCard(cards)
+            if (newCard._id === card._id) {
+                newCard = getCard(cards)
+            }
             setCard(newCard)
             setQuestion(newCard.question)
-            setAnswer(newCard.answer)}
+            setAnswer(newCard.answer)
+        }
 
-    }, [answerTrue])
+    }, [cards, id, answerTrue])
     const history = useHistory();
 
 
@@ -65,16 +68,12 @@ if(!answerTrue && cards.length > 0){
     }
 
 
-
-
-
-
-
     const callbackRedirectBack = () => {
         history.goBack()
     }
     return <>
-        <LearnQuestion answerTrue={answerTrue} setAnswerTrue={setAnswerTrue} name={name} card={card} answer={answer} question={question} id={id}
+        <LearnQuestion answerTrue={answerTrue} setAnswerTrue={setAnswerTrue} name={name} card={card} answer={answer}
+                       question={question} id={id}
                        cards={cards}
                        callbackRedirectBack={callbackRedirectBack}/>
     </>
