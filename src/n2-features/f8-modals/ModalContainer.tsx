@@ -5,8 +5,10 @@ import {AppStateType} from "../../n1-main/m2-bll/store";
 import {ModalWindowType, setIsShowModalWindow} from "../../n1-main/m2-bll/reducers/modal-reducer";
 import {CardsPacksType, deletePackTC, postPackTC, updatePackTC} from "../../n1-main/m2-bll/reducers/packs-reducer";
 import {Field, Form, Formik} from "formik";
-import {createCardTC, updateCardTC} from "../../n1-main/m2-bll/reducers/cards-reducer";
+import {createCardTC, deleteCardTC, updateCardTC} from "../../n1-main/m2-bll/reducers/cards-reducer";
 import {CardType} from "../../n1-main/m3-dall/cards-api";
+
+
 
 
 const ModalContainer: React.FC = () => {
@@ -19,42 +21,37 @@ const ModalContainer: React.FC = () => {
     const cards = useSelector<AppStateType, CardType[]>(state => state.cards.cards)
 
 
-    const submit = (values: { name: string, isPrivate: boolean }, {
-        setSubmitting, resetForm
-    }: {
-        setSubmitting: (isSubmitting: boolean) => void, resetForm: () => void
-    }) => {
+    const submit = (values: { name:string, isPrivate:boolean }, {
+        setSubmitting, resetForm }:{
+        setSubmitting:(isSubmitting:boolean) => void, resetForm:()=>void} ) => {
 
         if (!values.name) {
-            alert('Enter Pack Name')
-        } else {
-            switch (modalType) {
-                case "CREATE-NEW-PACK":
-                    dispatch(postPackTC({name: values.name, isPrivate: values.isPrivate}));
-                    break;
-                case "UPDATE-PACK":
-                    dispatch(updatePackTC({id: packId, name: values.name, isPrivate: values.isPrivate}));
-                    break;
+                alert('Enter Pack Name')
+            } else {
+                switch (modalType){
+                    case "CREATE-NEW-PACK":
+                        dispatch(postPackTC({name:values.name, isPrivate:values.isPrivate}));
+                        break;
+                    case "UPDATE-PACK":
+                        dispatch(updatePackTC({id: packId, name: values.name, isPrivate:values.isPrivate}));
+                        break;
 
-                default:
-                    break;
+                    default: break;
+                }
             }
-        }
-        resetForm()
-        setSubmitting(false);
+            resetForm()
+            setSubmitting(false);
 
     }
 
-    const submitCard = (values: { question: string, answer: string }, {
-        setSubmitting, resetForm
-    }: {
-        setSubmitting: (isSubmitting: boolean) => void, resetForm: () => void
-    }) => {
+    const submitCard = (values: { question:string, answer:string }, {
+        setSubmitting, resetForm }:{
+        setSubmitting:(isSubmitting:boolean) => void, resetForm:()=>void} ) => {
         const {question, answer} = values
         if (!question || !answer) {
             alert('Enter question or/and answer')
         } else {
-            switch (modalType) {
+            switch (modalType){
                 case "CREATE-NEW-CARD":
                     dispatch(createCardTC({packId, question, answer}));
                     break;
@@ -62,8 +59,7 @@ const ModalContainer: React.FC = () => {
                     dispatch(updateCardTC({cardId, packId, question, answer}))
                     break;
 
-                default:
-                    break;
+                default: break;
             }
         }
         resetForm()
@@ -71,22 +67,25 @@ const ModalContainer: React.FC = () => {
     }
 
     const backgroundOnClick = (e: React.MouseEvent<HTMLDivElement | HTMLButtonElement, MouseEvent>) => {
-        dispatch(setIsShowModalWindow({isShowModal: false, modalType: ''}))
+        dispatch(setIsShowModalWindow({isShowModal:false, modalType: ''}))
     }
 
     const deletePack = () => {
-        dispatch(deletePackTC(packId))
+       dispatch(deletePackTC(packId))
+    }
+    const deleteCard = () => {
+        dispatch(deleteCardTC(cardId, packId))
     }
 
     const findPackNameById = () => {
-        const pack = cardPacks.find(pack => pack._id === packId)
+        const pack = cardPacks.find( pack => pack._id === packId)
         return pack ? pack.name : ''
     }
 
     const createPackModal = <>
         <h2>Create New Pack</h2>
         <Formik
-            initialValues={{name: '', isPrivate: false}}
+            initialValues={{ name: '', isPrivate: false }}
             onSubmit={submit}
         >
             {({isSubmitting, values}) => (
@@ -96,24 +95,25 @@ const ModalContainer: React.FC = () => {
                     alignItems: 'start',
                     justifyContent: 'space-around',
                 }}>
-                    <Field type='text' name='name' placeholder='Enter Pack Name'>
+                    <Field type='text' name='name' placeholder='Enter Pack Name' >
                     </Field>
                     <label style={{
-                        display: 'flex',
-                        cursor: 'pointer',
+                        display:'flex',
+                        cursor:'pointer',
                     }}>
-                        <div>{values.isPrivate ? 'Private' : 'Public'}</div>
-                        <Field type="checkbox" name="isPrivate"/>
+                        <div>{ values.isPrivate ? 'Private' : 'Public'}</div>
+                        <Field type="checkbox" name="isPrivate" />
                     </label>
                     <button type="submit" disabled={isSubmitting}>Create New Pack</button>
                 </Form>
             )}
         </Formik>
     </>
+    const initNameToUpdate = modalType=== "UPDATE-PACK" ? cardPacks.filter(pack => pack._id===packId)[0].name : '';
     const updatePackModal = <>
         <h2>Update Pack</h2>
         <Formik
-            initialValues={{name: '', isPrivate: false}}
+            initialValues={{ name: initNameToUpdate, isPrivate:false }}
             onSubmit={submit}
         >
             {({isSubmitting, values}) => (
@@ -123,15 +123,15 @@ const ModalContainer: React.FC = () => {
                     alignItems: 'start',
                     justifyContent: 'space-around',
                 }}>
-                    <Field type='text' name='name' placeholder='Update Pack Name'>
+                    <Field type='text' name='name' defaultValue={initNameToUpdate} >
 
                     </Field>
                     <label style={{
-                        display: 'flex',
-                        cursor: 'pointer',
+                        display:'flex',
+                        cursor:'pointer',
                     }}>
-                        <div>{values.isPrivate ? 'Private' : 'Public'}</div>
-                        <Field type="checkbox" name="isPrivate"/>
+                        <div>{ values.isPrivate ? 'Private' : 'Public'}</div>
+                        <Field type="checkbox" name="isPrivate" />
                     </label>
                     <button type="submit" disabled={isSubmitting}>Update Pack</button>
                 </Form>
@@ -139,50 +139,47 @@ const ModalContainer: React.FC = () => {
         </Formik>
     </>
     const deletePackModal = <>
-        <h2>Delete Pack</h2>
-        <div style={{
-            marginBottom: '22px',
-            fontSize: '22px',
+            <h2>Delete Pack</h2>
+            <div style={{
+                marginBottom: '22px',
+                fontSize: '22px',
 
-        }}>Do you really want to remove <span style={{
-            fontWeight: 'bold',
-        }}>Pack "{findPackNameById()}"?</span></div>
-        <div style={{
-            marginBottom: '40px',
-            fontSize: '22px',
-        }}> All cards will be excluded from this course.
-        </div>
-        <div style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
+            }}>Do you really want to remove <span style={{
+                fontWeight: 'bold',
+            }}>Pack "{findPackNameById()}"?</span></div>
+               <div style={{
+                   marginBottom: '40px',
+                   fontSize: '22px',
+               }}> All cards will be excluded from this course.</div>
+            <div style={{
+                display:'flex',
+                justifyContent:'space-between',
+                alignItems:'center',
 
-        }}>
-            <button style={{
-                background: '#D7D8EF',
-                borderRadius: '25px',
-                fontSize: '20px',
-                padding: '9px 40px',
-                color: '#21268F',
+            }}>
+                <button style={{
+                    background: '#D7D8EF',
+                    borderRadius: '25px',
+                    fontSize:'20px',
+                    padding: '9px 40px',
+                    color: '#21268F',
 
-            }}
-                    onClick={e => backgroundOnClick(e)}>Cancel
-            </button>
-            <button style={{
-                backgroundColor: '#F1453D',
-                borderRadius: '25px',
-                fontSize: '20px',
-                padding: '9px 40px',
-                color: '#ECECF9'
-            }} onClick={deletePack}>Delete
-            </button>
-        </div>
+                }}
+                    onClick={e => backgroundOnClick(e) }>Cancel</button>
+                <button style={{
+                    backgroundColor: '#F1453D',
+                    borderRadius: '25px',
+                    fontSize:'20px',
+                    padding: '9px 40px',
+                    color: '#ECECF9'
+                }}  onClick={deletePack}>Delete</button>
+            </div>
 
     </>
     const createCardModal = <>
         <h2>Create Card</h2>
         <Formik
-            initialValues={{question: '', answer: ''}}
+            initialValues={{ question: '', answer: '' }}
             onSubmit={submitCard}
         >
             {({isSubmitting, values}) => (
@@ -192,9 +189,9 @@ const ModalContainer: React.FC = () => {
                     alignItems: 'start',
                     justifyContent: 'space-around',
                 }}>
-                    <Field type='text' name='question' placeholder='Enter question'>
+                    <Field type='text' name='question' placeholder='Enter question' >
                     </Field>
-                    <Field type='text' name='answer' placeholder='Enter answer'>
+                    <Field type='text' name='answer' placeholder='Enter answer' >
                     </Field>
 
                     <button type="submit" disabled={isSubmitting}>Create Card</button>
@@ -202,19 +199,14 @@ const ModalContainer: React.FC = () => {
             )}
         </Formik>
     </>
-
-    const initCard = cards.find(card => card._id === cardId)
-    let initQuestion = ''
-    let initAnswer = ''
-    if (initCard) {
-        initQuestion = initCard.question
-        initAnswer = initCard.answer
-    }
+    const initQuestion = modalType === "UPDATE-CARD" ? cards.filter(card => card._id === cardId)[0].question : '';
+    const cardName = modalType ===  "DELETE-CARD" ? cards.filter(card => card._id === cardId)[0].question : '';
+    const initAnswer = modalType === "UPDATE-CARD" ? cards.filter(card => card._id === cardId)[0].answer : '';
 
     const updateCardModal = <>
         <h2>Update Card</h2>
         <Formik
-            initialValues={{question: initQuestion, answer: initAnswer}}
+            initialValues={{ question:initQuestion, answer: initAnswer }}
             onSubmit={submitCard}
         >
             {({isSubmitting, values}) => (
@@ -224,9 +216,9 @@ const ModalContainer: React.FC = () => {
                     alignItems: 'start',
                     justifyContent: 'space-around',
                 }}>
-                    <Field type='text' name='question' defaultValue={initQuestion}>
+                    <Field type='text' name='question' defaultValue = {initQuestion} >
                     </Field>
-                    <Field type='text' name='answer' placeholder='Enter answer' defaultValue={initAnswer}>
+                    <Field type='text' name='answer' placeholder='Enter answer' defaultValue = {initAnswer}>
                     </Field>
 
                     <button type="submit" disabled={isSubmitting}>Update Card</button>
@@ -234,6 +226,45 @@ const ModalContainer: React.FC = () => {
             )}
         </Formik>
     </>
+    const deleteCardModal = <>
+        <h2>Delete Card</h2>
+        <div style={{
+            marginBottom: '22px',
+            fontSize: '22px',
+
+        }}>Do you really want to remove <span style={{
+            fontWeight: 'bold',
+        }}>Card "{cardName}"?</span></div>
+        <div style={{
+            marginBottom: '40px',
+            fontSize: '22px',
+        }}> The card will be excluded from this Pack.</div>
+        <div style={{
+            display:'flex',
+            justifyContent:'space-between',
+            alignItems:'center',
+
+        }}>
+            <button style={{
+                background: '#D7D8EF',
+                borderRadius: '25px',
+                fontSize:'20px',
+                padding: '9px 40px',
+                color: '#21268F',
+
+            }}
+                    onClick={e => backgroundOnClick(e) }>Cancel</button>
+            <button style={{
+                backgroundColor: '#F1453D',
+                borderRadius: '25px',
+                fontSize:'20px',
+                padding: '9px 40px',
+                color: '#ECECF9'
+            }}  onClick={deleteCard}>Delete</button>
+        </div>
+
+    </>
+
 
     if (!modalType) return null;
     const getModalBody = () => {
@@ -246,12 +277,12 @@ const ModalContainer: React.FC = () => {
                 return deletePackModal;
             case "CREATE-NEW-CARD":
                 return createCardModal;
-            case "UPDATE-CARD": {
+            case "UPDATE-CARD":
                 return updateCardModal;
+            case "DELETE-CARD":
+                return deleteCardModal;
 
-            }
-            default:
-                break;
+            default: break;
         }
     }
 
