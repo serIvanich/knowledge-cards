@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from 'react';
+import s from '../cardsList/CardList.module.scss'
 import {useHistory, useParams} from 'react-router-dom';
 import {getCardsTC} from '../../../../m2-bll/reducers/cards-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppStateType} from '../../../../m2-bll/store';
 import {CardType} from '../../../../m3-dall/cards-api';
 import {LearnQuestion} from './learnQuestion/LearnQuestion';
+import {LearnQuestionAnswer} from './learnQuestionAnswer/LearnQuestionAnswer';
 
 type LearnListPropsType = {
     // packName?: string
@@ -12,6 +14,7 @@ type LearnListPropsType = {
 
 export const LearnList: React.FC<LearnListPropsType> = () => {
     const dispatch = useDispatch()
+    const [answerTrue, setAnswerTrue] = useState(false)
     const {name, id} = useParams<{ name: string, id: string }>()
     useEffect(() => {
 
@@ -78,6 +81,8 @@ export const LearnList: React.FC<LearnListPropsType> = () => {
                        callbackRedirectBack={callbackRedirectBack}/>
     </>
 
+        </div>
+    )
 }
 
 

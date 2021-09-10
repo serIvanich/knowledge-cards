@@ -14,7 +14,6 @@ export const LearnQuestion: React.FC<LearnQuestionPropsType> =
             callbackRedirectBack()
             setAnswerTrue(false)
         }
-
         return <>
 
             <div className={s.cardPage}>
@@ -37,7 +36,6 @@ export const LearnQuestion: React.FC<LearnQuestionPropsType> =
                 </div>
 
             </div>
-
         </>
     }
 
