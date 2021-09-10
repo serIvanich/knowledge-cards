@@ -195,8 +195,15 @@ const ModalContainer: React.FC = () => {
             )}
         </Formik>
     </>
-    const initQuestion = cards.filter(card => card._id === cardId)[0].question
-    const initAnswer = cards.filter(card => card._id === cardId)[0].answer
+
+    const initCard = cards.find(card => card._id === cardId)
+    let initQuestion = ''
+    let initAnswer = ''
+    if (initCard){
+        initQuestion = initCard.question
+        initAnswer = initCard.answer
+    }
+
     const updateCardModal = <>
         <h2>Update Card</h2>
         <Formik
