@@ -99,12 +99,12 @@ export const deleteCardTC = (cardId: string, packId: string): ThunkType => async
 export const changeGradeCardTC = (card_id: string, grade: null | number): ThunkType => async (dispatch) => {
     try {
         dispatch(setAppStatusAC('loading'))
-        const data = cardsApi.changeGradeCard(card_id, grade)
-        dispatch(setAppStatusAC('succeeded'))
+        const data = await cardsApi.changeGradeCard(card_id, grade)
+
     } catch (e) {
         handleServerNetworkError(e, dispatch)
-        // } finally {
-        //         dispatch(setAppStatusAC('succeeded'))
+        } finally {
+                dispatch(setAppStatusAC('succeeded'))
     }
 }
 

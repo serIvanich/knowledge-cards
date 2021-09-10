@@ -18,8 +18,7 @@ const ModalContainer: React.FC = () => {
     const packId = useSelector<AppStateType, string>(state => state.modal.packId)
     const cardId = useSelector<AppStateType, string>(state => state.modal.cardId)
     const cardPacks = useSelector<AppStateType, CardsPacksType[]>( state => state.packs.cardPacks)
-    const cards = useSelector<AppStateType, CardType[]>(state => state.cards.cards)
-
+    const cards = useSelector<AppStateType, CardType[]>( state => state.cards.cards)
 
     const submit = (values: { name:string, isPrivate:boolean }, {
         setSubmitting, resetForm }:{
@@ -232,10 +231,7 @@ const ModalContainer: React.FC = () => {
                 return deletePackModal;
             case "CREATE-NEW-CARD":
                 return createCardModal;
-            case "UPDATE-CARD": {
-                return updateCardModal;
 
-            }
             default: break;
         }
     }

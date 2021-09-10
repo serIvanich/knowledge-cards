@@ -42,7 +42,7 @@ export const CardsListTable: React.FC<{disabled:boolean}> = ({disabled}) => {
                         <td className={s.tableCell}>
                             {c.grade}
                             <RatingCard
-                                card_id={c._id}
+
                                 grade={c.grade}
                             />
                         </td>

@@ -8,30 +8,34 @@ import {getRandomCard} from '../../utils/getRandomCard';
 const grades = ['Did not know', 'Forgot', 'A lot of thought', 'Confused', 'Knew the answer'];
 
 type RateYourselfType = {
-    cards: CardType[]
+
     card: CardType
-    setCard: (card: CardType) => void
-    id: string
+
+
+
 }
 
-export const RateYourself: React.FC<RateYourselfType> = ({cards, card, setCard, id}) => {
+export const RateYourself: React.FC<RateYourselfType> = ({ card}) => {
+
+
     const dispatch = useDispatch()
 
-    const [first, setFirst] = useState<boolean>(true);
+    const myCallBack = (grade: number) => {
 
-    const myCallBack = useCallback((card_id: string, grade: number) => {
-        dispatch(changeGradeCardTC(card_id, grade))
-    }, [dispatch])
+        dispatch(changeGradeCardTC(card._id, grade))
 
-    useEffect(() => {
-        if (first) {
-            dispatch(getCardsTC(id))
-            setFirst(false);
-        }
-        if (cards.length > 0) setCard(getRandomCard(cards));
-        return () => {
-        }
-    }, [dispatch, id, cards, first])
+
+    }
+
+    // useEffect(() => {
+    //     if (first) {
+    //         dispatch(getCardsTC(id))
+    //         setFirst(false);
+    //     }
+    //     if (cards.length > 0) setCard(getRandomCard(cards));
+    //     return () => {
+    //     }
+    // }, [dispatch, id, cards, first])
 
     return (
         <div>
@@ -39,7 +43,7 @@ export const RateYourself: React.FC<RateYourselfType> = ({cards, card, setCard, 
                 <span className={s.listSpan}>Rate yourself:</span>
                 <ul className={s.list}>
                     {grades.map((g, i) => {
-                        return <li className={s.item} key={'grade-' + i} onClick={() => myCallBack(card._id, i + 1)}>
+                        return <li className={s.item} key={'grade-' + i} onClick={() => myCallBack( i + 1)}>
                             <input className={s.input} value="i" name="rating" type="radio"
                                    id="1"/>
                             <label className={s.label} htmlFor="1">{g}</label>

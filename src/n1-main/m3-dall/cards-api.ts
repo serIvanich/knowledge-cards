@@ -50,7 +50,7 @@ export type CardType = {
     grade: number
     rating: number
     shots: number
-    type: TypeType
+    type: string
     user_id: string
     created: string
     updated: string
