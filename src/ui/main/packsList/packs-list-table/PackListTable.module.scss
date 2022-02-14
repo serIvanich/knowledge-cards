@@ -1,0 +1,64 @@
+
+.tableBlock {
+  min-width: 40%;
+  margin: 2vh 0;
+  display: table;
+  border: 2px solid gainsboro;
+  border-radius: 5px;
+
+  
+  .tableRow {
+    display: table-row;
+
+    .tableCell {
+      display: table-cell;
+
+
+      .buttonInTableContainer {
+
+        display: flex;
+        justify-content: space-around;
+
+
+        .buttonInTable button {
+
+          appearance: none;
+          border: 0;
+          border-radius: 5px;
+          background: lightslategray;
+          color: #fff;
+          margin-top: 2px;
+          padding: 3px 6px;
+          font-size: 16px;
+
+        }
+
+        .buttonInTable button[disabled] {
+          opacity: 0;
+          color: #d2d5db;
+          background: #6c7589;
+          cursor: inherit;
+        }
+
+        .buttonInTable button:hover {
+          background: mintcream;
+          color: lightslategray;
+        }
+
+        //.buttonInTable button:focus {
+        //
+        //  background: #6c7589;
+        //  color:  #d2d5db;
+        //}
+
+      }
+    }
+
+
+  }
+}
+
+
+.tableRow:nth-child(odd) {
+  background-color: #e5e5e5;
+}

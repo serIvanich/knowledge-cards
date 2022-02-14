@@ -1,6 +1,6 @@
 
 import {Dispatch} from "redux";
-import {setAppErrorAC, setAppStatusAC} from "../n1-main/m2-bll/reducers/app-reduser";
+import {setAppErrorAC, setAppStatusAC} from "../bll/reducers/app-reduser";
 // import {setAppErrorAC, SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from "../n1-main/m2-bll/reducers/app-reduser";
 //
 
