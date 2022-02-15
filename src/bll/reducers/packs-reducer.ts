@@ -174,7 +174,7 @@ export const postPackTC = (params:{name: string, isPrivate:boolean}): ThunkType 
     const {name, isPrivate} = params
     try {
         dispatch(setAppStatusAC('loading'));
-        const data = await packsApi.createPack({name, private: isPrivate})
+        await packsApi.createPack({name, private: isPrivate})
         dispatch(getPacksCardsTC({}));
 
     } catch (e) {
@@ -189,7 +189,7 @@ export const deletePackTC = (id: string): ThunkType => async (dispatch) => {
     try {
         dispatch(setAppStatusAC('loading'))
 
-        const data = await packsApi.deletePacks(id)
+        await packsApi.deletePacks(id)
         dispatch(getPacksCardsTC({}))
     } catch (e) {
         handleServerNetworkError(e, dispatch)
@@ -205,7 +205,7 @@ export const updatePackTC = (param:{id: string, name:string, isPrivate:boolean})
 
     try {
         dispatch(setAppStatusAC('loading'))
-        const data = await packsApi.updatePack({_id: id, name, private:isPrivate})
+        await packsApi.updatePack({_id: id, name, private:isPrivate})
         dispatch(getPacksCardsTC({}))
     } catch (e) {
         handleServerNetworkError(e, dispatch)

@@ -32,7 +32,7 @@ function App() {
         if (!isInitialized) {
             dispatch(initializeAppTC())
         }
-    }, [])
+    }, [dispatch, isInitialized])
 
     let appCss = 'appContainer'
 

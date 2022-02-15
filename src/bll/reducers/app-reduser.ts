@@ -1,7 +1,7 @@
 import {Dispatch} from "redux"
 import {handleServerNetworkError} from "../../utils/error-utils";
 import {authApi} from "../../dall/app-api";
-import {isLoggedAC, toLoginAC} from "./auth-reducer";
+import {isLoggedAC} from "./auth-reducer";
 import {setUserProfileAC, UserProfileType} from './profile-reducer';
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
@@ -17,7 +17,9 @@ const initialState = {
 export type AppInitialStateType = typeof initialState
 
 export const appReducer = (state: AppInitialStateType = initialState, action: AppActionsType): AppInitialStateType => {
+    
     switch (action.type) {
+        
         case 'APP/SET-STATUS':
             return {...state, status: action.status}
         case 'APP/SET-ERROR':
@@ -51,9 +53,10 @@ export const initializeAppTC = () => async (dispatch: Dispatch) => {
         dispatch(isLoggedAC(true))
 
     } catch (e) {
-        if (e.response.data.error) {
-            dispatch(setGoToLoginAC(true))
-        }
+       
+       
+        dispatch(setGoToLoginAC(true))
+        
         handleServerNetworkError(e, dispatch)
     } finally {
         dispatch(setAppStatusAC('succeeded'))

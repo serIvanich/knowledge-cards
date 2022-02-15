@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react'
+import React, {useCallback} from 'react'
 import s from './Rating.module.scss';
 import {useDispatch} from 'react-redux';
 import {CardType} from '../../../dall/cards-api';
@@ -25,7 +25,7 @@ export const RateYourself: React.FC<RateYourselfType> = ({card}) => {
 
     const myCallBack = useCallback(( grade: number) => {
         dispatch(changeGradeCardTC(card._id, grade))
-    }, [dispatch])
+    }, [dispatch, card._id])
 
 
 

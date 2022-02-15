@@ -26,8 +26,8 @@ export const LoginContainer: React.FC = () => {
 
     const formik = useFormik({
         initialValues: {
-            email: '',
-            password: '',
+            email: 'serivan1108@gmail.com',
+            password: '1111111111',
             rememberMe: false
         },
         validate: (values) => {

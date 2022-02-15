@@ -5,8 +5,8 @@ const initialState: UserProfileType = {
     name: "",
     avatar: "",
     publicCardPacksCount: 0,
-    created: new Date(2013, 2, 1, 0, 70),
-    updated: new Date(2015, 2, 1, 0, 70),
+    created: '',
+    updated: '',
     isAdmin: false,
     verified: false ,
     rememberMe: false,
@@ -36,8 +36,8 @@ export type UserProfileType = {
     name: string
     avatar?: string
     publicCardPacksCount: number // количество колод
-    created: Date
-    updated: Date
+    created: string
+    updated: string
     isAdmin: boolean
     verified: boolean // подтвердил ли почту
     rememberMe: boolean

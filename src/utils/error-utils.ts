@@ -18,7 +18,7 @@ export const handleServerNetworkError = (e: any, dispatch: ErrorUtilsDispatchTyp
     const error = e.response
         ? e.response.data.error
         : (e.message + ', more details in the console');
-    console.log(error)
+    
     dispatch(setAppErrorAC(error))
     dispatch(setAppStatusAC('failed'))
 }

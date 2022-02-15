@@ -25,7 +25,6 @@ export const Login: React.FC<LoginPropsType> = ({formik, cancelHandler}) => {
                         <div className={s.inputItem}>
                             <label htmlFor="email" className={s.labelTitle}>Email</label>
                             <input
-                                defaultValue={ "nya-admin@nya.nya"	}
                                 {...formik.getFieldProps('email')}  />
                             <div style={{'color': 'red', 'height': '10px'}}>
                                 {formik.touched.email && formik.errors.email && formik.errors.email}
@@ -34,7 +33,7 @@ export const Login: React.FC<LoginPropsType> = ({formik, cancelHandler}) => {
                         </div>
                         <div className={s.inputItem}>
                             <label htmlFor="password" className={s.labelTitle}>Password</label>
-                            <input defaultValue={ "1qazxcvBG"	}
+                            <input 
                                 type='password'
                                 {...formik.getFieldProps('password')}
                             />
@@ -68,3 +67,6 @@ export const Login: React.FC<LoginPropsType> = ({formik, cancelHandler}) => {
         </div>
     )
 }
+
+
+//"nya-admin@nya.nya"    "1qazxcvBG"

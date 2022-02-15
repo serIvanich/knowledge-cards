@@ -1,5 +1,5 @@
 import {combineReducers} from "redux";
-import thunk, {ThunkAction} from "redux-thunk";
+import thunk from "redux-thunk";
 import {authReducer} from "./reducers/auth-reducer";
 import {profileReducer} from "./reducers/profile-reducer";
 import {appReducer} from "./reducers/app-reduser";

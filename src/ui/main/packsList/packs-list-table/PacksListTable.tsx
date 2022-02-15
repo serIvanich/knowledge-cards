@@ -3,7 +3,7 @@ import s from './PackListTable.module.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../../bll/store";
 import {
-    CardsPacksType,
+    
     InitialStatePacksType,
     sortCardsAC,
     sortForCreatorAC,

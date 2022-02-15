@@ -22,7 +22,7 @@ export const CardsList: React.FC = () => {
 
     useEffect(() => {
         dispatch(getCardsTC(id))
-    }, [])
+    }, [dispatch, id])
 
 
     const addCard = () => {
@@ -37,7 +37,7 @@ export const CardsList: React.FC = () => {
             <div className={s.cardContainer}>
                 <div className={s.linkToPacks}>
                     <NavLink to={routes.mainPacks}>
-                        <h3><img style={{width: '25px'}} src={image} /> {name}</h3>
+                        <h3><img style={{width: '25px'}} src={image} alt='avatar'/> {name}</h3>
 
                     </NavLink>
 

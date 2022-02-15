@@ -21,10 +21,11 @@ export const PacksList: React.FC = () => {
     const {pageCount, myPacks} = useSelector<AppStateType, InitialStatePacksType>(state => state.packs)
 
     useEffect(() => {
+        if(!isLogged){
+            dispatch(getPacksCardsTC({}))
+        }
 
-        dispatch(getPacksCardsTC({}))
-
-    }, [myPacks, dispatch])
+    }, [myPacks, dispatch, isLogged])
 
 
     const createPack = () => {

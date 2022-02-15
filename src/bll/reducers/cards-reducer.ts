@@ -56,7 +56,7 @@ export const createCardTC = (params: {packId:string, question:string, answer:str
         try {
                 dispatch(setAppStatusAC('loading'))
                 const card = {cardsPack_id: packId, question, answer }
-                const data = await cardsApi.createCard(card)
+                await cardsApi.createCard(card)
 
         dispatch(getCardsTC(packId))
     } catch (e) {
@@ -71,7 +71,7 @@ export const updateCardTC = (params:{ packId: string, cardId: string, question:s
         try {
                 dispatch(setAppStatusAC('loading'))
                 const card = {_id: cardId, question, answer}
-                const data = await cardsApi.updateCard(card)
+                await cardsApi.updateCard(card)
 
                 dispatch(getCardsTC(packId))
         } catch (e) {
@@ -84,7 +84,7 @@ export const updateCardTC = (params:{ packId: string, cardId: string, question:s
 export const deleteCardTC = (cardId:string, packId: string): ThunkType => async (dispatch) => {
         try {
                 dispatch(setAppStatusAC('loading'))
-                const data = await cardsApi.deleteCard(cardId)
+                await cardsApi.deleteCard(cardId)
                 dispatch(getCardsTC(packId))
         } catch (e) {
                 handleServerNetworkError(e, dispatch)
@@ -96,7 +96,7 @@ export const deleteCardTC = (cardId:string, packId: string): ThunkType => async 
 export const changeGradeCardTC = (card_id: string, grade: null | number): ThunkType => async (dispatch) => {
     try {
         dispatch(setAppStatusAC('loading'))
-        const data = await cardsApi.changeGradeCard(card_id, grade)
+        await cardsApi.changeGradeCard(card_id, grade)
 
     } catch (e) {
         handleServerNetworkError(e, dispatch)

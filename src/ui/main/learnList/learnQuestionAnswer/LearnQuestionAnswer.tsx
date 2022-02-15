@@ -1,10 +1,7 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback} from 'react';
 import s from '../LearnList.module.scss';
 import {RateYourself} from '../../../features/rating/RateYourself';
 import {CardType} from '../../../../dall/cards-api';
-import {getRandomCard} from '../../../../utils/getRandomCard';
-import {changeGradeCardTC} from "../../../../bll/reducers/cards-reducer";
-import {useDispatch} from "react-redux";
 import {Redirect} from "react-router-dom";
 import {routes} from "../../../common/constants/routes";
 
@@ -22,7 +19,7 @@ export const LearnQuestionAnswer: React.FC<LearnQuestionAnswerPropsType> = (
         //     setCard(getRandomCard(cards));
         // }
 
-    },[])
+    },[setAnswerTrue])
 
     return <>
         {card && <div>

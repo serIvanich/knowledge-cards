@@ -57,7 +57,7 @@ export const loginTC = (payload: LoginDataType) => async (dispatch: Dispatch) =>
 export const logoutTC = () => async (dispatch: Dispatch) => {
     try {
         dispatch(setAppStatusAC('loading'))
-        const data = await authApi.logout()
+        await authApi.logout()
         dispatch(isLoggedAC(false))
 
     } catch (e) {
@@ -70,7 +70,7 @@ export const logoutTC = () => async (dispatch: Dispatch) => {
 export const setNewPasswordTC = (password: string, token: string) => async (dispatch: Dispatch) => {
     try {
         dispatch(setAppStatusAC('loading'))
-        const res = await passwordRecoveryApi.setNewPassword(password, token)
+        await passwordRecoveryApi.setNewPassword(password, token)
         dispatch(setNewPasswordAC('success'))
     } catch (e) {
         handleServerNetworkError(e, dispatch)
@@ -83,7 +83,7 @@ export const setNewPasswordTC = (password: string, token: string) => async (disp
 export const forgotPasswordTC = (param: ForgotDataType ) => async (dispatch: Dispatch) => {
     try {
         dispatch(setAppStatusAC('loading'))
-        const res = await authApi.forgot(param)
+        await authApi.forgot(param)
 
     }catch(e) {
                 handleServerNetworkError(e, dispatch)

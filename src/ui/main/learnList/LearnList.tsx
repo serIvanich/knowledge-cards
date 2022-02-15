@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import s from '../cardsList/CardList.module.scss'
+
 import {useHistory, useParams} from 'react-router-dom';
 import {getCardsTC} from '../../../bll/reducers/cards-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppStateType} from '../../../bll/store';
 import {CardType} from '../../../dall/cards-api';
 import {LearnQuestion} from './learnQuestion/LearnQuestion';
-import {LearnQuestionAnswer} from './learnQuestionAnswer/LearnQuestionAnswer';
+
 
 type LearnListPropsType = {
     // packName?: string
@@ -19,7 +19,7 @@ export const LearnList: React.FC<LearnListPropsType> = () => {
     useEffect(() => {
 
         dispatch(getCardsTC(id))
-    }, [])
+    }, [dispatch, id])
 
     const [question, setQuestion] = useState('')
     const [answer, setAnswer] = useState('')
@@ -53,7 +53,7 @@ export const LearnList: React.FC<LearnListPropsType> = () => {
             setAnswer(newCard.answer)
         }
 
-    }, [cards, id, answerTrue])
+    }, [cards, id, answerTrue, card._id])
     const history = useHistory();
 
 

@@ -1,6 +1,7 @@
 import {authApi, RegisterParamsType} from "../../dall/app-api";
 import {Dispatch} from "redux";
 import {setAppStatusAC} from "./app-reduser";
+import {handleServerNetworkError} from "../../utils/error-utils";
 
 
 const initialState = {
@@ -28,12 +29,10 @@ export const setErrorAC = (value:string) => ({type:'register/SET-ERROR', value} 
 export const registerTC = (data:RegisterParamsType) => async (dispatch:Dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
-        const res = await authApi.register(data)
-        console.log(res)
+        await authApi.register(data)
         dispatch(registerAC(true))
     } catch (e) {
-        console.log(`this error is ${e}`)
-        dispatch(setErrorAC(e.response.data.error))
+        handleServerNetworkError(e, dispatch)
     } finally {
         dispatch(setAppStatusAC('succeeded'))
     }

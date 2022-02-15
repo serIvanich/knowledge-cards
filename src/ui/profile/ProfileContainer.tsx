@@ -21,6 +21,7 @@ export const ProfileContainer: React.FC = () => {
     const {name, _id, } = profile
 
     useEffect(() => {
+        
         dispatch(getPacksCardsTC({user_id: _id}))
 
     }, [dispatch, _id])
