@@ -7,6 +7,7 @@ type RatingCardType = {
 }
 
 export const RatingCard: React.FC<RatingCardType> = ({ grade}) => {
+    console.log('RatingCard')
     // const dispatch = useDispatch()
     // const setNewGradeForCard = useCallback((e: ChangeEvent<{}>, value: number | null) => {
     //     dispatch(changeGradeCardTC(card_id, value))

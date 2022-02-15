@@ -12,6 +12,7 @@ import {CardType} from "../../../dall/cards-api";
 
 
 const ModalContainer: React.FC = () => {
+    console.log('modal container')
     const dispatch = useDispatch()
     const modalType = useSelector<AppStateType, ModalWindowType>(state => state.modal.modalType)
     const isShow = useSelector<AppStateType, boolean>(state => state.modal.isShowModal)

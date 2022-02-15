@@ -15,6 +15,7 @@ import {setIsShowModalWindow} from "../../../../bll/reducers/modal-reducer";
 import Preloader from "../../../common/Preloader/Preloader";
 
 export const PacksListTable: React.FC = () => {
+    console.log('packs list table')
     const dispatch = useDispatch()
     let {cardPacks} = useSelector<AppStateType, InitialStatePacksType>(state => state.packs)
     const profileId = useSelector<AppStateType, string>(state => state.profile._id)

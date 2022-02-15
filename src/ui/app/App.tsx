@@ -20,6 +20,7 @@ import {LearnList} from "../main/learnList/LearnList";
 
 
 function App() {
+    console.log('app')
     const dispatch = useDispatch()
     const isInitialized = useSelector<AppStateType, boolean>(state => state.app.isInitialized)
     const goToLogin = useSelector<AppStateType, boolean>(state => state.app.goToLogin)

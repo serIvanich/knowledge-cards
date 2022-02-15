@@ -12,6 +12,7 @@ import {AppStateType} from "../../../bll/store";
 import {setIsShowModalWindow} from "../../../bll/reducers/modal-reducer";
 
 export const CardsList: React.FC = () => {
+    console.log('card list')
     const isLogged = useSelector<AppStateType, boolean>(state => state.auth.isLogged)
     const {id, name} = useParams<{ id: string, name: string }>(); //current pack data
 

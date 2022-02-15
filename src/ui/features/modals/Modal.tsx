@@ -12,6 +12,7 @@ const Modal: React.FC <ModalPropsType>= ({
     isShow,
     backgroundOnClick,
      children}) => {
+        console.log('modal')
     if (!isShow) return null;
 
     return (

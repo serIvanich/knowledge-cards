@@ -17,6 +17,8 @@ const searchFormValidate = (values:any) => {
 
 
 export const Search: React.FC = React.memo(() => {
+    console.log('Search')
+
     const dispatch = useDispatch();
 
     const submit = (values:SearchFormObjectTypeFormType, {setSubmitting }:{

@@ -14,19 +14,20 @@ import {ToggleMyPacks} from '../../features/toggle-my-packs/ToggleMyPacks';
 import {setIsShowModalWindow} from "../../../bll/reducers/modal-reducer";
 
 export const PacksList: React.FC = () => {
-
+    console.log('packs list')
     const dispatch = useDispatch()
     const isLogged = useSelector<AppStateType, boolean>(state => state.auth.isLogged)
 
     const {pageCount, myPacks} = useSelector<AppStateType, InitialStatePacksType>(state => state.packs)
 
     useEffect(() => {
-        if(!isLogged){
-            dispatch(getPacksCardsTC({}))
-        }
+      
+            dispatch(getPacksCardsTC({}, myPacks))
+        
 
-    }, [myPacks, dispatch, isLogged])
+    }, [dispatch, myPacks])
 
+   
 
     const createPack = () => {
         dispatch(setIsShowModalWindow({isShowModal: true, modalType: 'CREATE-NEW-PACK'}))

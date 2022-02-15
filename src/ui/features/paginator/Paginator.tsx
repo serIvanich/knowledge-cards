@@ -9,6 +9,7 @@ import {
 
 
 export const Paginator = React.memo(() => {
+    console.log('paginator')
     const packsState = useSelector<AppStateType, InitialStatePacksType>(
         state => state.packs)
     const dispatch = useDispatch()

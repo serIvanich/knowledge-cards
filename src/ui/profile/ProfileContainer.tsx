@@ -13,7 +13,7 @@ import {Paginator} from "../features/paginator/Paginator";
 import {getPacksCardsTC} from "../../bll/reducers/packs-reducer";
 
 export const ProfileContainer: React.FC = () => {
-
+    console.log('profile container')
     const dispatch = useDispatch()
     const isLogged = useSelector<AppStateType, boolean>(state => state.auth.isLogged)
     const profile = useSelector<AppStateType, UserProfileType>(state => state.profile)

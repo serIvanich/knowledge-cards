@@ -8,6 +8,7 @@ import {setIsShowModalWindow} from "../../../../bll/reducers/modal-reducer";
 import {RatingCard} from '../../../features/rating/RatingCard';
 
 export const CardsListTable: React.FC<{disabled:boolean}> = ({disabled}) => {
+    console.log('card list table')
     const dispatch = useDispatch()
     const cards = useSelector<AppStateType, CardType[]>(state => state.cards.cards)
 

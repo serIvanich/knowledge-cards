@@ -10,6 +10,7 @@ type ProfilePropsType = {
 }
 
 export const Profile: React.FC<ProfilePropsType> = ({isLogged, profile, isLogout}) => {
+    console.log('profile')
     const {email, name, publicCardPacksCount, avatar} = profile
 
     // if (!isLogged) {

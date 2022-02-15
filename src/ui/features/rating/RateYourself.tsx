@@ -19,7 +19,7 @@ type RateYourselfType = {
 export const RateYourself: React.FC<RateYourselfType> = ({card}) => {
     const dispatch = useDispatch()
 
-
+    console.log('RateYourself')
 
 
 
